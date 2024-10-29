@@ -9,7 +9,7 @@ br {
 body {
     height: 200vh;
     place-items: center;
-    font-family: 'Dancing Script';
+    font-family: 'Dancing Script', serif;
     font-size: 60px;
     text-align: center;
 }

@@ -1,6 +1,6 @@
 // constant lijst
 
-const categories = ["Abbey Beer", "Amber", "Barleywine", "Belgian Ale", "Berliner Weisse", "Bière de Garde", "Bitter", "Black IPA", "Blond", "Bock", "Brown", "California Common", "Cream Ale", "Doppelbock", "Dubbel", "Dunkel", "Eisbock", "English Pale Ale", "Export Stout", "Fruit beer", "Gose", "Grisette", "Gueuze", "Hefeweizen", "IPA", "Imperial Stout", "Irish Red Ale", "Kölsch", "Lager", "Lambic", "Maibock", "Malt", "Mild Ale", "Munich Dunkel", "NEIPA (New England IPA)", "Oatmeal Stout", "Oktoberfest/Märzen", "Old Ale", "Pale Ale", "Pilsner", "Porter", "Quadrupel", "Red Ale", "Roggenbier", "Russian Imperial Stout", "Saison", "Schwarzbier", "Scotch Ale", "Session IPA", "Smoked Beer", "Sour Ale", "Spice/Herb/Vegetable Beer", "Stout", "Strong Ale", "Tripel", "Vienna Lager", "Wee Heavy", "Weizenbock", "Wheat", "Wheat beer", "White IPA", "Wild Ale"];
+const categories = ["Abbey Beer", "Amber", "Barley-wine", "Belgian Ale", "Berliner Weisse", "Bière de Garde", "Bitter", "Black IPA", "Blond", "Bock", "Brown", "California Common", "Cream Ale", "Doppelbock", "Dubbel", "Dunkel", "Eisbock", "English Pale Ale", "Export Stout", "Fruit beer", "Gose", "Grisette", "Gueuze", "Hefeweizen", "IPA", "Imperial Stout", "Irish Red Ale", "Kölsch", "Lager", "Lambic", "Maibock", "Malt", "Mild Ale", "Munich Dunkel", "NEIPA (New England IPA)", "Oatmeal Stout", "Oktoberfest/Märzen", "Old Ale", "Pale Ale", "Pilsner", "Porter", "Quadrupel", "Red Ale", "Roggenbier", "Russian Imperial Stout", "Saison", "Schwarzbier", "Scotch Ale", "Session IPA", "Smoked Beer", "Sour Ale", "Spice/Herb/Vegetable Beer", "Stout", "Strong Ale", "Tripel", "Vienna Lager", "Wee Heavy", "Weizenbock", "Wheat", "Wheat beer", "White IPA", "Wild Ale"];
 const coolAdjectives = ["Beautiful", "Intrusive", "Mesmerizing", "Visionary", "Charming", "Gritty", "Creon", "Fantasied", "Wicked Gothic", "Obscure", "Incomprehensible", "Depraved", "Cortical", "Fawning", "Unwanted", "Lovely", "Captivating", "Endearing", "Passionate"," Contemporary","Recognizable","Satisfying", "Wildest", "Giggly", "Torrid", "Ready", "Captivating" ];
 const types = ["Single", "Double", "Triple", "Quadruple" ];
 const beerGlasses = [ "Teku-stemmed", "Pint", "Mug", "Steiner", "Goblet","Chalice","Snifter","Tulip","Stange","Sampler" ];
@@ -37,6 +37,7 @@ window.onload = function() {
         color.innerHTML = "#" + randomColor;
     }
 
+    let genNew;
     genNew.addEventListener("click", setBg);
     setBg();
 }
@@ -46,4 +47,16 @@ const getRandomColor = () =>
     `${colors[getRandomColor(colors.length)]}`
 //need to get this in HTML!!
 
+const history = [];
 
+const setRandomName = () => {
+    const newName = getRandomName();
+    document.getElementById('random-name').innerText = newName;
+    history.push(newName);
+    if (history.length > 5) history.shift(); // Keep only last 5 names
+    displayHistory();
+};
+
+const displayHistory = () => {
+    document.getElementById('history-list').innerHTML = history.map(name => `<p>${name}</p>`).join('');
+};
