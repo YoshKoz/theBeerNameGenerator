@@ -1,0 +1,105 @@
+{
+  "categories": [
+    "Abbey Beer", "Amber", "Barley-wine", "Belgian Ale", "Berliner Weisse",
+    "Bière de Garde", "Bitter", "Black IPA", "Blond", "Bock", "Brown",
+    "California Common", "Cream Ale", "Doppelbock", "Dubbel", "Dunkel",
+    "Eisbock", "English Pale Ale", "Export Stout", "Fruit Beer", "Gose",
+    "Grisette", "Gueuze", "Hefeweizen", "IPA", "Imperial Stout", "Irish Red Ale",
+    "Kölsch", "Lager", "Lambic", "Maibock", "Malt", "Mild Ale", "Munich Dunkel",
+    "NEIPA (New England IPA)", "Oatmeal Stout", "Oktoberfest/Märzen", "Old Ale",
+    "Pale Ale", "Pilsner", "Porter", "Quadrupel", "Red Ale", "Roggenbier",
+    "Russian Imperial Stout", "Saison", "Schwarzbier", "Scotch Ale", "Session IPA",
+    "Smoked Beer", "Sour Ale", "Spice/Herb/Vegetable Beer", "Stout", "Strong Ale",
+    "Tripel", "Vienna Lager", "Wee Heavy", "Weizenbock", "Wheat", "Wheat Beer",
+    "White IPA", "Wild Ale", "Honey Lager", "Tropical Saison", "Chocolate Stout",
+    "Pumpkin Ale", "Mint Porter", "Coconut Stout", "Spicy IPA", "Vanilla Cream Ale",
+    "Maple Bock", "Dark Chocolate Porter", "Peach Wheat", "Pomegranate Saison",
+    "Lychee Pale Ale", "Cherry Lambic", "Strawberry Wheat", "Coffee IPA",
+    "Hibiscus Berliner Weisse", "Chamomile Lager", "Cider Ale", "Blueberry Sour",
+    "Caramel Stout", "Jasmine Saison", "Rose Gose", "Cocoa Pale Ale"
+  ],
+  "coolAdjectives": [
+    "Beautiful", "Mesmerizing", "Visionary", "Charming", "Gritty",
+    "Fantasy-like", "Wicked Gothic", "Obscure", "Lovely", "Captivating",
+    "Endearing", "Passionate", "Contemporary", "Recognizable", "Satisfying",
+    "Wildest", "Radiant", "Majestic", "Enchanting", "Elegant", "Colorful",
+    "Exquisite", "Glossy", "Mystic", "Dazzling", "Shining", "Supernatural",
+    "Bold", "Fearless", "Luminous", "Delightful", "Serene", "Complex",
+    "Artistic", "Classic", "Iconic", "Vivid", "Playful", "Dreamy",
+    "Subtle", "Ethereal", "Pioneering", "Gilded", "Brilliant", "Golden",
+    "Sublime", "Refined", "Heavenly", "Lustrous", "Ornate", "Luxurious",
+    "Stunning", "Spellbinding", "Magnetic", "Otherworldly", "Innovative",
+    "Expressive", "Wondrous", "Illustrious", "Galactic", "Hyper-realistic",
+    "Cinematic", "Geometric", "Lyrical", "Vibrant", "Immersive"
+  ],
+  "types": [
+    "Single", "Double", "Triple", "Quadruple", "Imperial", "Session", "Dry-Hopped",
+    "Barrel-aged", "Hazy", "Seasonal", "Sour", "Dark", "Light",
+    "Wheat-based", "Fruity", "Malty", "Hoppy", "Crisp", "Smooth", "Heady",
+    "Robust", "Subtle", "Strong", "Bright", "Refreshing", "Punchy",
+    "Rich", "Velvety", "Bittered", "Filtered", "Unfiltered", "Wood-Aged",
+    "Botanical", "Tropical", "Creamy", "Luscious", "Effervescent", "Earthy",
+    "Wild Fermented", "Yeasty", "Resilient", "Balanced", "Sweetened"
+  ],
+  "beerGlasses": [
+    "Teku-stemmed", "Pint", "Mug", "Steiner", "Goblet", "Chalice",
+    "Snifter", "Tulip", "Stange", "Sampler", "Flute", "Tankard",
+    "Weizen Glass", "Tumbler", "Stemmed Glass", "Coupe", "Dimple Pint",
+    "Craft Master Glass", "IPA Glass", "Belgian Tulip", "Goblet Mug",
+    "Ceramic Pint", "Crystal Chalice", "Stemless Glass", "Oversized Mug",
+    "Mini Sampler", "Stackable Pint", "Half Pint Glass", "Nucleated Glass"
+  ],
+  "colors": [
+    "Black", "Silver", "Gray", "White", "Maroon", "Red", "Purple",
+    "Fuchsia", "Green", "Lime", "Olive", "Yellow", "Navy", "Blue",
+    "Teal", "Aqua", "Amber", "Golden", "Crimson", "Bronze", "Ivory",
+    "Scarlet", "Copper", "Magenta", "Sapphire", "Emerald", "Ruby",
+    "Cobalt", "Turquoise", "Hazel", "Sand-colored", "Mahogany",
+    "Beige", "Chartreuse", "Blush", "Pearl", "Opalescent"
+  ],
+  "mythicalCreatures": [
+    "Abatwa", "Adarna", "Aethon", "Apsara", "Astral Dragon",
+    "Bake-Kujira", "Bakeneko", "Bakunawa", "Banshee", "Barghest",
+    "Basilisk", "Baba Yaga", "Balayang", "Carbunclo", "Centaur",
+    "Cerberus", "Chaneques", "Chimera", "Chupacabra", "Cyclops",
+    "Dragon", "Divine Phoenix", "Faerie", "Fenrir", "Gargoyle",
+    "Griffin", "Harpy", "Hippogriff", "Jackalope", "Jinn", "Kraken",
+    "Medusa", "Mermaid", "Minotaur", "Pegasus", "Phoenix", "Satyr",
+    "Selkie", "Siren", "Sphinx", "Thunderbird", "Unicorn", "Valkyrie",
+    "Werewolf", "Wraith", "Yeti", "Zephyr Hound", "Sea Serpent",
+    "Hydra", "Wyvern", "Nymph", "Ifrit", "Kitsune", "Djinn",
+    "Elemental Spirit", "Spriggan", "Centaurette", "Shadow Beast",
+    "Ethereal Guardian", "Star Serpent", "Mythic Kraken", "Solar Pegasus"
+  ],
+  "tasteProfiles": [
+    "Acai", "Acidic", "Apple", "Apricot", "Astringent", "Banana",
+    "Bay Leaf", "Berries", "Bitter", "Black Currant", "Blueberry",
+    "Bright", "Champagne", "Cinnamon", "Citrus", "Coffee", "Creamy",
+    "Dark", "Delicate", "Effervescent", "Elegant", "Fruity", "Hoppy",
+    "Juicy", "Lemony", "Malty", "Maple", "Nutty", "Peachy", "Spicy",
+    "Tropical", "Tangy", "Savory", "Floral", "Caramelized", "Ginger",
+    "Zesty", "Roasted", "Vanilla", "Molasses", "Spiked", "Crispy"
+  ],
+  "mouthfeelDescriptors": [
+    "Airy", "Astringent", "Bold", "Biting", "Brisk", "Bubbly", "Buttery",
+    "Chewy", "Crisp", "Creamy", "Fluffy", "Full-bodied", "Juicy", "Light",
+    "Luscious", "Moist", "Rich", "Silky", "Smooth", "Sparkling", "Substantial",
+    "Tart", "Tingly", "Velvety", "Vibrant", "Viscous", "Wet", "Weighty", "Zesty",
+    "Carbonated", "Frothy", "Oily", "Textural", "Hearty"
+  ],
+  "tasteNouns": [
+    "Accent", "Aftertaste", "Aroma", "Bite", "Blend", "Bouquet", "Essence",
+    "Flavor", "Hint", "Medley", "Note", "Nuance", "Palate", "Ripple",
+    "Sensation", "Tang", "Texture", "Tinge", "Undertone", "Zest", "Layer",
+    "Wave", "Complexity", "Richness", "Depth", "Trace", "Echo", "Whisper"
+  ],
+  "adverbs": [
+    "Astoundingly", "Boldly", "Breathtakingly", "Captivatingly", "Elegantly",
+    "Enchantingly", "Ethereally", "Fascinatingly", "Magically", "Majestically",
+    "Radiantly", "Resplendently", "Stylishly", "Tenderly", "Unearthly",
+    "Vibrantly", "Vividly", "Dramatically", "Gracefully", "Intricately",
+    "Irresistibly", "Lavishly", "Luxuriously", "Softly", "Tenderly",
+    "Wonderfully", "Mystically", "Fluently", "Delicately", "Grandly",
+    "Refinedly", "Peacefully", "Impressively"
+  ]
+}
