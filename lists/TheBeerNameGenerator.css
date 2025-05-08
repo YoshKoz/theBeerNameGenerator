@@ -1,4 +1,5 @@
 /* Wide Fullscreen Beer Generator CSS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 :root {
   --main-bg-color: #1e2a35;
@@ -15,7 +16,7 @@
   --gradient-header: linear-gradient(180deg, #2a3742 0%, rgba(42, 55, 66, 0.9) 100%);
   --glass-effect: blur(12px);
   --header-font: 'Great Vibes', cursive;
-  --body-font: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --body-font: 'Inter', system-ui, sans-serif;
   --transition-speed: 0.3s;
 }
 
@@ -33,7 +34,7 @@ html, body {
   padding: 0;
   background-color: var(--main-bg-color);
   color: var(--text-color);
-  font-family: var(--body-font);
+  font-family: var(--body-font), serif;
 }
 
 .fullscreen-container {
@@ -54,7 +55,7 @@ html, body {
 }
 
 .main-header h1 {
-  font-family: var(--header-font);
+  font-family: var(--header-font), serif;
   font-size: clamp(2.5rem, 6vw, 4rem);
   margin: 0;
   color: var(--light-text);
@@ -91,10 +92,11 @@ html, body {
   border-radius: 0;
   box-shadow: none;
   position: relative;
+  /* Make sure there's enough space for everything */
+  overflow: visible;
 }
-
 .beer-generator h2 {
-  font-family: var(--header-font);
+  font-family: var(--header-font), serif;
   text-align: center;
   font-size: clamp(1.8rem, 3vw, 2.5rem);
   color: var(--accent-color);
@@ -112,17 +114,24 @@ html, body {
   max-width: 1600px;
   margin: 0 auto;
   padding: 2rem;
+  /* Remove negative margins that may be causing cutoff */
+  /* Position relative to allow proper containment */
+  position: relative;
 }
 
 .beer-name-container {
   width: 100%;
   max-width: 1400px;
-  aspect-ratio: 16 / 9;
+  /* Remove aspect ratio to allow flexible height */
+  /* aspect-ratio: 16 / 9; */
+  min-height: 400px; /* Set a minimum height instead */
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 3rem;
   margin: 0 auto;
+  position: relative;
+  /* Remove negative margins */
 }
 
 .beer-name-container::before {
@@ -151,8 +160,9 @@ html, body {
   z-index: 0;
 }
 
+
 #random-name {
-  font-family: var(--header-font);
+  font-family: var(--header-font), serif;
   font-size: clamp(2rem, 5vw, 3.8rem);
   line-height: 1.5;
   text-align: center;
@@ -162,6 +172,10 @@ html, body {
   padding: 2rem;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
   animation: float 6s ease-in-out infinite;
+  /* Center in the available space */
+  margin: auto;
+  /* Remove positioning that could cause issues */
+  position: static;
 }
 
 /* Controls Area - Bottom of Screen */
@@ -382,7 +396,18 @@ html, body {
   z-index: 1;
   opacity: 0.1;
   pointer-events: none;
+  /* Make sure decorations don't contribute to container overflow */
+  overflow: hidden;
 }
+
+.beer-description {
+  font-family: var(--body-font), serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
 
 .beer-icon {
   position: absolute;
@@ -405,7 +430,10 @@ html, body {
   padding: 1rem;
   background: var(--secondary-color);
   z-index: 10;
+  position: relative;
+  margin-top: 0; /* Remove negative margin */
 }
+
 
 .main-footer p {
   margin: 0;
@@ -454,12 +482,13 @@ html, body {
 }
 
 /* Responsive Adjustments */
+
 @media (max-width: 768px) {
   .button-group {
     flex-direction: column;
     align-items: center;
   }
-
+}
   .btn {
     width: 100%;
     padding: 0.8rem 1.5rem;
@@ -470,13 +499,26 @@ html, body {
   }
 
   #random-name {
+    position: relative;
+    top: -120px;
+    margin-bottom: -120px;
     font-size: clamp(1.6rem, 4vw, 2.5rem);
     padding: 1rem;
   }
 
-  .controls-area {
-    padding: 1rem 0;
-  }
+.controls-area {
+  margin-top: 2rem; /* Add positive margin instead of negative */
+  padding: 1.5rem 0;
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 10;
+  position: relative;
 }
 
-/* Dark mode is enabled by default, no need for body.dark-mode class */
+.btn, .main-header p, .controls-area {
+  font-family: var(--body-font), serif;
+  font-weight: 500;
+
+}
