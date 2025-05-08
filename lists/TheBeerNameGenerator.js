@@ -1,130 +1,166 @@
 window.onload = function () {
-    // Function to load beer data from a JSON file
-    const loadBeerData = async () => {
-        try {
-            const response = await fetch('./beer_data.json'); // Fetch the JSON file
-            if (!response.ok) throw new Error('Failed to fetch beer data. Check file location or permissions.');
-            return await response.json(); // Parse and return the JSON data
-        } catch (error) {
-            console.error('Error loading beer data:', error.message);
-            return null; // Return null to handle failure gracefully
-        }
+
+  // Load beer data from JSON file
+  const loadBeerData = async () => {
+    try {
+      const response = await fetch("./beer_data.json");
+      if (!response.ok) throw new Error("Can't load beer_data.json. Check path and permissions.");
+      return await response.json();
+    } catch (error) {
+      console.error("Error loading beer data:", error.message);
+      return null;
+    }
+  };
+  // Grab the toggle button and store it in a variable
+const themeToggleBtn = document.getElementById('theme-toggle');
+
+// Event listener for toggling dark mode
+themeToggleBtn.addEventListener('click', () => {
+  // Toggle the "dark-mode" class on the <body> element
+  document.body.classList.toggle('dark-mode');
+
+  // Save the mode to localStorage to persist the user's choice
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+});
+
+// Automatically enable dark mode if it was saved as active before
+document.addEventListener('DOMContentLoaded', () => {
+  const savedMode = localStorage.getItem('darkMode');
+  if (savedMode === 'enabled') {
+    document.body.classList.add('dark-mode');
+  }
+});
+
+  // Helper: get random integer
+  const getRandomInt = max => Math.floor(Math.random() * max);
+
+  // Helper: select multiple random elements from array
+  const getRandomElements = (array, count, unique = false) => {
+    if (!array || array.length === 0) {
+      console.warn("Array empty or undefined during random selection.");
+      return [];
+    }
+    if (!unique) {
+      return Array.from({ length: count }, () => array[getRandomInt(array.length)]);
+    }
+    const uniqueIndices = new Set();
+    while (uniqueIndices.size < count) uniqueIndices.add(getRandomInt(array.length));
+    return [...uniqueIndices].map(index => array[index]);
+  };
+
+  // Helper: pick one random element from array
+  const getRandomElement = array => array && array.length ? array[getRandomInt(array.length)] : "";
+
+  // Beer-name generation functions
+  const generateTitle = beerData => {
+    const [taste1, taste2] = getRandomElements(beerData.tasteProfiles, 2, true);
+    const creature = getRandomElement(beerData.mythicalCreatures);
+    const adjective = getRandomElement(beerData.coolAdjectives);
+    return `The ${adjective} ${taste1} and ${taste2} ${creature}`;
+  };
+
+  const generateAppearanceAndStyle = beerData => {
+    const [adj1, adj2] = getRandomElements(beerData.coolAdjectives, 2, true);
+    const color = getRandomElement(beerData.colors);
+    const tasteProfile = getRandomElement(beerData.tasteProfiles);
+    const type = getRandomElement(beerData.types);
+    const category = getRandomElement(beerData.categories);
+    return `a ${adj1}, ${adj2}, ${color}-colored ${tasteProfile} ${type} ${category}`;
+  };
+
+  const generateServingAndPresentation = beerData => {
+    const adjective = getRandomElement(beerData.coolAdjectives);
+    const adverb = getRandomElement(beerData.adverbs);
+    const glassStyle = getRandomElement(beerData.beerGlasses);
+    const tasteProfile = getRandomElement(beerData.tasteProfiles);
+    const mouthfeel = getRandomElement(beerData.mouthfeelDescriptors);
+    return `served ${adjective}, ${adverb} in a ${glassStyle}-styled glass, with hints of ${tasteProfile} and a ${mouthfeel} finish`;
+  };
+
+  const generateMouthfeelAndTaste = beerData => {
+    const mouthfeel = getRandomElement(beerData.mouthfeelDescriptors);
+    const tasteNoun = getRandomElement(beerData.tasteNouns);
+    const [taste1, taste2] = getRandomElements(beerData.tasteProfiles, 2, true);
+    const creature = getRandomElement(beerData.mythicalCreatures);
+    return `it has a ${mouthfeel} ${tasteNoun} with notes of ${taste1} and ${taste2}, evoking the essence of a mythical ${creature}`;
+  };
+
+  const generateAdditionalDetail = beerData => {
+    const category = getRandomElement(beerData.categories);
+    const adjective = getRandomElement(beerData.coolAdjectives);
+    const tasteProfile = getRandomElement(beerData.tasteProfiles);
+    const creature = getRandomElement(beerData.mythicalCreatures);
+    return `Inspired by a ${adjective} ${category}, with the soul of a legendary ${creature}, and delicate hints of ${tasteProfile}.`;
+  };
+
+  const generateFullBeerDescription = beerData => {
+    return `${generateTitle(beerData)}, ${generateAppearanceAndStyle(beerData)}, ${generateServingAndPresentation(beerData)}, ${generateMouthfeelAndTaste(beerData)}. ${generateAdditionalDetail(beerData)}`;
+  };
+
+  // DOM Elements
+  const randomNameElement = document.getElementById("random-name");
+  const generateBtn = document.getElementById("generate");
+  const autoGenerateBtn = document.getElementById("auto-generate");
+  const historyList = document.getElementById("history-list");
+
+  let autoGenerateInterval;  // Interval ID holder
+  const generationHistory = []; // Generation history array
+
+  // Functions to update UI and manage history
+  const addToHistory = name => {
+    generationHistory.push(name);
+    updateHistoryUI();
+  };
+
+  const updateHistoryUI = () => {
+    historyList.innerHTML = '';
+    generationHistory.slice(-10).reverse().forEach(item => {
+      const entry = document.createElement('div');
+      entry.textContent = item;
+      historyList.appendChild(entry);
+    });
+  };
+
+  // Initialize beer generation
+  const initialize = async () => {
+    const beerData = await loadBeerData();
+    if (!beerData) {
+      console.error("Beer data unavailable. Application stopped.");
+      return;
+    }
+
+    const setRandomName = () => {
+      const beerDescription = generateFullBeerDescription(beerData);
+      randomNameElement.textContent = beerDescription;
+      addToHistory(beerDescription);
     };
 
-    // Helper function to get a random integer between 0 and max (exclusive)
-    const getRandomInt = (max) => Math.floor(Math.random() * max);
+    // Event: single generation
+    generateBtn.addEventListener("click", setRandomName);
 
-    // Helper function to get random elements from an array
-    const getRandomElements = (array, count, unique = false) => {
-        if (!array || array.length === 0) {
-            console.warn('Attempting to pick random elements from an empty or undefined array.');
-            return [];
-        }
+    // Event: automatic generation toggle
+    autoGenerateBtn.addEventListener("click", () => {
+      if (autoGenerateInterval) {
+        clearInterval(autoGenerateInterval);
+        autoGenerateInterval = null;
+        autoGenerateBtn.innerHTML = `<i class="fas fa-sync-alt"></i> Generate Every 10 Secs`;
+        autoGenerateBtn.classList.remove("active");
+      } else {
+        setRandomName();
+        autoGenerateInterval = setInterval(setRandomName, 10000);
+        autoGenerateBtn.innerHTML = `<i class="fas fa-stop-circle"></i> Stop Generating`;
+        autoGenerateBtn.classList.add("active");
+      }
+    });
 
-        // If unique elements are not required, just pick random items
-        if (!unique) return Array.from({ length: count }, () => array[getRandomInt(array.length)]);
+    // Generate first name immediately at load
+    setRandomName();
+  };
 
-        // Otherwise, ensure selected elements are unique
-        const uniqueIndices = new Set();
-        while (uniqueIndices.size < count) {
-            uniqueIndices.add(getRandomInt(array.length));
-        }
+  // Initialize placeholder text
+  randomNameElement.textContent = "Click below and savor the surprise!";
 
-        return Array.from(uniqueIndices).map((index) => array[index]);
-    };
-
-    // Helper function to get a single random element from an array
-    const getRandomElement = (array) => {
-        if (!array || array.length === 0) {
-            console.warn('Attempting to pick a random element from an empty or undefined array.');
-            return '';
-        }
-        return array[getRandomInt(array.length)];
-    };
-
-    // Function to generate a random beer title
-    const generateTitle = (beerData) => {
-        const [tasteProfile1, tasteProfile2] = getRandomElements(beerData.tasteProfiles, 2, true);
-        const creature = getRandomElement(beerData.mythicalCreatures);
-        const adjective = getRandomElement(beerData.coolAdjectives);
-
-        return `The ${adjective} ${tasteProfile1} and ${tasteProfile2} ${creature}`;
-    };
-
-    // Function to generate appearance and style description
-    const generateAppearanceAndStyle = (beerData) => {
-        const [adjective, secondaryAdjective] = getRandomElements(beerData.coolAdjectives, 2, true);
-        const color = getRandomElement(beerData.colors);
-        const tasteProfile = getRandomElement(beerData.tasteProfiles);
-        const type = getRandomElement(beerData.types);
-        const category = getRandomElement(beerData.categories);
-
-        return `a ${adjective}, ${secondaryAdjective}, ${color}-colored ${tasteProfile} ${type} ${category}`;
-    };
-
-    // Function to generate serving and presentation details
-    const generateServingAndPresentation = (beerData) => {
-        const servingAdjective = getRandomElement(beerData.coolAdjectives);
-        const adverb = getRandomElement(beerData.adverbs);
-        const glassStyle = getRandomElement(beerData.beerGlasses);
-        const extraTasteProfile = getRandomElement(beerData.tasteProfiles);
-        const mouthfeel = getRandomElement(beerData.mouthfeelDescriptors);
-
-        return `served ${servingAdjective}, ${adverb} in a ${glassStyle}-styled glass, with hints of ${extraTasteProfile} and a ${mouthfeel} finish`;
-    };
-
-    // Function to generate mouthfeel and taste description
-    const generateMouthfeelAndTaste = (beerData) => {
-        const mouthfeel = getRandomElement(beerData.mouthfeelDescriptors);
-        const tasteNoun = getRandomElement(beerData.tasteNouns);
-        const [tasteProfile1, tasteProfile2] = getRandomElements(beerData.tasteProfiles, 2, true);
-        const mythicalCreature = getRandomElement(beerData.mythicalCreatures);
-
-        return `it has a ${mouthfeel} ${tasteNoun} with notes of ${tasteProfile1} and ${tasteProfile2}, evoking the essence of a mythical ${mythicalCreature}`;
-    };
-
-    // Function to generate additional details about the beer
-    const generateAdditionalDetail = (beerData) => {
-        const category = getRandomElement(beerData.categories);
-        const adjective = getRandomElement(beerData.coolAdjectives);
-        const tasteProfile = getRandomElement(beerData.tasteProfiles);
-        const mythicalCreature = getRandomElement(beerData.mythicalCreatures);
-
-        return `Inspired by a ${adjective} ${category}, with the soul of a legendary ${mythicalCreature}, and delicate hints of ${tasteProfile}.`;
-    };
-
-    // Main function to randomize and generate beer name and description
-    const getRandomName = (beerData) => {
-        return `${generateTitle(beerData)}, ${generateAppearanceAndStyle(beerData)}, ${generateServingAndPresentation(
-            beerData
-        )}, ${generateMouthfeelAndTaste(beerData)}. ${generateAdditionalDetail(beerData)}`;
-    };
-
-    // Initialize the application
-    const initialize = async () => {
-        const beerData = await loadBeerData();
-
-        if (!beerData) {
-            console.error('Beer data could not be loaded or is invalid.');
-            return;
-        }
-
-        const randomNameElement = document.getElementById('random-name');
-        const generateButton = document.getElementById('generate');
-
-        if (!randomNameElement || !generateButton) {
-            console.error("DOM elements with IDs 'random-name' or 'generate' are missing.");
-            return;
-        }
-
-        // Set a random name on button click
-        const setRandomName = () => {
-            randomNameElement.innerText = getRandomName(beerData);
-        };
-
-        generateButton.addEventListener('click', setRandomName);
-        setRandomName(); // Generate a random name on page load
-    };
-
-    initialize(); // Start the application
+  // Start initializing application
+  initialize();
 };
