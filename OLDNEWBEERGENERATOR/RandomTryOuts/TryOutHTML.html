@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+  <title>DALL-E Image Generator</title>
+</head>
+<body>
+<h1>DALL-E Image Generator</h1>
+
+<form id="prompt-form">
+  <label for="prompt-input">Enter a prompt for DALL-E:</label><br>
+  <textarea id="prompt-input"></textarea><br>
+  <button type="submit">Generate Image</button>
+</form>
+
+<div id="image-container"></div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  const apiKey = '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';
+  const imageContainer = document.getElementById('image-container');
+  const promptForm = document.getElementById('prompt-form');
+  const promptInput = document.getElementById('prompt-input');
+
+  async function generateImage(prompt) {
+    try {
+      const response = await axios.post('https://api.openai.com/v1/images/generations', {
+        model: 'image-alpha-001',
+        prompt: prompt,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+      });
+
+      const imageUrl = response.data.data.url;
+      console.log(`Generated image: ${imageUrl}`);
+      const imageElement = document.createElement('img');
+      imageElement.src = imageUrl;
+      imageContainer.innerHTML = '';
+      imageContainer.appendChild(imageElement);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  promptForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    generateImage(promptInput.value);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate creative beer names for your next homebrew or craft beer project">
+    <meta name="keywords" content="beer, name generator, homebrew, craft beer, beer names">
+    <meta name="author" content="Beer Name Generator">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="The Beer Name Generator">
+    <meta property="og:description" content="Generate creative beer names for your next homebrew or craft beer project">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍺</text></svg>">
+
+    <title>The Beer Name Generator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍺</text></svg>">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-beer"></i> The Beer Name Generator <i class="fas fa-beer"></i></h1>
+            <p class="tagline">Crafting unique names for your next brew adventure</p>
+        </header>
+
+        <main>
+            <section class="generator-card">
+                <h2>What kind of beer will I get served tonight?!</h2>
+
+                <div id="random-name" class="beer-display">
+                    <!-- Beer name will be displayed here -->
+                </div>
+
+                <div class="controls">
+                    <button id="generate" class="btn btn-primary"><i class="fas fa-glass-cheers"></i> Serve Another</button>
+                    <button id="tensecondsgenerator" class="btn btn-primary"><i class="fas fa-clock"></i> Generate every 10s</button>
+                    <button id="favorite-button" class="btn btn-secondary"><i class="fas fa-heart"></i> Favorite</button>
+                    <button id="export-button" class="btn btn-info"><i class="fas fa-file-export"></i> Export Names</button>
+                </div>
+
+                <div class="theme-control">
+                    <h4>Theme Color</h4>
+                    <div class="color-picker-wrapper">
+                        <label for="color-picker">Choose theme color:</label>
+                        <input type="color" id="color-picker" value="#8B4513">
+                        <span id="color"></span>
+                    </div>
+                </div>
+
+                <div class="filter-controls" id="filter-container">
+                    <h4>Filter Beer Names</h4>
+                    <select id="category-filter">
+                        <option value="">All Beer Types</option>
+                        <!-- Will be populated from JS -->
+                    </select>
+
+                    <label>
+                        <input type="checkbox" id="show-favorites">
+                        Show Favorites Only
+                    </label>
+                </div>
+
+                <div class="stats-info" id="stats-container">
+                    <h4>Beer Stats</h4>
+                    <div id="beer-stats" class="stats-grid"></div>
+                </div>
+
+                <div class="midjourney-prompt-container">
+                    <h4>Midjourney Prompt</h4>
+                    <div id="midjourney-prompt" class="midjourney-prompt"></div>
+                    <button id="copy-midjourney" class="btn btn-secondary"><i class="fas fa-copy"></i> Copy for Midjourney</button>
+                </div>
+            </section>
+
+            <section class="history-section">
+                <h3>Your Beer History</h3>
+                <div id="history-list"></div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Created with <i class="fas fa-beer"></i> and JavaScript | <a href="#" id="about-link">About This Tool</a></p>
+        </footer>
+
+        <!-- Modal for About information -->
+        <div id="about-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3>About The Beer Name Generator</h3>
+                <p>This fun tool helps you create unique and creative beer names. Perfect for homebrewers, craft beer enthusiasts, or anyone looking for inspiration for their next brew!</p>
+                <p>Use the "Serve Another" button or press Spacebar to generate a new name.</p>
+                <h4>Features:</h4>
+                <ul>
+                    <li><i class="fas fa-glass-cheers"></i> Generate random beer names</li>
+                    <li><i class="fas fa-clock"></i> Auto-generation every 10 seconds</li>
+                    <li><i class="fas fa-heart"></i> Save your favorites</li>
+                    <li><i class="fas fa-file-export"></i> Export your collection</li>
+                    <li><i class="fas fa-palette"></i> Customize the theme color</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

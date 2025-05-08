@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <title>OpenAI Image Generator</title>
+</head>
+<body>
+<h1>OpenAI Image Generator</h1>
+
+<form>
+  <label for="description">Enter a text description:</label><br>
+  <input type="text" id="description"><br><br>
+  <button onclick="generateImage()">Generate Image</button>
+</form>
+
+<div id="image-container"></div>
+
+<script>
+  const openai = require('openai');
+
+  // Set your OpenAI API key.
+  openai.apiKey = 'ysk-NJv6972pJGHRE2O5Y9OuT3BlbkFJxxRXOvH1COVxNYQt3bvp';
+
+  function generateImage() {
+    // Get the text description from the input field.
+    const description = document.getElementById('description').value;
+
+    // Call the DALL-E API to generate an image based on the description.
+    openai.dallE.generateImage(description)
+            .then((response) => {
+              // The API returns a JSON object containing the generated image data.
+              // You can use this data to display the image on your website or save it to a file.
+
+              // Here, we will create an <img> element to display the generated image.
+              const imgElement = document.createElement('img');
+              imgElement.src = response.data.image;
+
+              // Add the image to the page.
+              const imageContainer = document.getElementById('image-container');
+              imageContainer.appendChild(imgElement);
+            })
+            .catch(error) => {
+              // Handle any errors that occur during the API call.
+            });
+  }
+</script>
+</body>
+</html>
