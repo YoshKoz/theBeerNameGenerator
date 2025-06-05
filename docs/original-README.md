@@ -10,29 +10,9 @@ A web application that generates creative beer names and descriptions. Now with 
 - History tracking of generated names
 - Generate beer label images using Midjourney via Discord
 
-## Project Structure
-
-The project has been reorganized with a cleaner structure:
-
-- `public/` - Contains the main HTML file
-  - `index.html` - The main application page
-- `src/` - Source code directory
-  - `js/` - JavaScript files
-    - `main.js` - Main application logic
-    - `midjourney-integration.js` - Integration with Midjourney
-    - `utils.js` - Utility functions
-  - `css/` - Stylesheets
-    - `styles.css` - Main application styles
-  - `data/` - Data files
-    - `beer_data.json` - Beer-related data
-    - `adjectives.json` - Adjectives for beer name generation
-  - `assets/` - Images and other assets
-- `config/` - Configuration files
-- `docs/` - Documentation
-
 ## How to Use
 
-1. Open `public/index.html` in your web browser
+1. Open `lists/TheBeerNameGenerator.html` in your web browser
 2. Click "Generate" to create a new beer name and description
 3. Click "Generate Image" to create a beer label image based on the current beer name
 
@@ -48,7 +28,7 @@ To use the image generation feature, you need to set up a Discord webhook and ha
    - Name it "Beer Image Generator"
    - Choose the channel where you want the images to appear
    - Copy the webhook URL
-4. Open `src/js/midjourney-integration.js` and replace `YOUR_DISCORD_WEBHOOK_URL` with your actual webhook URL
+4. Open `lists/midjourney-integration.js` and replace `YOUR_DISCORD_WEBHOOK_URL` with your actual webhook URL
 
 ## How the Image Generation Works
 

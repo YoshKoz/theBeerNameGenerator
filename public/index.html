@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Beer Name Generator</title>
+  <link rel="stylesheet" href="../src/css/styles.css">
+
+  <!-- Fonts: Chosen specially for better beer vibe -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome for the icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Main JavaScript -->
+  <script src="../src/js/main.js" defer></script>
+  <script src="../src/js/midjourney-integration.js" defer></script>
+</head>
+<body>
+  <div class="fullscreen-container">
+    <header class="main-header">
+      <h1>The Beer Name Generator</h1>
+      <p>Craft the perfect name for your brew</p>
+    </header>
+
+    <div class="main-content">
+      <!-- Main beer generator section - now truly fullscreen -->
+      <section class="beer-generator">
+        <h2>Discover Your Perfect Brew</h2>
+
+        <div class="result-container">
+          <div class="beer-name-container">
+            <!-- Enhanced beer decorations with more icons -->
+            <div class="beer-decorations">
+              <i class="fas fa-beer beer-icon"></i>
+              <i class="fas fa-glass-cheers beer-icon"></i>
+              <i class="fas fa-wine-bottle beer-icon"></i>
+              <i class="fas fa-wine-glass-alt beer-icon"></i>
+              <i class="fas fa-mug-hot beer-icon"></i>
+              <i class="fas fa-beer beer-icon"></i>
+              <i class="fas fa-glass-whiskey beer-icon"></i>
+              <i class="fas fa-wine-glass beer-icon"></i>
+            </div>
+
+            <div id="random-name" class="beer-name-text">
+              Click below and savor the surprise!
+            </div>
+          </div>
+        </div>
+
+        <div class="controls-area">
+          <div class="button-group">
+            <button class="btn primary-btn" id="generate">
+              <i class="fas fa-beer"></i> Generate
+            </button>
+
+            <button class="btn secondary-btn" id="auto-generate">
+              <i class="fas fa-sync-alt"></i> Generate Every 10 Secs
+            </button>
+          </div>
+
+          <div class="status-bar">
+            <div class="status-info">
+              <span id="generation-count">0 names generated</span>
+            </div>
+            <button class="theme-toggle" id="theme-toggle">
+              <i class="fas fa-moon"></i> Toggle Dark Mode
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- History panel that slides up from the bottom when clicked -->
+      <button id="history-toggle" title="View History">
+        <i class="fas fa-history"></i>
+      </button>
+
+      <section class="history">
+        <h3>
+          <span>Generation History</span>
+          <button class="clear-btn" id="clear-history">
+            <i class="fas fa-trash"></i> Clear
+          </button>
+        </h3>
+
+        <div id="history-list">
+          <!-- JavaScript will add history items here -->
+        </div>
+      </section>
+    </div>
+
+    <footer class="main-footer">
+      <p>🍻 &copy; 2025 Beer Name Generator | Crafted by Yoshi Tacke</p>
+    </footer>
+  </div>
+
+  <!-- Add this small script to handle the history panel toggle -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const historyToggleBtn = document.getElementById('history-toggle');
+      const historyPanel = document.querySelector('.history');
+
+      if (historyToggleBtn && historyPanel) {
+        historyToggleBtn.addEventListener('click', function() {
+          historyPanel.classList.toggle('show');
+          historyToggleBtn.innerHTML = historyPanel.classList.contains('show')
+            ? '<i class="fas fa-chevron-down"></i>'
+            : '<i class="fas fa-history"></i>';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

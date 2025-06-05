@@ -13,6 +13,9 @@ const itemsToDelete = [
     '.DS_Store',       // macOS directory metadata
     'Thumbs.db',       // Windows thumbnail cache
     'old_version.js',  // Example of outdated files
+    'OLDNEWBEERGENERATOR', // Old version of the project
+    'lists',           // Duplicate data files
+    'BeerPotionGenerator.iml', // Old project file
 ];
 
 /**
