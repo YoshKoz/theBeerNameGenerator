@@ -292,7 +292,7 @@ window.onload = function () {
     }
   };
 
-  // Set up dark mode toggle
+  // Set up the dark mode toggle
   const setupDarkMode = () => {
     if (!themeToggleBtn) {
       console.warn("Theme toggle button not found");
