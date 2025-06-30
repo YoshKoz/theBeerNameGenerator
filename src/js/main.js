@@ -83,29 +83,52 @@ window.onload = function () {
   const clearHistoryBtn = document.getElementById('clear-history');
   const generationCountElement = document.getElementById('generation-count');
   const themeToggleBtn = document.getElementById('theme-toggle');
-  const generateImageBtn = document.getElementById('generate-image-btn');
+
+  // Beer spec elements
+  const beerSpecsContainer = document.getElementById('beer-specs');
+  const specStyle = document.getElementById('spec-style');
+  const specAbv = document.getElementById('spec-abv');
+  const specIbu = document.getElementById('spec-ibu');
+  const specOrigin = document.getElementById('spec-origin');
 
   // App state
   let autoGenerateInterval = null;
   let generatedNames = [];
   let maxStoredNames = 50;
   let currentBeer = null;
+  let totalGenerated = 0;
 
-  // Make currentBeer accessible globally for the Midjourney integration
+  // Make currentBeer accessible globally
   window.currentBeer = null;
+
+  // Load saved data
+  function loadSavedData() {
+    const saved = localStorage.getItem('beerHistory');
+    if (saved) {
+      generatedNames = JSON.parse(saved);
+      totalGenerated = generatedNames.length;
+      updateGenerationCount();
+      updateHistoryDisplay();
+    }
+  }
+
+  // Save data
+  function saveData() {
+    localStorage.setItem('beerHistory', JSON.stringify(generatedNames));
+  }
 
   // Helper function to adjust text size based on length
   const adjustTextSize = (text) => {
     if (!randomNameElement) return;
 
-    randomNameElement.classList.remove('medium-text', 'small-text', 'smaller-text');
+    randomNameElement.style.fontSize = '';
 
-    if (text.length > 200) {
-      randomNameElement.classList.add('smaller-text');
-    } else if (text.length > 130) {
-      randomNameElement.classList.add('small-text');
-    } else if (text.length > 75) {
-      randomNameElement.classList.add('medium-text');
+    if (text.length > 300) {
+      randomNameElement.style.fontSize = '1.2rem';
+    } else if (text.length > 200) {
+      randomNameElement.style.fontSize = '1.4rem';
+    } else if (text.length > 150) {
+      randomNameElement.style.fontSize = '1.6rem';
     }
   };
 
@@ -130,12 +153,30 @@ window.onload = function () {
     return [...uniqueIndices].map(index => array[index]);
   };
 
-  // Beer name generation functions
+  // Enhanced beer name generation functions
   const generateTitle = () => {
-    const [taste1, taste2] = getRandomElements(beerData.tasteProfiles, 2, true);
-    const creature = getRandomElement(beerData.mythicalCreatures);
-    const adjective = getRandomElement(beerData.coolAdjectives);
-    return `The ${adjective} ${taste1} and ${taste2} ${creature}`;
+    const templates = [
+      () => {
+        const [taste1, taste2] = getRandomElements(beerData.tasteProfiles, 2, true);
+        const creature = getRandomElement(beerData.mythicalCreatures);
+        const adjective = getRandomElement(beerData.coolAdjectives);
+        return `The ${adjective} ${taste1} and ${taste2} ${creature}`;
+      },
+      () => {
+        const adjective = getRandomElement(beerData.coolAdjectives);
+        const creature = getRandomElement(beerData.mythicalCreatures);
+        const region = getRandomElement(beerData.regions);
+        return `${region} ${adjective} ${creature}`;
+      },
+      () => {
+        const taste = getRandomElement(beerData.tasteProfiles);
+        const adjective = getRandomElement(beerData.coolAdjectives);
+        const noun = getRandomElement(['Voyage', 'Journey', 'Quest', 'Legend', 'Tale']);
+        return `The ${adjective} ${taste} ${noun}`;
+      }
+    ];
+
+    return templates[getRandomInt(templates.length)]();
   };
 
   const generateAppearanceAndStyle = () => {
@@ -153,7 +194,7 @@ window.onload = function () {
     const glassStyle = getRandomElement(beerData.beerGlasses);
     const tasteProfile = getRandomElement(beerData.tasteProfiles);
     const mouthfeel = getRandomElement(beerData.mouthfeelDescriptors);
-    return `served ${adjective}, ${adverb} in a ${glassStyle}-styled glass, with hints of ${tasteProfile} and a ${mouthfeel} finish`;
+    return `served ${adjective}, ${adverb} in a ${glassStyle}, with hints of ${tasteProfile} and a ${mouthfeel} finish`;
   };
 
   const generateMouthfeelAndTaste = () => {
@@ -171,13 +212,15 @@ window.onload = function () {
     const ibu = getRandomElement(beerData.ibuRanges);
     const abv = getRandomElement(beerData.abvRanges);
     const occasion = getRandomElement(beerData.occasions);
+    const category = getRandomElement(beerData.categories);
 
     return {
       region,
       technique,
       ibu,
       abv,
-      occasion
+      occasion,
+      category
     };
   };
 
@@ -187,10 +230,12 @@ window.onload = function () {
 
   const generateFullBeerDescription = () => {
     const specs = generateBeerSpecs();
-    const description = `${generateTitle()}, ${generateAppearanceAndStyle()}, ${generateServingAndPresentation()}, ${generateMouthfeelAndTaste()}. ${generateAdditionalDetail(specs)}`;
+    const name = generateTitle();
+    const description = `${name}, ${generateAppearanceAndStyle()}, ${generateServingAndPresentation()}, ${generateMouthfeelAndTaste()}. ${generateAdditionalDetail(specs)}`;
 
     return {
-      name: description,
+      name,
+      description,
       timestamp: new Date(),
       id: `beer-${Date.now()}`,
       isFavorite: false,
@@ -199,7 +244,7 @@ window.onload = function () {
   };
 
   // Show a temporary notification
-  const showToast = (message) => {
+  const showToast = (message, duration = 2000) => {
     let toast = document.querySelector('.toast');
 
     if (!toast) {
@@ -220,17 +265,17 @@ window.onload = function () {
             toast.remove();
           }
         }, 300);
-      }, 2000);
+      }, duration);
     }, 10);
   };
 
-  // Make showToast accessible globally for the Midjourney integration
+  // Make showToast accessible globally
   window.showToast = showToast;
 
   // Update generation count
   const updateGenerationCount = () => {
     if (generationCountElement) {
-      generationCountElement.textContent = `${generatedNames.length} names generated`;
+      generationCountElement.textContent = `${totalGenerated} beers crafted`;
     }
   };
 
@@ -239,36 +284,82 @@ window.onload = function () {
     if (!historyList) return;
 
     historyList.innerHTML = '';
-    generatedNames.slice(0, 10).forEach(beer => {
+    generatedNames.slice(0, 10).forEach((beer, index) => {
       const item = document.createElement('div');
-      if (beer.isFavorite) item.classList.add('favorite');
-      item.textContent = beer.name;
+      item.innerHTML = `
+        <strong>${beer.name}</strong>
+        <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem;">
+          ${beer.specs.category} • ${beer.specs.abv} • ${beer.specs.ibu}
+        </div>
+      `;
+      item.addEventListener('click', () => {
+        currentBeer = beer;
+        window.currentBeer = beer;
+        displayBeer(beer);
+        showToast('Beer loaded from history!');
+      });
       historyList.appendChild(item);
     });
+  };
+
+  // Display a beer
+  const displayBeer = (beer) => {
+    if (randomNameElement) {
+      randomNameElement.textContent = beer.description;
+      adjustTextSize(beer.description);
+    }
+
+    // Update specs display
+    if (beerSpecsContainer) {
+      beerSpecsContainer.style.display = 'grid';
+      if (specStyle) specStyle.textContent = beer.specs.category;
+      if (specAbv) specAbv.textContent = beer.specs.abv;
+      if (specIbu) specIbu.textContent = beer.specs.ibu;
+      if (specOrigin) specOrigin.textContent = beer.specs.region;
+    }
+
+    // Add animation
+    if (randomNameElement) {
+      randomNameElement.style.animation = 'none';
+      setTimeout(() => {
+        randomNameElement.style.animation = 'fadeIn 0.5s ease-in';
+      }, 10);
+    }
   };
 
   // Generate a new beer name and display it
   const generateAndDisplay = () => {
     const beer = generateFullBeerDescription();
     currentBeer = beer;
-
-    // Update global currentBeer for Midjourney integration
     window.currentBeer = beer;
 
-    // Add to history (limit size)
+    // Add to history
     generatedNames.unshift(beer);
     if (generatedNames.length > maxStoredNames) {
       generatedNames.pop();
     }
 
-    // Update display
-    if (randomNameElement) {
-      randomNameElement.textContent = beer.name;
-      adjustTextSize(beer.name);
-    }
+    // Update total count
+    totalGenerated++;
 
+    // Display the beer
+    displayBeer(beer);
+
+    // Update other displays
     updateHistoryDisplay();
     updateGenerationCount();
+
+    // Save to localStorage
+    saveData();
+
+    // Visual feedback
+    const container = document.querySelector('.beer-name-container');
+    if (container) {
+      container.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        container.style.transform = 'scale(1)';
+      }, 200);
+    }
 
     return beer;
   };
@@ -279,16 +370,18 @@ window.onload = function () {
       clearInterval(autoGenerateInterval);
       autoGenerateInterval = null;
       if (autoGenerateBtn) {
-        autoGenerateBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Generate Every 10 Secs';
+        autoGenerateBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Auto Generate';
         autoGenerateBtn.classList.remove('active');
       }
+      showToast('Auto-generation stopped');
     } else {
       generateAndDisplay();
       autoGenerateInterval = setInterval(() => generateAndDisplay(), 10000);
       if (autoGenerateBtn) {
-        autoGenerateBtn.innerHTML = '<i class="fas fa-stop-circle"></i> Stop Generating';
+        autoGenerateBtn.innerHTML = '<i class="fas fa-stop-circle"></i> Stop Auto';
         autoGenerateBtn.classList.add('active');
       }
+      showToast('Auto-generating every 10 seconds');
     }
   };
 
@@ -304,12 +397,20 @@ window.onload = function () {
       document.body.classList.toggle('dark-mode');
       const isDarkMode = document.body.classList.contains('dark-mode');
       localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+
+      // Update button text
+      themeToggleBtn.innerHTML = isDarkMode
+        ? '<i class="fas fa-sun"></i> Light Mode'
+        : '<i class="fas fa-moon"></i> Dark Mode';
+
+      showToast(isDarkMode ? 'Dark mode enabled' : 'Light mode enabled');
     });
 
     // Apply saved mode preference
     const savedMode = localStorage.getItem('darkMode');
     if (savedMode === 'enabled') {
       document.body.classList.add('dark-mode');
+      themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
     }
   };
 
@@ -317,7 +418,10 @@ window.onload = function () {
   const setupEventListeners = () => {
     // Generate button click
     if (generateBtn) {
-      generateBtn.addEventListener('click', () => generateAndDisplay());
+      generateBtn.addEventListener('click', () => {
+        generateAndDisplay();
+        showToast('New beer generated! 🍺');
+      });
     }
 
     // Auto-generate button click
@@ -328,17 +432,14 @@ window.onload = function () {
     // Clear history button click
     if (clearHistoryBtn) {
       clearHistoryBtn.addEventListener('click', () => {
-        generatedNames = [];
-        updateHistoryDisplay();
-        updateGenerationCount();
-        showToast('History cleared!');
-      });
-    }
-
-    // Generate image button click
-    if (generateImageBtn) {
-      generateImageBtn.addEventListener('click', () => {
-        showToast('Generating image... (This would connect to Midjourney)');
+        if (confirm('Are you sure you want to clear all history?')) {
+          generatedNames = [];
+          totalGenerated = 0;
+          updateHistoryDisplay();
+          updateGenerationCount();
+          saveData();
+          showToast('History cleared!');
+        }
       });
     }
 
@@ -347,19 +448,39 @@ window.onload = function () {
       if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT') {
         e.preventDefault();
         generateAndDisplay();
+        showToast('New beer generated! 🍺');
       }
     });
   };
 
+  // Add CSS animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  `;
+  document.head.appendChild(style);
+
   // Initialize application
   const initialize = () => {
+    // Load saved data
+    loadSavedData();
+
     // Set up event listeners
     setupEventListeners();
     setupDarkMode();
 
     // Generate first beer name
     setTimeout(() => {
-      generateAndDisplay();
+      if (generatedNames.length === 0) {
+        generateAndDisplay();
+        showToast('Welcome to the Beer Name Generator! 🍻');
+      } else {
+        // Display the most recent beer
+        displayBeer(generatedNames[0]);
+      }
     }, 500);
   };
 

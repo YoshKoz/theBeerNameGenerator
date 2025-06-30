@@ -4,19 +4,512 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Beer Name Generator</title>
-  <link rel="stylesheet" href="../src/css/styles.css">
 
-  <!-- Fonts: Chosen specially for better beer vibe -->
+  <!-- Fonts: Better beer vibe with more variety -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Great+Vibes&family=Bebas+Neue&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome for the icons -->
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Main JavaScript -->
-  <script src="../src/js/main.js" defer></script>
-  <script src="../src/js/midjourney-integration.js" defer></script>
+  <style>
+    :root {
+      --primary-gold: #FFD700;
+      --amber: #FFA500;
+      --deep-amber: #FF8C00;
+      --brown: #8B4513;
+      --cream: #FFF8DC;
+      --dark-bg: #1a1a1a;
+      --darker-bg: #0d0d0d;
+      --foam: #FFEFD5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--darker-bg);
+      color: var(--cream);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 165, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+      animation: float 20s ease-in-out infinite;
+      z-index: -2;
+    }
+
+    /* Subtle grain texture */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-20px) rotate(1deg); }
+      66% { transform: translateY(20px) rotate(-1deg); }
+    }
+
+    .fullscreen-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Enhanced header with beer glass background */
+    .main-header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      position: relative;
+      background: linear-gradient(180deg, rgba(26, 26, 26, 0.9) 0%, rgba(26, 26, 26, 0.7) 100%);
+      border-bottom: 3px solid var(--primary-gold);
+      overflow: hidden;
+    }
+
+    .main-header::before {
+      content: '🍺';
+      position: absolute;
+      top: -20px;
+      right: 10%;
+      font-size: 8rem;
+      opacity: 0.1;
+      transform: rotate(-15deg);
+    }
+
+    .main-header h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3rem, 8vw, 5rem);
+      color: var(--primary-gold);
+      margin-bottom: 0.5rem;
+      text-shadow:
+        3px 3px 6px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(255, 215, 0, 0.5);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    .main-header p {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      color: var(--amber);
+      text-transform: uppercase;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .beer-generator {
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .beer-generator h2 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 2rem;
+      color: var(--amber);
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+
+    /* Enhanced result container with beer glass shape */
+    .result-container {
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .beer-name-container {
+      background: linear-gradient(135deg, rgba(139, 69, 19, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+      border: 2px solid var(--primary-gold);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(255, 215, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .beer-name-container:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.4),
+        inset 0 0 30px rgba(255, 215, 0, 0.2);
+    }
+
+    /* Foam effect at top */
+    .beer-name-container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      height: 30px;
+      background: linear-gradient(180deg, var(--foam) 0%, transparent 100%);
+      border-radius: 20px 20px 0 0;
+      opacity: 0.3;
+    }
+
+    /* Floating bubbles */
+    .bubbles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -20px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+      border-radius: 50%;
+      animation: rise 10s infinite ease-in;
+    }
+
+    @keyframes rise {
+      to {
+        transform: translateY(-800px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .beer-name-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      line-height: 1.6;
+      color: var(--cream);
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 1;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    /* Beer specifications display */
+    .beer-specs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .spec-item {
+      text-align: center;
+    }
+
+    .spec-label {
+      font-size: 0.8rem;
+      color: var(--amber);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.3rem;
+    }
+
+    .spec-value {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;
+      color: var(--cream);
+    }
+
+    /* Enhanced controls */
+    .controls-area {
+      margin-top: 2rem;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, var(--primary-gold) 0%, var(--amber) 100%);
+      color: var(--darker-bg);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .secondary-btn {
+      background: transparent;
+      color: var(--amber);
+      border: 2px solid var(--amber);
+    }
+
+    .secondary-btn:hover {
+      background: var(--amber);
+      color: var(--darker-bg);
+    }
+
+    .secondary-btn.active {
+      background: var(--amber);
+      color: var(--darker-bg);
+    }
+
+    /* Status bar */
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: rgba(139, 69, 19, 0.1);
+      border-radius: 10px;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .status-info {
+      font-size: 0.9rem;
+      color: var(--amber);
+    }
+
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--amber);
+      color: var(--amber);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--amber);
+      color: var(--darker-bg);
+    }
+
+    /* History panel */
+    #history-toggle {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-gold) 0%, var(--amber) 100%);
+      color: var(--darker-bg);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      transition: all 0.3s ease;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    #history-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .history {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(13, 13, 13, 0.98) 100%);
+      border-top: 3px solid var(--primary-gold);
+      padding: 2rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      z-index: 99;
+      max-height: 50vh;
+      overflow-y: auto;
+    }
+
+    .history.show {
+      transform: translateY(0);
+    }
+
+    .history h3 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.5rem;
+      color: var(--primary-gold);
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #history-list {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    #history-list > div {
+      padding: 1rem;
+      background: rgba(139, 69, 19, 0.1);
+      border-radius: 8px;
+      border-left: 3px solid var(--amber);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    #history-list > div:hover {
+      background: rgba(139, 69, 19, 0.2);
+      transform: translateX(5px);
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--amber);
+      color: var(--amber);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .clear-btn:hover {
+      background: var(--amber);
+      color: var(--darker-bg);
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      background: linear-gradient(135deg, var(--primary-gold) 0%, var(--amber) 100%);
+      color: var(--darker-bg);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      font-weight: 500;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    /* Footer */
+    .main-footer {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(26, 26, 26, 0.9);
+      border-top: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .main-footer p {
+      color: var(--amber);
+      font-size: 0.9rem;
+    }
+
+    /* Dark mode adjustments */
+    body.dark-mode {
+      --dark-bg: #2a2a2a;
+      --darker-bg: #1d1d1d;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .beer-specs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .button-group {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="fullscreen-container">
@@ -26,26 +519,34 @@
     </header>
 
     <div class="main-content">
-      <!-- Main beer generator section - now truly fullscreen -->
       <section class="beer-generator">
         <h2>Discover Your Perfect Brew</h2>
 
         <div class="result-container">
           <div class="beer-name-container">
-            <!-- Enhanced beer decorations with more icons -->
-            <div class="beer-decorations">
-              <i class="fas fa-beer beer-icon"></i>
-              <i class="fas fa-glass-cheers beer-icon"></i>
-              <i class="fas fa-wine-bottle beer-icon"></i>
-              <i class="fas fa-wine-glass-alt beer-icon"></i>
-              <i class="fas fa-mug-hot beer-icon"></i>
-              <i class="fas fa-beer beer-icon"></i>
-              <i class="fas fa-glass-whiskey beer-icon"></i>
-              <i class="fas fa-wine-glass beer-icon"></i>
-            </div>
+            <div class="bubbles" id="bubbles"></div>
 
             <div id="random-name" class="beer-name-text">
               Click below and savor the surprise!
+            </div>
+
+            <div class="beer-specs" id="beer-specs" style="display: none;">
+              <div class="spec-item">
+                <div class="spec-label">Style</div>
+                <div class="spec-value" id="spec-style">-</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">ABV</div>
+                <div class="spec-value" id="spec-abv">-</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">IBU</div>
+                <div class="spec-value" id="spec-ibu">-</div>
+              </div>
+              <div class="spec-item">
+                <div class="spec-label">Origin</div>
+                <div class="spec-value" id="spec-origin">-</div>
+              </div>
             </div>
           </div>
         </div>
@@ -57,50 +558,71 @@
             </button>
 
             <button class="btn secondary-btn" id="auto-generate">
-              <i class="fas fa-sync-alt"></i> Generate Every 10 Secs
+              <i class="fas fa-sync-alt"></i> Auto Generate
             </button>
           </div>
 
           <div class="status-bar">
             <div class="status-info">
-              <span id="generation-count">0 names generated</span>
+              <span id="generation-count">0 beers crafted</span>
             </div>
             <button class="theme-toggle" id="theme-toggle">
-              <i class="fas fa-moon"></i> Toggle Dark Mode
+              <i class="fas fa-moon"></i> Dark Mode
             </button>
           </div>
         </div>
       </section>
 
-      <!-- History panel that slides up from the bottom when clicked -->
+      <!-- History panel toggle -->
       <button id="history-toggle" title="View History">
         <i class="fas fa-history"></i>
       </button>
 
       <section class="history">
         <h3>
-          <span>Generation History</span>
+          <span>Brewing History</span>
           <button class="clear-btn" id="clear-history">
             <i class="fas fa-trash"></i> Clear
           </button>
         </h3>
 
         <div id="history-list">
-          <!-- JavaScript will add history items here -->
+          <!-- History items will be added here -->
         </div>
       </section>
     </div>
 
     <footer class="main-footer">
-      <p>🍻 &copy; 2025 Beer Name Generator | Crafted by Yoshi Tacke</p>
+      <p>🍻 © 2025 Beer Name Generator | Crafted with ❤️ by Yoshi Tacke</p>
     </footer>
   </div>
 
-  <!-- Add this small script to handle the history panel toggle -->
   <script>
+    // Create floating bubbles
+    function createBubbles() {
+      const bubblesContainer = document.getElementById('bubbles');
+      setInterval(() => {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        const size = Math.random() * 10 + 5;
+        bubble.style.width = size + 'px';
+        bubble.style.height = size + 'px';
+        bubble.style.left = Math.random() * 100 + '%';
+        bubble.style.animationDuration = Math.random() * 10 + 10 + 's';
+        bubble.style.animationDelay = Math.random() * 5 + 's';
+        bubblesContainer.appendChild(bubble);
+
+        setTimeout(() => bubble.remove(), 20000);
+      }, 2000);
+    }
+
+    createBubbles();
+
+    // History panel toggle
     document.addEventListener('DOMContentLoaded', function() {
       const historyToggleBtn = document.getElementById('history-toggle');
       const historyPanel = document.querySelector('.history');
+
       if (historyToggleBtn && historyPanel) {
         historyToggleBtn.addEventListener('click', function() {
           historyPanel.classList.toggle('show');
@@ -111,5 +633,8 @@
       }
     });
   </script>
+
+  <!-- Main JavaScript -->
+  <script src="../src/js/main.js" defer></script>
 </body>
 </html>
