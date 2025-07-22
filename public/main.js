@@ -57,11 +57,27 @@ async function loadBeerData() {
 
 // Show data loading status to user
 function showDataLoadStatus(message, type = 'info') {
+  // Use the toast system for consistency
+  // Map the old types to the new toast types
+  let toastType = type;
+  let duration = type === 'error' ? 10000 : 4000;
+
+  // If showToast is available, use it
+  if (typeof showToast === 'function') {
+    showToast(message, duration, toastType);
+    return;
+  }
+
+  // Fallback if showToast is not available yet
+  console.log(`Data load status (${type}): ${message}`);
+
   // Create or update status indicator
   let statusEl = document.getElementById('data-status');
   if (!statusEl) {
     statusEl = document.createElement('div');
     statusEl.id = 'data-status';
+    statusEl.setAttribute('role', 'alert');
+    statusEl.setAttribute('aria-live', 'assertive');
     statusEl.style.cssText = `
       position: fixed;
       top: 10px;
@@ -89,13 +105,27 @@ function showDataLoadStatus(message, type = 'info') {
   statusEl.style.cssText += styles[type];
   statusEl.textContent = message;
 
+  // Set appropriate ARIA label
+  switch (type) {
+    case 'error':
+      statusEl.setAttribute('aria-label', 'Error: ' + message);
+      break;
+    case 'warning':
+      statusEl.setAttribute('aria-label', 'Warning: ' + message);
+      break;
+    case 'success':
+      statusEl.setAttribute('aria-label', 'Success: ' + message);
+      break;
+    default:
+      statusEl.setAttribute('aria-label', 'Information: ' + message);
+  }
+
   // Auto-hide success messages after 4 seconds, keep errors longer
-  const hideDelay = type === 'error' ? 10000 : 4000;
   setTimeout(() => {
     if (statusEl && statusEl.parentNode) {
       statusEl.remove();
     }
-  }, hideDelay);
+  }, duration);
 }
 
 // Wait for data to be loaded before proceeding
@@ -276,17 +306,46 @@ async function initializeBeerGenerator() {
   };
 
   // Display functions
-  const showToast = (message, duration = 2000) => {
+  const showToast = (message, duration = 2000, type = 'info') => {
     let toast = document.querySelector('.toast');
     if (!toast) {
       toast = document.createElement('div');
       toast.className = 'toast';
+      // Add ARIA attributes for accessibility
+      toast.setAttribute('role', 'alert');
+      toast.setAttribute('aria-live', 'assertive');
       document.body.appendChild(toast);
     }
 
+    // Set message
     toast.textContent = message;
 
+    // Apply styling based on message type
+    toast.className = 'toast'; // Reset classes
+
+    // Add type-specific class
+    switch (type) {
+      case 'error':
+        toast.classList.add('toast-error');
+        toast.setAttribute('aria-label', 'Error: ' + message);
+        break;
+      case 'warning':
+        toast.classList.add('toast-warning');
+        toast.setAttribute('aria-label', 'Warning: ' + message);
+        break;
+      case 'success':
+        toast.classList.add('toast-success');
+        toast.setAttribute('aria-label', 'Success: ' + message);
+        break;
+      default: // info
+        toast.classList.add('toast-info');
+        toast.setAttribute('aria-label', 'Information: ' + message);
+    }
+
+    // Show the toast
     setTimeout(() => toast.classList.add('show'), 10);
+
+    // Hide after duration
     setTimeout(() => {
       toast.classList.remove('show');
       setTimeout(() => {
@@ -295,6 +354,15 @@ async function initializeBeerGenerator() {
         }
       }, 300);
     }, duration);
+
+    // Log message to console for debugging
+    if (type === 'error') {
+      console.error('Toast Error:', message);
+    } else if (type === 'warning') {
+      console.warn('Toast Warning:', message);
+    } else {
+      console.log('Toast:', message);
+    }
   };
 
   const displayBeer = (beer) => {
@@ -363,13 +431,31 @@ async function initializeBeerGenerator() {
       try {
         localStorage.setItem('beerHistory', JSON.stringify(generatedNames));
       } catch (e) {
-        console.log("Could not save to localStorage");
+        console.warn("Could not save to localStorage:", e);
+        showToast("Your beer history couldn't be saved to local storage.", 3000, 'warning');
       }
 
       return beer;
     } catch (error) {
       console.error("Error in generateAndDisplay:", error);
-      showToast(`Error generating beer: ${error.message}`, 3000);
+
+      // Provide more specific error messages based on error type
+      let errorMessage = "Error generating beer";
+
+      if (error.message.includes("beer_data.json")) {
+        errorMessage = "Could not load beer data. Please refresh the page and try again.";
+      } else if (error.message.includes("Cannot select from empty array")) {
+        errorMessage = "Error in beer generation algorithm. Some data may be missing.";
+      } else if (error.message) {
+        errorMessage = `${errorMessage}: ${error.message}`;
+      }
+
+      showToast(errorMessage, 5000, 'error');
+
+      // Update UI to show error state
+      if (randomNameElement) {
+        randomNameElement.textContent = "Error generating beer. Please try again.";
+      }
     }
   };
 

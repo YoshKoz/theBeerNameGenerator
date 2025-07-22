@@ -9,32 +9,50 @@ A web application that generates creative beer names and descriptions. Now with 
 - Dark mode support
 - History tracking of generated names
 - Generate beer label images using Midjourney via Discord
+- Keyboard shortcuts (Space bar to generate new beer)
+- Responsive design for mobile and desktop
 
 ## Project Structure
 
 The project has been reorganized with a cleaner structure:
 
-- `public/` - Contains the main HTML file
+- `public/` - Contains the main HTML file and client-side assets
   - `index.html` - The main application page
+  - `main.js` - Main application logic
+  - `beer_data.json` - Beer-related data for name generation
 - `src/` - Source code directory
   - `js/` - JavaScript files
-    - `main.js` - Main application logic
     - `midjourney-integration.js` - Integration with Midjourney
     - `utils.js` - Utility functions
   - `css/` - Stylesheets
     - `styles.css` - Main application styles
-  - `data/` - Data files
-    - `beer_data.json` - Beer-related data
-    - `adjectives.json` - Adjectives for beer name generation
   - `assets/` - Images and other assets
 - `config/` - Configuration files
 - `docs/` - Documentation
+
+## Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/TheBeerNameGenerator.git
+   cd TheBeerNameGenerator
+   ```
+
+2. No build process is required as this is a client-side application.
+
+3. Open `public/index.html` in your web browser or serve it using a local server:
+   ```
+   npx serve public
+   ```
 
 ## How to Use
 
 1. Open `public/index.html` in your web browser
 2. Click "Generate" to create a new beer name and description
-3. Click "Generate Image" to create a beer label image based on the current beer name
+3. Click "Auto Generate" to automatically create new names every 10 seconds
+4. Use the history panel to view and restore previously generated names
+5. Toggle dark mode using the button in the status bar
+6. Press the Space bar to quickly generate a new beer name
 
 ## Setting Up Midjourney Integration
 
@@ -62,9 +80,25 @@ To use the image generation feature, you need to set up a Discord webhook and ha
 - You need an active Midjourney subscription to use the image generation feature
 - The image generation happens in Discord, not directly in the web application
 - Make sure to keep your webhook URL private to prevent unauthorized use
+- The application stores your generated beer names in localStorage
 
 ## Technologies Used
 
 - HTML, CSS, JavaScript
+- LocalStorage for history persistence
 - Discord Webhooks
 - Midjourney AI
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
