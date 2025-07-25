@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +16,14 @@
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+<<<<<<< HEAD
   <!-- External CSS removed: styles are in the <style> block -->
   <link rel="stylesheet" href="styles.css">
+=======
+  <!-- External CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+>>>>>>> origin/master
 </head>
 <body>
   <div class="fullscreen-container">
@@ -59,12 +65,16 @@
 
         <div class="controls-area">
           <div class="button-group">
-            <button class="btn primary-btn" id="generate">
-              <i class="fas fa-beer"></i> Generate
+            <button class="btn primary-btn" id="generate" aria-label="Generate new beer name">
+              <i class="fas fa-beer" aria-hidden="true"></i> Generate
             </button>
 
-            <button class="btn secondary-btn" id="auto-generate">
-              <i class="fas fa-sync-alt"></i> Auto Generate
+            <button class="btn secondary-btn" id="auto-generate" aria-label="Automatically generate beer names every 10 seconds">
+              <i class="fas fa-sync-alt" aria-hidden="true"></i> Auto Generate
+            </button>
+
+            <button class="btn secondary-btn" id="generate-image-btn" aria-label="Generate beer label image using Midjourney">
+              <i class="fas fa-image" aria-hidden="true"></i> Generate Image
             </button>
           </div>
 
@@ -72,23 +82,23 @@
             <div class="status-info">
               <span id="generation-count">0 beers crafted</span>
             </div>
-            <button class="theme-toggle" id="theme-toggle">
-              <i class="fas fa-moon"></i> Dark Mode
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+              <i class="fas fa-moon" aria-hidden="true"></i> Dark Mode
             </button>
           </div>
         </div>
       </section>
 
       <!-- History panel toggle -->
-      <button id="history-toggle" title="View History">
-        <i class="fas fa-history"></i>
+      <button id="history-toggle" title="View History" aria-label="View beer history" aria-expanded="false" aria-controls="history-panel">
+        <i class="fas fa-history" aria-hidden="true"></i>
       </button>
 
-      <section class="history">
-        <h3>
+      <section class="history" id="history-panel" aria-labelledby="history-heading">
+        <h3 id="history-heading">
           <span>Brewing History</span>
-          <button class="clear-btn" id="clear-history">
-            <i class="fas fa-trash"></i> Clear
+          <button class="clear-btn" id="clear-history" aria-label="Clear history">
+            <i class="fas fa-trash" aria-hidden="true"></i> Clear
           </button>
         </h3>
 
@@ -133,16 +143,28 @@
 
       if (historyToggleBtn && historyPanel) {
         historyToggleBtn.addEventListener('click', function() {
+          const isExpanded = historyPanel.classList.contains('show');
           historyPanel.classList.toggle('show');
-          historyToggleBtn.innerHTML = historyPanel.classList.contains('show')
-            ? '<i class="fas fa-chevron-down"></i>'
-            : '<i class="fas fa-history"></i>';
+
+          // Update ARIA attributes for accessibility
+          historyToggleBtn.setAttribute('aria-expanded', !isExpanded);
+
+          // Update icon
+          historyToggleBtn.innerHTML = !isExpanded
+            ? '<i class="fas fa-chevron-down" aria-hidden="true"></i>'
+            : '<i class="fas fa-history" aria-hidden="true"></i>';
         });
       }
     });
   </script>
 
+  <!-- Axios for HTTP requests -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <!-- Main JavaScript -->
   <script src="main.js" defer></script>
+
+  <!-- Midjourney Integration -->
+  <script src="../src/js/midjourney-integration.js" defer></script>
 </body>
 </html>
