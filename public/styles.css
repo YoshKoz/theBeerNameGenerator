@@ -1,5 +1,5 @@
 /* Wide Fullscreen Beer Generator CSS */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
 /* Merged inline styles from index.html */
 :root {
@@ -14,20 +14,24 @@
   --shadow-strong: 0 15px 35px rgba(0, 0, 0, 0.4);
   --border-radius: 16px;
   --gradient-primary: linear-gradient(135deg, #ff7043 0%, #ffa270 100%);
-  --gradient-header: linear-gradient(180deg, #2a3742 0%, rgba(42, 55, 66, 0.9) 100%);
+  --gradient-header: linear-gradient(
+    180deg,
+    #2a3742 0%,
+    rgba(42, 55, 66, 0.9) 100%
+  );
   --glass-effect: blur(12px);
-  --header-font: 'Great Vibes', cursive;
-  --body-font: 'Inter', system-ui, sans-serif;
+  --header-font: "Great Vibes", cursive;
+  --body-font: "Inter", system-ui, sans-serif;
   --transition-speed: 0.3s;
 
-  --primary-gold: #FFD700;
-  --amber: #FFA500;
-  --deep-amber: #FF8C00;
-  --brown: #8B4513;
-  --cream: #FFF8DC;
+  --primary-gold: #ffd700;
+  --amber: #ffa500;
+  --deep-amber: #ff8c00;
+  --brown: #8b4513;
+  --cream: #fff8dc;
   --dark-bg: #1a1a1a;
   --darker-bg: #0d0d0d;
-  --foam: #FFEFD5;
+  --foam: #ffefd5;
 }
 
 /* Base Styles */
@@ -37,7 +41,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   overflow: hidden;
   margin: 0;
@@ -48,7 +53,7 @@ html, body {
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background: var(--darker-bg);
   color: var(--cream);
   min-height: 100vh;
@@ -57,37 +62,61 @@ body {
 }
 
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 165, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+    radial-gradient(
+      circle at 20% 50%,
+      rgba(255, 215, 0, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 80%,
+      rgba(255, 165, 0, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 20%,
+      rgba(139, 69, 19, 0.1) 0%,
+      transparent 50%
+    );
   animation: float 20s ease-in-out infinite;
   z-index: -2;
 }
 
 body::after {
-  content: '';
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image:
-    repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.03) 2px,
+    rgba(255, 255, 255, 0.03) 4px
+  );
   z-index: -1;
   pointer-events: none;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  33% { transform: translateY(-20px) rotate(1deg); }
-  66% { transform: translateY(20px) rotate(-1deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-20px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(20px) rotate(-1deg);
+  }
 }
 
 .fullscreen-container {
@@ -188,7 +217,7 @@ body::after {
 }
 
 .beer-name-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -202,7 +231,7 @@ body::after {
 }
 
 .beer-name-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 5%;
   left: 5%;
@@ -212,7 +241,6 @@ body::after {
   border-radius: calc(var(--border-radius) - 8px);
   z-index: 0;
 }
-
 
 #random-name {
   font-family: var(--header-font), serif;
@@ -461,21 +489,44 @@ body::after {
   letter-spacing: 0.01em;
 }
 
-
 .beer-icon {
   position: absolute;
   font-size: 3rem;
   color: var(--accent-color);
 }
 
-.beer-icon:nth-child(1) { top: 10%; left: 10%; }
-.beer-icon:nth-child(2) { top: 15%; right: 15%; }
-.beer-icon:nth-child(3) { bottom: 10%; left: 20%; }
-.beer-icon:nth-child(4) { bottom: 15%; right: 15%; }
-.beer-icon:nth-child(5) { top: 50%; left: 8%; }
-.beer-icon:nth-child(6) { top: 50%; right: 8%; }
-.beer-icon:nth-child(7) { top: 30%; left: 50%; }
-.beer-icon:nth-child(8) { bottom: 30%; left: 50%; }
+.beer-icon:nth-child(1) {
+  top: 10%;
+  left: 10%;
+}
+.beer-icon:nth-child(2) {
+  top: 15%;
+  right: 15%;
+}
+.beer-icon:nth-child(3) {
+  bottom: 10%;
+  left: 20%;
+}
+.beer-icon:nth-child(4) {
+  bottom: 15%;
+  right: 15%;
+}
+.beer-icon:nth-child(5) {
+  top: 50%;
+  left: 8%;
+}
+.beer-icon:nth-child(6) {
+  top: 50%;
+  right: 8%;
+}
+.beer-icon:nth-child(7) {
+  top: 30%;
+  left: 50%;
+}
+.beer-icon:nth-child(8) {
+  bottom: 30%;
+  left: 50%;
+}
 
 /* Footer */
 .main-footer {
@@ -487,7 +538,6 @@ body::after {
   margin-top: 0; /* Remove negative margin */
 }
 
-
 .main-footer p {
   margin: 0;
   font-size: 0.9rem;
@@ -496,9 +546,15 @@ body::after {
 
 /* Animations */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 /* Text Size Adjustments */
@@ -542,22 +598,22 @@ body::after {
     align-items: center;
   }
 }
-  .btn {
-    width: 100%;
-    padding: 0.8rem 1.5rem;
-  }
+.btn {
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+}
 
-  .beer-name-container {
-    padding: 1.5rem;
-  }
+.beer-name-container {
+  padding: 1.5rem;
+}
 
-  #random-name {
-    position: relative;
-    top: -120px;
-    margin-bottom: -120px;
-    font-size: clamp(1.6rem, 4vw, 2.5rem);
-    padding: 1rem;
-  }
+#random-name {
+  position: relative;
+  top: -120px;
+  margin-bottom: -120px;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  padding: 1rem;
+}
 
 .controls-area {
   margin-top: 2rem; /* Add positive margin instead of negative */
@@ -570,8 +626,9 @@ body::after {
   position: relative;
 }
 
-.btn, .main-header p, .controls-area {
+.btn,
+.main-header p,
+.controls-area {
   font-family: var(--body-font), serif;
   font-weight: 500;
-
 }
