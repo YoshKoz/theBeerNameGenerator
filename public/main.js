@@ -11,38 +11,32 @@ async function loadBeerData() {
   try {
     const response = await fetch('beer_data.json');
 
-    if (!response.ok) {
+    if (response.ok) {
+      const data = await response.json();
+      data.categories = undefined;
+      const requiredKeys = ['categories', 'coolAdjectives', 'mythicalCreatures', 'tasteProfiles', 'colors', 'types', 'beerGlasses', 'mouthfeelDescriptors', 'tasteNouns', 'adverbs', 'regions', 'brewingTechniques', 'ibuRanges', 'abvRanges', 'occasions'];
+      const missingKeys = requiredKeys.filter(key => !data[key]);
+      if (missingKeys.length > 0) {
+        console.warn(`Missing optional keys in JSON: ${missingKeys.join(', ')}`);
+      } else {
+        beerData = data;
+        isDataLoaded = true;
+        console.log("✅ Successfully loaded beer_data.json!");
+        console.log(`📊 Comprehensive Data Stats:
+          - Categories: ${data.categories.length}
+          - Adjectives: ${data.coolAdjectives.length}
+          - Mythical Creatures: ${data.mythicalCreatures.length}
+          - Taste Profiles: ${data.tasteProfiles.length}
+          - Colors: ${data.colors.length}
+          - Beer Glasses: ${data.beerGlasses.length}
+          - Regions: ${data.regions.length}
+          - Brewing Techniques: ${data.brewingTechniques.length}`);
+        showDataLoadStatus(`✅ Loaded comprehensive beer database! (${data.categories.length} categories, ${data.mythicalCreatures.length} creatures)`, 'success');
+        return data;
+      }
+    } else {
       throw new Error(`Failed to load beer_data.json - HTTP ${response.status}: ${response.statusText}`);
     }
-
-    const data = await response.json();
-
-    // Validate the data has required properties
-    const requiredKeys = ['categories', 'coolAdjectives', 'mythicalCreatures', 'tasteProfiles', 'colors', 'types', 'beerGlasses', 'mouthfeelDescriptors', 'tasteNouns', 'adverbs', 'regions', 'brewingTechniques', 'ibuRanges', 'abvRanges', 'occasions'];
-    const missingKeys = requiredKeys.filter(key => !data[key] || !Array.isArray(data[key]));
-
-    if (missingKeys.length > 0) {
-      throw new Error(`Missing required keys in JSON: ${missingKeys.join(', ')}`);
-    }
-
-    beerData = data;
-    isDataLoaded = true;
-
-    console.log("✅ Successfully loaded beer_data.json!");
-    console.log(`📊 Comprehensive Data Stats:
-      - Categories: ${data.categories.length}
-      - Adjectives: ${data.coolAdjectives.length}
-      - Mythical Creatures: ${data.mythicalCreatures.length}
-      - Taste Profiles: ${data.tasteProfiles.length}
-      - Colors: ${data.colors.length}
-      - Beer Glasses: ${data.beerGlasses.length}
-      - Regions: ${data.regions.length}
-      - Brewing Techniques: ${data.brewingTechniques.length}`);
-
-    // Show success message to user
-    showDataLoadStatus(`✅ Loaded comprehensive beer database! (${data.categories.length} categories, ${data.mythicalCreatures.length} creatures)`, 'success');
-
-    return data;
 
   } catch (error) {
     console.error("❌ CRITICAL: Failed to load beer_data.json:", error.message);
