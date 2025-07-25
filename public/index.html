@@ -65,15 +65,15 @@
 
         <div class="controls-area">
           <div class="button-group">
-            <button class="btn primary-btn" id="generate" aria-label="Generate new beer name">
+            <button type="button" class="btn primary-btn" id="generate" aria-label="Generate new beer name">
               <i class="fas fa-beer" aria-hidden="true"></i> Generate
             </button>
 
-            <button class="btn secondary-btn" id="auto-generate" aria-label="Automatically generate beer names every 10 seconds">
+            <button type="button" class="btn secondary-btn" id="auto-generate" aria-label="Automatically generate beer names every 10 seconds">
               <i class="fas fa-sync-alt" aria-hidden="true"></i> Auto Generate
             </button>
 
-            <button class="btn secondary-btn" id="generate-image-btn" aria-label="Generate beer label image using Midjourney">
+            <button type="button" class="btn secondary-btn" id="generate-image-btn" aria-label="Generate beer label image using Midjourney">
               <i class="fas fa-image" aria-hidden="true"></i> Generate Image
             </button>
           </div>
@@ -82,7 +82,7 @@
             <div class="status-info">
               <span id="generation-count">0 beers crafted</span>
             </div>
-            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
               <i class="fas fa-moon" aria-hidden="true"></i> Dark Mode
             </button>
           </div>
@@ -90,14 +90,14 @@
       </section>
 
       <!-- History panel toggle -->
-      <button id="history-toggle" title="View History" aria-label="View beer history" aria-expanded="false" aria-controls="history-panel">
+      <button type="button" id="history-toggle" title="View History" aria-label="View beer history" aria-expanded="false" aria-controls="history-panel">
         <i class="fas fa-history" aria-hidden="true"></i>
       </button>
 
       <section class="history" id="history-panel" aria-labelledby="history-heading">
         <h3 id="history-heading">
           <span>Brewing History</span>
-          <button class="clear-btn" id="clear-history" aria-label="Clear history">
+          <button type="button" class="clear-btn" id="clear-history" aria-label="Clear history">
             <i class="fas fa-trash" aria-hidden="true"></i> Clear
           </button>
         </h3>
