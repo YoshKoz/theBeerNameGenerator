@@ -1,170 +1,206 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Beer Name Generator</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Beer Name Generator</title>
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
-  <!-- Fonts: Better beer vibe with more variety -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Great+Vibes&family=Bebas+Neue&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <!-- Fonts: Better beer vibe with more variety -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Great+Vibes&family=Bebas+Neue&family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
-<<<<<<< HEAD
-  <!-- External CSS removed: styles are in the <style> block -->
-  <link rel="stylesheet" href="styles.css">
-=======
-  <!-- External CSS -->
-  <link rel="stylesheet" href="styles.css">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="fullscreen-container">
+      <header class="main-header">
+        <h1>The Beer Name Generator</h1>
+        <p>Craft the perfect name for your brew</p>
+      </header>
 
->>>>>>> origin/master
-</head>
-<body>
-  <div class="fullscreen-container">
-    <header class="main-header">
-      <h1>The Beer Name Generator</h1>
-      <p>Craft the perfect name for your brew</p>
-    </header>
+      <div class="main-content">
+        <section class="beer-generator">
+          <h2>Discover Your Perfect Brew</h2>
 
-    <div class="main-content">
-      <section class="beer-generator">
-        <h2>Discover Your Perfect Brew</h2>
-
-        <div class="result-container">
-          <div class="beer-name-container">
-            <div class="bubbles" id="bubbles"></div>
-            <div class="beer-specs" id="beer-specs">
-              <div id="random-name" class="beer-name-text">
-                Click below and savor the surprise!
-              </div>
-              <div class="spec-item">
-                <div class="spec-label">Style</div>
-                <div class="spec-value" id="spec-style">-</div>
-              </div>
-              <div class="spec-item">
-                <div class="spec-label">ABV</div>
-                <div class="spec-value" id="spec-abv">-</div>
-              </div>
-              <div class="spec-item">
-                <div class="spec-label">IBU</div>
-                <div class="spec-value" id="spec-ibu">-</div>
-              </div>
-              <div class="spec-item">
-                <div class="spec-label">Origin</div>
-                <div class="spec-value" id="spec-origin">-</div>
+          <div class="result-container">
+            <div class="beer-name-container">
+              <div class="bubbles" id="bubbles"></div>
+              <div class="beer-specs" id="beer-specs">
+                <div id="random-name" class="beer-name-text">
+                  Click below and savor the surprise!
+                </div>
+                <div class="spec-item">
+                  <div class="spec-label">Style</div>
+                  <div class="spec-value" id="spec-style">-</div>
+                </div>
+                <div class="spec-item">
+                  <div class="spec-label">ABV</div>
+                  <div class="spec-value" id="spec-abv">-</div>
+                </div>
+                <div class="spec-item">
+                  <div class="spec-label">IBU</div>
+                  <div class="spec-value" id="spec-ibu">-</div>
+                </div>
+                <div class="spec-item">
+                  <div class="spec-label">Origin</div>
+                  <div class="spec-value" id="spec-origin">-</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="controls-area">
-          <div class="button-group">
-            <button type="button" class="btn primary-btn" id="generate" aria-label="Generate new beer name">
-              <i class="fas fa-beer" aria-hidden="true"></i> Generate
-            </button>
+          <div class="controls-area">
+            <div class="button-group">
+              <button
+                type="button"
+                class="btn primary-btn"
+                id="generate"
+                aria-label="Generate new beer name"
+              >
+                <i class="fas fa-beer" aria-hidden="true"></i> Generate
+              </button>
 
-            <button type="button" class="btn secondary-btn" id="auto-generate" aria-label="Automatically generate beer names every 10 seconds">
-              <i class="fas fa-sync-alt" aria-hidden="true"></i> Auto Generate
-            </button>
+              <button
+                type="button"
+                class="btn secondary-btn"
+                id="auto-generate"
+                aria-label="Automatically generate beer names every 10 seconds"
+              >
+                <i class="fas fa-sync-alt" aria-hidden="true"></i> Auto Generate
+              </button>
 
-            <button type="button" class="btn secondary-btn" id="generate-image-btn" aria-label="Generate beer label image using Midjourney">
-              <i class="fas fa-image" aria-hidden="true"></i> Generate Image
-            </button>
-          </div>
-
-          <div class="status-bar">
-            <div class="status-info">
-              <span id="generation-count">0 beers crafted</span>
+              <button
+                type="button"
+                class="btn secondary-btn"
+                id="generate-image-btn"
+                aria-label="Generate beer label image using Midjourney"
+              >
+                <i class="fas fa-image" aria-hidden="true"></i> Generate Image
+              </button>
             </div>
-            <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-              <i class="fas fa-moon" aria-hidden="true"></i> Dark Mode
-            </button>
+
+            <div class="status-bar">
+              <div class="status-info">
+                <span id="generation-count">0 beers crafted</span>
+              </div>
+              <button
+                type="button"
+                class="theme-toggle"
+                id="theme-toggle"
+                aria-label="Toggle dark mode"
+              >
+                <i class="fas fa-moon" aria-hidden="true"></i> Dark Mode
+              </button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- History panel toggle -->
-      <button type="button" id="history-toggle" title="View History" aria-label="View beer history" aria-expanded="false" aria-controls="history-panel">
-        <i class="fas fa-history" aria-hidden="true"></i>
-      </button>
+        <!-- History panel toggle -->
+        <button
+          type="button"
+          id="history-toggle"
+          title="View History"
+          aria-label="View beer history"
+          aria-expanded="false"
+          aria-controls="history-panel"
+        >
+          <i class="fas fa-history" aria-hidden="true"></i>
+        </button>
 
-      <section class="history" id="history-panel" aria-labelledby="history-heading">
-        <h3 id="history-heading">
-          <span>Brewing History</span>
-          <button type="button" class="clear-btn" id="clear-history" aria-label="Clear history">
-            <i class="fas fa-trash" aria-hidden="true"></i> Clear
-          </button>
-        </h3>
+        <section
+          class="history"
+          id="history-panel"
+          aria-labelledby="history-heading"
+        >
+          <h3 id="history-heading">
+            <span>Brewing History</span>
+            <button
+              type="button"
+              class="clear-btn"
+              id="clear-history"
+              aria-label="Clear history"
+            >
+              <i class="fas fa-trash" aria-hidden="true"></i> Clear
+            </button>
+          </h3>
 
-        <div id="history-list">
-          <!-- History items will be added here -->
-        </div>
-      </section>
+          <div id="history-list">
+            <!-- History items will be added here -->
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <p>🍻 © 2025 Beer Name Generator | Crafted with ❤️ by Yoshi Tacke</p>
+      </footer>
     </div>
 
-    <footer class="main-footer">
-      <p>🍻 © 2025 Beer Name Generator | Crafted with ❤️ by Yoshi Tacke</p>
-    </footer>
-  </div>
+    <script>
+      // Create floating bubbles
+      function createBubbles() {
+        const bubblesContainer = document.getElementById('bubbles');
+        if (!bubblesContainer) return;
 
-  <script>
-    // Create floating bubbles
-    function createBubbles() {
-      const bubblesContainer = document.getElementById('bubbles');
-      if (!bubblesContainer) return;
+        setInterval(() => {
+          const bubble = document.createElement('div');
+          bubble.className = 'bubble';
+          const size = Math.random() * 10 + 5;
+          bubble.style.width = size + 'px';
+          bubble.style.height = size + 'px';
+          bubble.style.left = Math.random() * 100 + '%';
+          bubble.style.animationDuration = Math.random() * 10 + 10 + 's';
+          bubble.style.animationDelay = Math.random() * 5 + 's';
+          bubblesContainer.appendChild(bubble);
 
-      setInterval(() => {
-        const bubble = document.createElement('div');
-        bubble.className = 'bubble';
-        const size = Math.random() * 10 + 5;
-        bubble.style.width = size + 'px';
-        bubble.style.height = size + 'px';
-        bubble.style.left = Math.random() * 100 + '%';
-        bubble.style.animationDuration = Math.random() * 10 + 10 + 's';
-        bubble.style.animationDelay = Math.random() * 5 + 's';
-        bubblesContainer.appendChild(bubble);
-
-        setTimeout(() => bubble.remove(), 20000);
-      }, 2000);
-    }
-
-    createBubbles();
-
-    // History panel toggle
-    document.addEventListener('DOMContentLoaded', function() {
-      const historyToggleBtn = document.getElementById('history-toggle');
-      const historyPanel = document.querySelector('.history');
-
-      if (historyToggleBtn && historyPanel) {
-        historyToggleBtn.addEventListener('click', function() {
-          const isExpanded = historyPanel.classList.contains('show');
-          historyPanel.classList.toggle('show');
-
-          // Update ARIA attributes for accessibility
-          historyToggleBtn.setAttribute('aria-expanded', !isExpanded);
-
-          // Update icon
-          historyToggleBtn.innerHTML = !isExpanded
-            ? '<i class="fas fa-chevron-down" aria-hidden="true"></i>'
-            : '<i class="fas fa-history" aria-hidden="true"></i>';
-        });
+          setTimeout(() => bubble.remove(), 20000);
+        }, 2000);
       }
-    });
-  </script>
 
-  <!-- Axios for HTTP requests -->
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      createBubbles();
 
-  <!-- Main JavaScript -->
-  <script src="main.js" defer></script>
+      // History panel toggle
+      document.addEventListener('DOMContentLoaded', function () {
+        const historyToggleBtn = document.getElementById('history-toggle');
+        const historyPanel = document.querySelector('.history');
 
-  <!-- Midjourney Integration -->
-  <script src="../src/js/midjourney-integration.js" defer></script>
-</body>
+        if (historyToggleBtn && historyPanel) {
+          historyToggleBtn.addEventListener('click', function () {
+            const isExpanded = historyPanel.classList.contains('show');
+            historyPanel.classList.toggle('show');
+
+            // Update ARIA attributes for accessibility
+            historyToggleBtn.setAttribute('aria-expanded', !isExpanded);
+
+            // Update icon
+            historyToggleBtn.innerHTML = !isExpanded
+              ? '<i class="fas fa-chevron-down" aria-hidden="true"></i>'
+              : '<i class="fas fa-history" aria-hidden="true"></i>';
+          });
+        }
+      });
+    </script>
+
+    <!-- Axios for HTTP requests -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Main JavaScript -->
+    <script src="main.js" defer></script>
+
+    <!-- Midjourney Integration -->
+    <script src="../src/js/midjourney-integration.js" defer></script>
+  </body>
 </html>

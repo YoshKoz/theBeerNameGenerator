@@ -1,45 +1,45 @@
 // Beer Name Generator - Uses ONLY beer_data.json file
-console.log("Beer Name Generator starting...");
+console.log('Beer Name Generator starting...');
 
 let beerData = null;
 let isDataLoaded = false;
 
 // Load beer data from JSON file (NO FALLBACK)
 async function loadBeerData() {
-  console.log("Attempting to load beer_data.json...");
+  console.log('Attempting to load beer_data.json...');
 
   try {
-    const response = await fetch("beer_data.json");
+    const response = await fetch('beer_data.json');
 
     if (response.ok) {
       const data = await response.json();
       data.categories = undefined;
       const requiredKeys = [
-        "categories",
-        "coolAdjectives",
-        "mythicalCreatures",
-        "tasteProfiles",
-        "colors",
-        "types",
-        "beerGlasses",
-        "mouthfeelDescriptors",
-        "tasteNouns",
-        "adverbs",
-        "regions",
-        "brewingTechniques",
-        "ibuRanges",
-        "abvRanges",
-        "occasions",
+        'categories',
+        'coolAdjectives',
+        'mythicalCreatures',
+        'tasteProfiles',
+        'colors',
+        'types',
+        'beerGlasses',
+        'mouthfeelDescriptors',
+        'tasteNouns',
+        'adverbs',
+        'regions',
+        'brewingTechniques',
+        'ibuRanges',
+        'abvRanges',
+        'occasions',
       ];
       const missingKeys = requiredKeys.filter((key) => !data[key]);
       if (missingKeys.length > 0) {
         console.warn(
-          `Missing optional keys in JSON: ${missingKeys.join(", ")}`,
+          `Missing optional keys in JSON: ${missingKeys.join(', ')}`
         );
       } else {
         beerData = data;
         isDataLoaded = true;
-        console.log("✅ Successfully loaded beer_data.json!");
+        console.log('✅ Successfully loaded beer_data.json!');
         console.log(`📊 Comprehensive Data Stats:
           - Categories: ${data.categories.length}
           - Adjectives: ${data.coolAdjectives.length}
@@ -51,63 +51,38 @@ async function loadBeerData() {
           - Brewing Techniques: ${data.brewingTechniques.length}`);
         showDataLoadStatus(
           `✅ Loaded comprehensive beer database! (${data.categories.length} categories, ${data.mythicalCreatures.length} creatures)`,
-          "success",
+          'success'
         );
         return data;
       }
     } else {
       throw new Error(
-        `Failed to load beer_data.json - HTTP ${response.status}: ${response.statusText}`,
+        `Failed to load beer_data.json - HTTP ${response.status}: ${response.statusText}`
       );
     }
   } catch (error) {
-    console.error("❌ CRITICAL: Failed to load beer_data.json:", error.message);
+    console.error('❌ CRITICAL: Failed to load beer_data.json:', error.message);
 
     // Show error to user
     showDataLoadStatus(
       `❌ ERROR: Could not load beer_data.json - ${error.message}`,
-      "error",
+      'error'
     );
 
     // Stop execution - we REQUIRE the JSON file
     throw new Error(
-      `Beer Name Generator requires beer_data.json file. Error: ${error.message}`,
+      `Beer Name Generator requires beer_data.json file. Error: ${error.message}`
     );
   }
 }
 
 // Show data loading status to user
-<<<<<<< HEAD
-function showDataLoadStatus(message, type = "info") {
-=======
 function showDataLoadStatus(message, type = 'info') {
-  // Use the toast system for consistency
-  // Map the old types to the new toast types
-  let toastType = type;
-  let duration = type === 'error' ? 10000 : 4000;
-
-  // If showToast is available, use it
-  if (typeof showToast === 'function') {
-    showToast(message, duration, toastType);
-    return;
-  }
-
-  // Fallback if showToast is not available yet
-  console.log(`Data load status (${type}): ${message}`);
-
->>>>>>> origin/master
   // Create or update status indicator
-  let statusEl = document.getElementById("data-status");
+  let statusEl = document.getElementById('data-status');
   if (!statusEl) {
-<<<<<<< HEAD
-    statusEl = document.createElement("div");
-    statusEl.id = "data-status";
-=======
     statusEl = document.createElement('div');
     statusEl.id = 'data-status';
-    statusEl.setAttribute('role', 'alert');
-    statusEl.setAttribute('aria-live', 'assertive');
->>>>>>> origin/master
     statusEl.style.cssText = `
       position: fixed;
       top: 10px;
@@ -126,10 +101,10 @@ function showDataLoadStatus(message, type = 'info') {
 
   // Style based on type
   const styles = {
-    success: "background: #4CAF50; color: white;",
-    warning: "background: #FF9800; color: white;",
-    error: "background: #f44336; color: white;",
-    info: "background: #2196F3; color: white;",
+    success: 'background: #4CAF50; color: white;',
+    warning: 'background: #FF9800; color: white;',
+    error: 'background: #f44336; color: white;',
+    info: 'background: #2196F3; color: white;',
   };
 
   statusEl.style.cssText += styles[type];
@@ -151,15 +126,12 @@ function showDataLoadStatus(message, type = 'info') {
   }
 
   // Auto-hide success messages after 4 seconds, keep errors longer
-<<<<<<< HEAD
-  const hideDelay = type === "error" ? 10000 : 4000;
-=======
->>>>>>> origin/master
+  const hideDelay = type === 'error' ? 10000 : 4000;
   setTimeout(() => {
     if (statusEl && statusEl.parentNode) {
       statusEl.remove();
     }
-  }, duration);
+  }, hideDelay);
 }
 
 // Wait for data to be loaded before proceeding
@@ -168,48 +140,48 @@ async function ensureDataLoaded() {
     await loadBeerData();
   }
   if (!beerData) {
-    throw new Error("Beer data is not available");
+    throw new Error('Beer data is not available');
   }
   return beerData;
 }
 
 // Initialize the beer generator
 async function initializeBeerGenerator() {
-  console.log("Initializing Beer Generator...");
+  console.log('Initializing Beer Generator...');
 
   try {
     // Load beer data first - REQUIRED
     await ensureDataLoaded();
 
     console.log(
-      "🍺 Using JSON data with",
+      '🍺 Using JSON data with',
       beerData.categories.length,
-      "beer categories",
+      'beer categories'
     );
   } catch (error) {
-    console.error("FATAL ERROR: Cannot initialize without beer data:", error);
+    console.error('FATAL ERROR: Cannot initialize without beer data:', error);
     showDataLoadStatus(
       `❌ FATAL: Cannot start without beer_data.json file`,
-      "error",
+      'error'
     );
     return; // Stop initialization
   }
 
   // Get DOM elements
-  const randomNameElement = document.getElementById("random-name");
-  const generateBtn = document.getElementById("generate");
-  const autoGenerateBtn = document.getElementById("auto-generate");
-  const historyList = document.getElementById("history-list");
-  const clearHistoryBtn = document.getElementById("clear-history");
-  const generationCountElement = document.getElementById("generation-count");
-  const themeToggleBtn = document.getElementById("theme-toggle");
-  const beerSpecsContainer = document.getElementById("beer-specs");
-  const specStyle = document.getElementById("spec-style");
-  const specAbv = document.getElementById("spec-abv");
-  const specIbu = document.getElementById("spec-ibu");
-  const specOrigin = document.getElementById("spec-origin");
+  const randomNameElement = document.getElementById('random-name');
+  const generateBtn = document.getElementById('generate');
+  const autoGenerateBtn = document.getElementById('auto-generate');
+  const historyList = document.getElementById('history-list');
+  const clearHistoryBtn = document.getElementById('clear-history');
+  const generationCountElement = document.getElementById('generation-count');
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const beerSpecsContainer = document.getElementById('beer-specs');
+  const specStyle = document.getElementById('spec-style');
+  const specAbv = document.getElementById('spec-abv');
+  const specIbu = document.getElementById('spec-ibu');
+  const specOrigin = document.getElementById('spec-origin');
 
-  console.log("DOM elements found:", {
+  console.log('DOM elements found:', {
     randomNameElement: !!randomNameElement,
     generateBtn: !!generateBtn,
     beerSpecsContainer: !!beerSpecsContainer,
@@ -223,29 +195,29 @@ async function initializeBeerGenerator() {
 
   // Load saved data from localStorage
   try {
-    const saved = localStorage.getItem("beerHistory");
+    const saved = localStorage.getItem('beerHistory');
     if (saved) {
       generatedNames = JSON.parse(saved);
       totalGenerated = generatedNames.length;
       console.log(`Loaded ${generatedNames.length} beers from history`);
     }
   } catch (e) {
-    console.log("No saved history found");
+    console.log('No saved history found');
   }
 
   // Utility functions
   const random = (array) => {
     if (!array || array.length === 0) {
-      console.error("CRITICAL: Empty array passed to random function");
-      throw new Error("Cannot select from empty array");
+      console.error('CRITICAL: Empty array passed to random function');
+      throw new Error('Cannot select from empty array');
     }
     return array[Math.floor(Math.random() * array.length)];
   };
 
   const randomMultiple = (array, count, unique = false) => {
     if (!array || array.length === 0) {
-      console.error("CRITICAL: Empty array passed to randomMultiple function");
-      throw new Error("Cannot select from empty array");
+      console.error('CRITICAL: Empty array passed to randomMultiple function');
+      throw new Error('Cannot select from empty array');
     }
 
     if (!unique) return Array.from({ length: count }, () => random(array));
@@ -263,12 +235,12 @@ async function initializeBeerGenerator() {
     if (!randomNameElement) return;
     randomNameElement.className =
       text.length > 300
-        ? "smaller-text"
+        ? 'smaller-text'
         : text.length > 200
-          ? "small-text"
+          ? 'small-text'
           : text.length > 150
-            ? "medium-text"
-            : "";
+            ? 'medium-text'
+            : '';
   };
 
   // Beer generation functions using ONLY loaded JSON data
@@ -278,7 +250,7 @@ async function initializeBeerGenerator() {
         const [taste1, taste2] = randomMultiple(
           beerData.tasteProfiles,
           2,
-          true,
+          true
         );
         const creature = random(beerData.mythicalCreatures);
         const adjective = random(beerData.coolAdjectives);
@@ -294,16 +266,16 @@ async function initializeBeerGenerator() {
         const taste = random(beerData.tasteProfiles);
         const adjective = random(beerData.coolAdjectives);
         const noun = random([
-          "Voyage",
-          "Journey",
-          "Quest",
-          "Legend",
-          "Tale",
-          "Chronicle",
-          "Saga",
-          "Epic",
-          "Odyssey",
-          "Adventure",
+          'Voyage',
+          'Journey',
+          'Quest',
+          'Legend',
+          'Tale',
+          'Chronicle',
+          'Saga',
+          'Epic',
+          'Odyssey',
+          'Adventure',
         ]);
         return `The ${adjective} ${taste} ${noun}`;
       },
@@ -360,106 +332,57 @@ async function initializeBeerGenerator() {
         specs,
       };
     } catch (error) {
-      console.error("Error generating beer:", error);
+      console.error('Error generating beer:', error);
       throw error;
     }
   };
 
   // Display functions
-<<<<<<< HEAD
   const showToast = (message, duration = 2000) => {
-    let toast = document.querySelector(".toast");
-    if (!toast) {
-      toast = document.createElement("div");
-      toast.className = "toast";
-=======
-  const showToast = (message, duration = 2000, type = 'info') => {
     let toast = document.querySelector('.toast');
     if (!toast) {
       toast = document.createElement('div');
       toast.className = 'toast';
-      // Add ARIA attributes for accessibility
-      toast.setAttribute('role', 'alert');
-      toast.setAttribute('aria-live', 'assertive');
->>>>>>> origin/master
       document.body.appendChild(toast);
     }
 
     // Set message
     toast.textContent = message;
 
-<<<<<<< HEAD
-    setTimeout(() => toast.classList.add("show"), 10);
-=======
-    // Apply styling based on message type
-    toast.className = 'toast'; // Reset classes
-
-    // Add type-specific class
-    switch (type) {
-      case 'error':
-        toast.classList.add('toast-error');
-        toast.setAttribute('aria-label', 'Error: ' + message);
-        break;
-      case 'warning':
-        toast.classList.add('toast-warning');
-        toast.setAttribute('aria-label', 'Warning: ' + message);
-        break;
-      case 'success':
-        toast.classList.add('toast-success');
-        toast.setAttribute('aria-label', 'Success: ' + message);
-        break;
-      default: // info
-        toast.classList.add('toast-info');
-        toast.setAttribute('aria-label', 'Information: ' + message);
-    }
-
-    // Show the toast
     setTimeout(() => toast.classList.add('show'), 10);
-
-    // Hide after duration
->>>>>>> origin/master
     setTimeout(() => {
-      toast.classList.remove("show");
+      toast.classList.remove('show');
       setTimeout(() => {
         if (document.body.contains(toast)) {
           toast.remove();
         }
       }, 300);
     }, duration);
-
-    // Log message to console for debugging
-    if (type === 'error') {
-      console.error('Toast Error:', message);
-    } else if (type === 'warning') {
-      console.warn('Toast Warning:', message);
-    } else {
-      console.log('Toast:', message);
-    }
   };
 
   const displayBeer = (beer) => {
     if (randomNameElement) {
       randomNameElement.textContent = beer.description;
       adjustTextSize(beer.description);
-      randomNameElement.style.animation = "none";
+      randomNameElement.style.animation = 'none';
       setTimeout(
-        () => (randomNameElement.style.animation = "fadeIn 0.5s ease-in"),
-        10,
+        () => (randomNameElement.style.animation = 'fadeIn 0.5s ease-in'),
+        10
       );
     }
 
     if (beerSpecsContainer) {
-      beerSpecsContainer.style.display = "grid";
+      beerSpecsContainer.style.display = 'grid';
       if (specStyle) specStyle.textContent = beer.specs.category;
       if (specAbv) specAbv.textContent = beer.specs.abv;
       if (specIbu) specIbu.textContent = beer.specs.ibu;
       if (specOrigin) specOrigin.textContent = beer.specs.region;
     }
 
-    const container = document.querySelector(".beer-name-container");
+    const container = document.querySelector('.beer-name-container');
     if (container) {
-      container.style.transform = "scale(0.95)";
-      setTimeout(() => (container.style.transform = "scale(1)"), 200);
+      container.style.transform = 'scale(0.95)';
+      setTimeout(() => (container.style.transform = 'scale(1)'), 200);
     }
   };
 
@@ -469,19 +392,19 @@ async function initializeBeerGenerator() {
     }
 
     if (historyList) {
-      historyList.innerHTML = "";
+      historyList.innerHTML = '';
       generatedNames.slice(0, 10).forEach((beer) => {
-        const item = document.createElement("div");
+        const item = document.createElement('div');
         item.innerHTML = `
           <strong>${beer.name}</strong>
           <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem;">
             ${beer.specs.category} • ${beer.specs.abv} • ${beer.specs.ibu}
           </div>
         `;
-        item.addEventListener("click", () => {
+        item.addEventListener('click', () => {
           currentBeer = window.currentBeer = beer;
           displayBeer(beer);
-          showToast("Beer loaded from history!");
+          showToast('Beer loaded from history!');
         });
         historyList.appendChild(item);
       });
@@ -504,23 +427,29 @@ async function initializeBeerGenerator() {
       updateUI();
 
       try {
-        localStorage.setItem("beerHistory", JSON.stringify(generatedNames));
+        localStorage.setItem('beerHistory', JSON.stringify(generatedNames));
       } catch (e) {
-        console.warn("Could not save to localStorage:", e);
-        showToast("Your beer history couldn't be saved to local storage.", 3000, 'warning');
+        console.warn('Could not save to localStorage:', e);
+        showToast(
+          "Your beer history couldn't be saved to local storage.",
+          3000,
+          'warning'
+        );
       }
 
       return beer;
     } catch (error) {
-      console.error("Error in generateAndDisplay:", error);
+      console.error('Error in generateAndDisplay:', error);
 
       // Provide more specific error messages based on error type
-      let errorMessage = "Error generating beer";
+      let errorMessage = 'Error generating beer';
 
-      if (error.message.includes("beer_data.json")) {
-        errorMessage = "Could not load beer data. Please refresh the page and try again.";
-      } else if (error.message.includes("Cannot select from empty array")) {
-        errorMessage = "Error in beer generation algorithm. Some data may be missing.";
+      if (error.message.includes('beer_data.json')) {
+        errorMessage =
+          'Could not load beer data. Please refresh the page and try again.';
+      } else if (error.message.includes('Cannot select from empty array')) {
+        errorMessage =
+          'Error in beer generation algorithm. Some data may be missing.';
       } else if (error.message) {
         errorMessage = `${errorMessage}: ${error.message}`;
       }
@@ -529,7 +458,8 @@ async function initializeBeerGenerator() {
 
       // Update UI to show error state
       if (randomNameElement) {
-        randomNameElement.textContent = "Error generating beer. Please try again.";
+        randomNameElement.textContent =
+          'Error generating beer. Please try again.';
       }
     }
   };
@@ -541,68 +471,68 @@ async function initializeBeerGenerator() {
       if (autoGenerateBtn) {
         autoGenerateBtn.innerHTML =
           '<i class="fas fa-sync-alt"></i> Auto Generate';
-        autoGenerateBtn.classList.remove("active");
+        autoGenerateBtn.classList.remove('active');
       }
-      showToast("Auto-generation stopped");
+      showToast('Auto-generation stopped');
     } else {
       generateAndDisplay();
       autoGenerateInterval = setInterval(generateAndDisplay, 10000);
       if (autoGenerateBtn) {
         autoGenerateBtn.innerHTML =
           '<i class="fas fa-stop-circle"></i> Stop Auto';
-        autoGenerateBtn.classList.add("active");
+        autoGenerateBtn.classList.add('active');
       }
-      showToast("Auto-generating every 10 seconds");
+      showToast('Auto-generating every 10 seconds');
     }
   };
 
   // Event listeners
   if (generateBtn) {
-    generateBtn.addEventListener("click", () => {
+    generateBtn.addEventListener('click', () => {
       generateAndDisplay();
-      showToast("New beer generated! 🍺");
+      showToast('New beer generated! 🍺');
     });
-    console.log("✅ Generate button listener attached");
+    console.log('✅ Generate button listener attached');
   }
 
   if (autoGenerateBtn) {
-    autoGenerateBtn.addEventListener("click", toggleAutoGenerate);
+    autoGenerateBtn.addEventListener('click', toggleAutoGenerate);
   }
 
   if (clearHistoryBtn) {
-    clearHistoryBtn.addEventListener("click", () => {
-      if (confirm("Are you sure you want to clear all history?")) {
+    clearHistoryBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all history?')) {
         generatedNames = [];
         totalGenerated = 0;
         updateUI();
-        localStorage.removeItem("beerHistory");
-        showToast("History cleared!");
+        localStorage.removeItem('beerHistory');
+        showToast('History cleared!');
       }
     });
   }
 
   if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-      const isDark = document.body.classList.contains("dark-mode");
-      localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
+    themeToggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
       themeToggleBtn.innerHTML = isDark
         ? '<i class="fas fa-sun"></i> Light Mode'
         : '<i class="fas fa-moon"></i> Dark Mode';
-      showToast(isDark ? "Dark mode enabled" : "Light mode enabled");
+      showToast(isDark ? 'Dark mode enabled' : 'Light mode enabled');
     });
   }
 
   // Keyboard shortcuts
-  document.addEventListener("keydown", (e) => {
-    if (e.code === "Space" && document.activeElement.tagName !== "INPUT") {
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT') {
       e.preventDefault();
       generateAndDisplay();
-      showToast("New beer generated! 🍺");
+      showToast('New beer generated! 🍺');
     }
   });
 
-  document.addEventListener('keydown', function(event) {
+  document.addEventListener('keydown', function (event) {
     if (event.ctrlKey && event.key === 'a') {
       event.preventDefault();
       const outputElement = document.getElementById('beer-specs');
@@ -617,8 +547,8 @@ async function initializeBeerGenerator() {
   });
 
   // Initialize dark mode
-  if (localStorage.getItem("darkMode") === "enabled") {
-    document.body.classList.add("dark-mode");
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
     if (themeToggleBtn) {
       themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
     }
@@ -630,16 +560,16 @@ async function initializeBeerGenerator() {
   if (generatedNames.length === 0) {
     setTimeout(() => {
       generateAndDisplay();
-      showToast("Welcome to the Beer Name Generator! 🍻");
+      showToast('Welcome to the Beer Name Generator! 🍻');
     }, 500);
   } else {
     displayBeer(generatedNames[0]);
   }
 
   // Add CSS animation if not already present
-  if (!document.querySelector("#fadeInAnimation")) {
-    const style = document.createElement("style");
-    style.id = "fadeInAnimation";
+  if (!document.querySelector('#fadeInAnimation')) {
+    const style = document.createElement('style');
+    style.id = 'fadeInAnimation';
     style.textContent = `
       @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
@@ -654,15 +584,15 @@ async function initializeBeerGenerator() {
   window.generateAndDisplay = generateAndDisplay;
   window.beerData = beerData; // Expose loaded JSON data for debugging
 
-  console.log("✅ Beer Generator initialized successfully with JSON data!");
+  console.log('✅ Beer Generator initialized successfully with JSON data!');
 }
 
 // Start loading data immediately
 loadBeerData();
 
 // Initialize when DOM is ready
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initializeBeerGenerator);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeBeerGenerator);
 } else {
   initializeBeerGenerator();
 }
