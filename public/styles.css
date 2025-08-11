@@ -1,3 +1,4 @@
+/* NL: Brede fullscreen UI voor de Bier Naam Generator */
 /* Wide Fullscreen Beer Generator CSS */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
@@ -32,6 +33,9 @@
   --dark-bg: #1a1a1a;
   --darker-bg: #0d0d0d;
   --foam: #ffefd5;
+
+  /* NL: Toegankelijke focuskleur */
+  --focus: #00d1b2;
 }
 
 * {
@@ -269,6 +273,17 @@ body::after {
   line-height: 1.5;
 }
 
+/* NL: Dynamische tekstgroottes op basis van lengte (door JS gezet) */
+.medium-text {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+}
+.small-text {
+  font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+}
+.smaller-text {
+  font-size: clamp(1.05rem, 3vw, 1.8rem);
+}
+
 .spec-item {
   text-align: center;
 }
@@ -285,6 +300,14 @@ body::after {
   font-family: 'Bebas Neue', cursive;
   font-size: 1.2rem;
   color: var(--cream);
+}
+
+/* NL: Raster voor specificaties */
+.beer-specs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  align-items: start;
 }
 
 /* Enhanced controls */
@@ -397,6 +420,16 @@ body::after {
 .theme-toggle:hover {
   background: var(--amber);
   color: var(--darker-bg);
+}
+
+/* NL: Toegankelijke focus-styling */
+.btn:focus,
+.theme-toggle:focus,
+#history-toggle:focus,
+.clear-btn:focus,
+a.theme-toggle:focus {
+  outline: 2px dashed var(--focus);
+  outline-offset: 2px;
 }
 
 /* History panel */
@@ -518,6 +551,20 @@ body::after {
   transform: translateX(0);
 }
 
+/* NL: Variaties voor toast types */
+.toast.success {
+  background: #2e7d32;
+  color: #fff;
+}
+.toast.warning {
+  background: #ed6c02;
+  color: #fff;
+}
+.toast.error {
+  background: #c62828;
+  color: #fff;
+}
+
 .beer-icon {
   position: absolute;
   font-size: 3rem;
@@ -627,4 +674,12 @@ body::after {
 .controls-area {
   font-family: var(--body-font), serif;
   font-weight: 500;
+}
+
+/* NL: Donkere modus variabelen (JS togglet body.dark-mode) */
+body.dark-mode {
+  --main-bg-color: #0f1316;
+  --secondary-color: #141b21;
+  --text-color: #e9eef3;
+  --card-bg: rgba(20, 27, 33, 0.9);
 }

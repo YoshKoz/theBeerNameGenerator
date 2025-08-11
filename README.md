@@ -33,17 +33,19 @@ The project has been reorganized with a cleaner structure:
 ## Installation
 
 1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/TheBeerNameGenerator.git
-   cd TheBeerNameGenerator
-   ```
 
-2. No build process is required as this is a client-side application.
+```bash
+git clone https://github.com/yourusername/TheBeerNameGenerator.git
+cd TheBeerNameGenerator
+```
 
-3. Open `public/index.html` in your web browser or serve it using a local server:
-   ```
-   npx serve public
-   ```
+1. No build process is required as this is a client-side application.
+
+1. Open `public/index.html` in your web browser or serve it using a local server:
+
+```bash
+npx serve public
+```
 
 ## How to Use
 
@@ -54,12 +56,16 @@ The project has been reorganized with a cleaner structure:
 5. Toggle dark mode using the button in the status bar
 6. Press the Space bar to quickly generate a new beer name
 
+### Visual structure
+
+Open `public/structure.html` to view a Mermaid-based visual overview of the app's files and data flow.
+
 ## Setting Up Midjourney Integration
 
 To use the image generation feature, you need to set up a Discord webhook and have Midjourney bot in your Discord server:
 
 1. Create a Discord server or use an existing one
-2. Add the Midjourney bot to your server (https://www.midjourney.com/home/)
+2. Add the Midjourney bot to your server (<https://www.midjourney.com/home/>)
 3. Create a webhook in your Discord server:
    - Go to Server Settings > Integrations > Webhooks
    - Click "New Webhook"

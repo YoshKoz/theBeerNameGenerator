@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- NL: Volledige container voor de applicatie -->
     <div class="fullscreen-container">
       <header class="main-header">
         <h1>The Beer Name Generator</h1>
@@ -36,11 +37,12 @@
         <section class="beer-generator">
           <h2>Discover Your Perfect Brew</h2>
 
+          <!-- NL: Resultaatgedeelte met naam + specificaties -->
           <div class="result-container">
             <div class="beer-name-container">
               <div class="bubbles" id="bubbles"></div>
-              <div class="beer-specs" id="beer-specs">
-                <div id="random-name" class="beer-name-text">
+              <div class="beer-specs" id="beer-specs" aria-live="polite">
+                <div id="random-name" class="beer-name-text" aria-live="polite">
                   Click below and savor the surprise!
                 </div>
                 <div class="spec-item">
@@ -63,6 +65,7 @@
             </div>
           </div>
 
+          <!-- NL: Knoppen en statusbalk -->
           <div class="controls-area">
             <div class="button-group">
               <button
@@ -105,11 +108,25 @@
               >
                 <i class="fas fa-moon" aria-hidden="true"></i> Dark Mode
               </button>
+              <!-- NL: Link naar visuele structuur uitleg -->
+              <a
+                class="theme-toggle"
+                href="structure.html"
+                aria-label="View app structure"
+                style="
+                  text-decoration: none;
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                "
+              >
+                <i class="fas fa-sitemap" aria-hidden="true"></i> Structure
+              </a>
             </div>
           </div>
         </section>
 
-        <!-- History panel toggle -->
+        <!-- NL: Geschiedenis paneel -->
         <button
           type="button"
           id="history-toggle"
@@ -138,7 +155,7 @@
             </button>
           </h3>
 
-          <div id="history-list">
+          <div id="history-list" aria-live="polite">
             <!-- History items will be added here -->
           </div>
         </section>
@@ -150,6 +167,7 @@
     </div>
 
     <script>
+      // NL: Maak willekeurige 'bubbels' voor visueel effect
       // Create floating bubbles
       function createBubbles() {
         const bubblesContainer = document.getElementById('bubbles');
@@ -172,6 +190,7 @@
 
       createBubbles();
 
+      // NL: Toggle voor het geschiedenis-paneel
       // History panel toggle
       document.addEventListener('DOMContentLoaded', function () {
         const historyToggleBtn = document.getElementById('history-toggle');
