@@ -70,11 +70,23 @@ async function loadBeerData() {
   } catch (error) {
     console.error('❌ CRITICAL: Failed to load beer_data.json:', error.message);
 
-    // Show error to user
-    showDataLoadStatus(
-      `❌ Fout: kan beer_data.json niet laden - ${error.message}`,
-      'error'
-    );
+    // NL: Specifieke hint bij direct openen via file:// (fetch werkt dan niet)
+    if (
+      typeof window !== 'undefined' &&
+      location &&
+      location.protocol === 'file:'
+    ) {
+      showDataLoadStatus(
+        '❌ Kan beer_data.json niet laden via file://. Start een lokale server (bijv. "python3 -m http.server 8000 --directory public") en open http://localhost:8000/index.html',
+        'error'
+      );
+    } else {
+      // Show generic error to user
+      showDataLoadStatus(
+        `❌ Fout: kan beer_data.json niet laden - ${error.message}`,
+        'error'
+      );
+    }
 
     // Stop execution - we REQUIRE the JSON file
     throw new Error(
@@ -225,6 +237,22 @@ async function initializeBeerGenerator() {
     return array[Math.floor(Math.random() * array.length)];
   };
 
+  // NL: Bepaal het lidwoord 'a' of 'an' op basis van het eerste woord/klank
+  const articleFor = (word) => {
+    if (!word || typeof word !== 'string') return 'a';
+    const first = word.trim().toLowerCase()[0];
+    return 'aeiou'.includes(first) ? 'an' : 'a';
+  };
+
+  // NL: Eenvoudige meervoudsvorming (basisregel)
+  const pluralize = (word) => {
+    if (!word || typeof word !== 'string') return '';
+    const w = word.trim();
+    if (/s$|x$|z$|ch$|sh$/i.test(w)) return `${w}es`;
+    if (/y$/i.test(w) && !/[aeiou]y$/i.test(w)) return `${w.slice(0, -1)}ies`;
+    return `${w}s`;
+  };
+
   const randomMultiple = (array, count, unique = false) => {
     if (!array || array.length === 0) {
       console.error('CRITICAL: Empty array passed to randomMultiple function');
@@ -244,7 +272,7 @@ async function initializeBeerGenerator() {
 
   const adjustTextSize = (text) => {
     if (!randomNameElement) return;
-    randomNameElement.className =
+    const sizeClass =
       text.length > 300
         ? 'smaller-text'
         : text.length > 200
@@ -252,6 +280,8 @@ async function initializeBeerGenerator() {
           : text.length > 150
             ? 'medium-text'
             : '';
+    // NL: Behoud de basisclass zodat centrering/breedte behouden blijft
+    randomNameElement.className = `beer-name-text ${sizeClass}`.trim();
   };
 
   // NL: Generatie-functies met ALLEEN geladen JSON-data
@@ -309,7 +339,7 @@ async function initializeBeerGenerator() {
   const generateDescription = () => {
     const [adj1, adj2] = randomMultiple(beerData.coolAdjectives, 2, true);
     const color = random(beerData.colors);
-    const type = random(beerData.types);
+    // NL: Gebruik één stijlnaam (category) om dubbelingen te vermijden
     const category = random(beerData.categories);
     const glass = random(beerData.beerGlasses);
     const [taste1, taste2] = randomMultiple(beerData.tasteProfiles, 2, true);
@@ -318,7 +348,11 @@ async function initializeBeerGenerator() {
     const adverb = random(beerData.adverbs);
     const tasteNoun = random(beerData.tasteNouns);
 
-    return `a ${adj1}, ${adj2}, ${color}-colored ${type} ${category}, served ${adverb} in a ${glass}, with ${tasteNoun}s of ${taste1} and ${taste2} and a ${mouthfeel} finish, evoking the essence of a mythical ${creature}`;
+    const art = articleFor(adj1);
+    const tasteNounPlural = pluralize(tasteNoun);
+
+    // Voorbeeld: "an ethereal, bold, amber Belgian Tripel, served gently in a tulip glass, with notes of citrus and clove and a silky finish..."
+    return `${art} ${adj1}, ${adj2}, ${color} ${category}, served ${adverb} in a ${glass}, with ${tasteNounPlural} of ${taste1} and ${taste2} and a ${mouthfeel} finish, evoking the essence of a mythical ${creature}`;
   };
 
   const generateSpecs = () => ({

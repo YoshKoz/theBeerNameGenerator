@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- NL: Voorkom verouderde cache en maak paden consistent -->
+    <meta
+      http-equiv="Cache-Control"
+      content="no-store, no-cache, must-revalidate, max-age=0"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <base href="./" />
     <title>The Beer Name Generator</title>
 
     <!-- Favicon -->
@@ -22,10 +30,12 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="styles.css" />
+    <!-- External CSS (cache-busting) -->
+    <link rel="stylesheet" href="styles.css?v=2025-08-11-1" />
   </head>
   <body>
+    <!-- NL: Achtergrond-bubbels over de hele pagina -->
+    <div id="bubbles-bg" class="bubbles-bg" aria-hidden="true"></div>
     <!-- NL: Volledige container voor de applicatie -->
     <div class="fullscreen-container">
       <header class="main-header">
@@ -167,8 +177,8 @@
     </div>
 
     <script>
-      // NL: Maak willekeurige 'bubbels' voor visueel effect
-      // Create floating bubbles
+      // NL: Maak willekeurige 'bubbels' voor visueel effect (in het glas)
+      // Create floating bubbles (in-glass)
       function createBubbles() {
         const bubblesContainer = document.getElementById('bubbles');
         if (!bubblesContainer) return;
@@ -176,19 +186,43 @@
         setInterval(() => {
           const bubble = document.createElement('div');
           bubble.className = 'bubble';
-          const size = Math.random() * 10 + 5;
+          const size = Math.random() * 12 + 6; // iets groter
           bubble.style.width = size + 'px';
           bubble.style.height = size + 'px';
           bubble.style.left = Math.random() * 100 + '%';
-          bubble.style.animationDuration = Math.random() * 10 + 10 + 's';
-          bubble.style.animationDelay = Math.random() * 5 + 's';
+          bubble.style.animationDuration = Math.random() * 6 + 8 + 's';
+          bubble.style.animationDelay = Math.random() * 2 + 's';
           bubblesContainer.appendChild(bubble);
 
-          setTimeout(() => bubble.remove(), 20000);
-        }, 2000);
+          setTimeout(() => bubble.remove(), 15000);
+        }, 800); // hogere frequentie
       }
 
       createBubbles();
+
+      // NL: Achtergrond-bubbels door de hele pagina
+      function createBackgroundBubbles() {
+        const bg = document.getElementById('bubbles-bg');
+        if (!bg) return;
+
+        setInterval(() => {
+          const b = document.createElement('div');
+          b.className = 'bg-bubble';
+          const size = Math.random() * 20 + 10; // grotere achtergrondbellen
+          b.style.width = size + 'px';
+          b.style.height = size + 'px';
+          b.style.left = Math.random() * 100 + '%';
+          // start willekeurig onderaan
+          b.style.bottom = -20 - Math.random() * 40 + 'px';
+          b.style.animationDuration = Math.random() * 10 + 12 + 's';
+          b.style.animationDelay = Math.random() * 2 + 's';
+          bg.appendChild(b);
+
+          setTimeout(() => b.remove(), 20000);
+        }, 600);
+      }
+
+      createBackgroundBubbles();
 
       // NL: Toggle voor het geschiedenis-paneel
       // History panel toggle
@@ -216,10 +250,13 @@
     <!-- Axios for HTTP requests -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- Main JavaScript -->
-    <script src="main.js" defer></script>
+    <!-- Main JavaScript (cache-busting) -->
+    <script src="main.js?v=2025-08-11-1" defer></script>
 
-    <!-- Midjourney Integration -->
-    <script src="../src/js/midjourney-integration.js" defer></script>
+    <!-- Midjourney Integration (cache-busting) -->
+    <script
+      src="../src/js/midjourney-integration.js?v=2025-08-11-1"
+      defer
+    ></script>
   </body>
 </html>
