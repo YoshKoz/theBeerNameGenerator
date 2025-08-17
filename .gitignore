@@ -27,3 +27,20 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Node modules (anywhere)
+node_modules/
+**/node_modules/
+
+# Lockfile duplicates (keep root/package-lock.json)
+public/package-lock.json
+public/package.json.bak
+
+# Editor & OS
+.vscode/
+.DS_Store
+
+# Generated/build output
+/public/dist/
+build/
+dist/
