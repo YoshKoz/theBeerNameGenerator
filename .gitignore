@@ -44,3 +44,6 @@ public/package.json.bak
 /public/dist/
 build/
 dist/
+*.log
+__pycache__/
+.env
