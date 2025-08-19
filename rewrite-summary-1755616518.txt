@@ -1,0 +1,675 @@
+Repository: /home/yoshkoz/CODING/miyoo-dev
+     2	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     1	YoshKoz <>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     2	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+Original origin: git@github.com:YoshKoz/miyoo-dev.git
+Push failed for miyoo-dev:main
+Temporary rewritten clone left at: /tmp/rewrite-miyoo-dev.rFzS
+Repository: /home/yoshkoz/CODING/miyoo-dev/StardewValley
+     2	WeDias <wesd_444@hotmail.com>
+     2	Wesley Dias <56437612+WeDias@users.noreply.github.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     1	WeDias <wesd_444@hotmail.com>
+     1	Wesley Dias <56437612+WeDias@users.noreply.github.com>
+     1	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+Original origin: git@github.com:YoshKoz/StardewValley.git
+Push failed for StardewValley:main
+Temporary rewritten clone left at: /tmp/rewrite-StardewValley.yjmQ
+Repository: /home/yoshkoz/CODING/miyoo-dev/StardewValleyDecompiled
+    19	Dannode36 <russelme848@gmail.com>
+    12	Dannode36 <crafty_dan@outlook.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+    10	Dannode36 <russelme848@gmail.com>
+     7	Dannode36 <crafty_dan@outlook.com>
+     1	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+Original origin: git@github.com:YoshKoz/StardewValleyDecompiled.git
+Push failed for StardewValleyDecompiled:main
+Temporary rewritten clone left at: /tmp/rewrite-StardewValleyDecompiled.Cbj1
+Repository: /home/yoshkoz/CODING/miyoo-dev/sdl2_miyoo
+    16	steward-fu <steward.fu@gmail.com>
+     4	XK <47260768+XK9274@users.noreply.github.com>
+     3	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     2	Steward Fu <steward.fu@gmail.com>
+     2	YoshKoz <77861115+YoshKoz@users.noreply.github.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+    16	steward-fu <steward.fu@gmail.com>
+     3	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     2	Steward Fu <steward.fu@gmail.com>
+     2	XK <47260768+XK9274@users.noreply.github.com>
+Original origin: git@github.com:YoshKoz/sdl2_miyoo.git
+Push failed for sdl2_miyoo:master
+Temporary rewritten clone left at: /tmp/rewrite-sdl2_miyoo.n1Cx
+Repository: /home/yoshkoz/CODING/miyoo-dev/miyoo-toolchain
+     4	TriForce <triforce@gznetwork.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     2	TriForce <triforce@gznetwork.com>
+     1	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+Original origin: git@github.com:YoshKoz/miyoo-toolchain.git
+Push failed for miyoo-toolchain:main
+Temporary rewritten clone left at: /tmp/rewrite-miyoo-toolchain.Hjbo
+Repository: /home/yoshkoz/CODING/miyoo-dev/union-toolchain
+    16	Shaun Inman <shaun@panic.com>
+     2	Erazem Kokot <mail@erazem.eu>
+     1	TriForceX <triforce@gznetwork.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+    16	Shaun Inman <shaun@panic.com>
+     2	Erazem Kokot <mail@erazem.eu>
+     1	TriForceX <triforce@gznetwork.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+Original origin: git@github.com:YoshKoz/union-toolchain.git
+Push failed for union-toolchain:main
+Temporary rewritten clone left at: /tmp/rewrite-union-toolchain.pI5H
+Repository: /home/yoshkoz/CODING/TestApp
+     1	YoshKoz <>
+     1	YoshKoz <>
+Original origin: git@github.com:YoshKoz/TestApp.git
+Pushed TestApp:main
+Temporary rewritten clone left at: /tmp/rewrite-TestApp.rN63
+Repository: /home/yoshkoz/CODING/mangayomi
+   603	kodjomoustapha <107993382+kodjodevf@users.noreply.github.com>
+   172	Schnitzel5 <tangphilip3@gmail.com>
+   159	Moustapha Kodjo Amadou <107993382+kodjodevf@users.noreply.github.com>
+   144	NBA2K1 <78034913+NBA2K1@users.noreply.github.com>
+   136	Moustapha Kodjo Amadou <kodjomoustapha@gmail.com>
+    84	kodjodevf <107993382+kodjodevf@users.noreply.github.com>
+    32	Enbiya Olgun <78034913+NBA2K1@users.noreply.github.com>
+    14	yxxyun <yxx1984@gmail.com>
+    12	kodjomoustapha <101261721+kodjomoustapha@users.noreply.github.com>
+     7	GitHub Action <action@github.com>
+     4	DongHyun Kim <temeddix@gmail.com>
+     4	Yegor Shovkun <ankhzet@gmail.com>
+     4	kodjomoustapha <kodjomoustapha@gmail.com>
+     3	copilot-swe-agent[bot] <198982749+Copilot@users.noreply.github.com>
+     3	playerterra1 <playerterra1@gmail.com>
+     2	Itsmechinmoy <167056923+itsmechinmoy@users.noreply.github.com>
+     2	Tanakrit-D <127579510+Tanakrit-D@users.noreply.github.com>
+     2	YoshKoz <yoshitacke@outlook.com>
+     2	yxxyun <sean4yang@gmail.com>
+     1	Arran Ubels <arran4@gmail.com>
+     1	Philip Duong <tangphilip3@gmail.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	Yutthaphon Inchaiya <yutthaphon30667@gmail.com>
+     1	ashvin <a.panchoo@rt-iut.re>
+     1	saberr26 <salahhachmi06@gmail.com>
+     1	sorata <136738526+brishtibheja@users.noreply.github.com>
+   601	kodjomoustapha <107993382+kodjodevf@users.noreply.github.com>
+   165	Schnitzel5 <tangphilip3@gmail.com>
+   159	Moustapha Kodjo Amadou <107993382+kodjodevf@users.noreply.github.com>
+   137	NBA2K1 <78034913+NBA2K1@users.noreply.github.com>
+   125	Moustapha Kodjo Amadou <kodjomoustapha@gmail.com>
+    84	kodjodevf <107993382+kodjodevf@users.noreply.github.com>
+    32	Enbiya Olgun <78034913+NBA2K1@users.noreply.github.com>
+    14	yxxyun <yxx1984@gmail.com>
+    12	kodjomoustapha <101261721+kodjomoustapha@users.noreply.github.com>
+     6	GitHub Action <action@github.com>
+     4	DongHyun Kim <temeddix@gmail.com>
+     4	Yegor Shovkun <ankhzet@gmail.com>
+     4	kodjomoustapha <kodjomoustapha@gmail.com>
+     3	playerterra1 <playerterra1@gmail.com>
+     2	Itsmechinmoy <167056923+itsmechinmoy@users.noreply.github.com>
+     2	Tanakrit-D <127579510+Tanakrit-D@users.noreply.github.com>
+     2	yxxyun <sean4yang@gmail.com>
+     1	Arran Ubels <arran4@gmail.com>
+     1	Philip Duong <tangphilip3@gmail.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	Yutthaphon Inchaiya <yutthaphon30667@gmail.com>
+     1	ashvin <a.panchoo@rt-iut.re>
+     1	saberr26 <salahhachmi06@gmail.com>
+     1	sorata <136738526+brishtibheja@users.noreply.github.com>
+Original origin: https://github.com/YoshKoz/mangayomi.git
+Push failed for mangayomi:main
+Push failed for mangayomi:migrate_to_d4rt_package
+tag push failed for mangayomi
+Temporary rewritten clone left at: /tmp/rewrite-mangayomi.qs0T
+Repository: /home/yoshkoz/CODING
+     1	YoshKoz <>
+     1	YoshKoz <yoshitacke@outlook.com>
+     1	YoshKoz <>
+     1	YoshKoz <yoshitacke@outlook.com>
+Original origin: <none>
+gh repo create failed for CODING; see /home/yoshkoz/CODING/gh-create-CODING.log
+Temporary rewritten clone left at: /tmp/rewrite-CODING.7ibT (not pushed)
+Repository: /home/yoshkoz/CODING/src
+     1	YoshKoz <>
+     1	YoshKoz <>
+Original origin: git@github.com:YoshKoz/src.git
+Pushed src:main
+Temporary rewritten clone left at: /tmp/rewrite-src.cgxw
+Repository: /home/yoshkoz/CODING/jobhunter
+     1	YoshKoz <>
+     1	YoshKoz <>
+Original origin: git@github.com:YoshKoz/jobhunter.git
+Pushed jobhunter:main
+Temporary rewritten clone left at: /tmp/rewrite-jobhunter.4Tcj
+Repository: /home/yoshkoz/CODING/near_code
+     1	YoshKoz <>
+     1	YoshKoz <>
+Original origin: git@github.com:YoshKoz/near_code.git
+Pushed near_code:main
+Temporary rewritten clone left at: /tmp/rewrite-near_code.TwVX
+Repository: /home/yoshkoz/CODING/splits
+     1	YoshKoz <>
+     1	YoshKoz <>
+Original origin: git@github.com:YoshKoz/splits.git
+Pushed splits:main
+Temporary rewritten clone left at: /tmp/rewrite-splits.XO3r
+Repository: /home/yoshkoz/CODING/rust-file-organizer
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+Original origin: https://github.com/YoshKoz/rust-file-organizer.git
+Pushed rust-file-organizer:master
+Temporary rewritten clone left at: /tmp/rewrite-rust-file-organizer.eqT7
+Repository: /home/yoshkoz/CODING/med_reminder_clean
+    15	YoshKoz <77861115+YoshKoz@users.noreply.github.com>
+     9	YoshKoz <77861115+YoshKoz@users.noreply.github.com>
+Original origin: git@github.com:yoshkoz/med_reminder.git
+Created YoshKoz/med_reminder_clean and pushed
+Temporary rewritten clone left at: /tmp/rewrite-med_reminder_clean.KWWc
+Repository: /home/yoshkoz/CODING/scripts
+     1	YoshKoz <>
+     1	YoshKoz <>
+Original origin: git@github.com:YoshKoz/scripts.git
+Pushed scripts:main
+Temporary rewritten clone left at: /tmp/rewrite-scripts.e3oW
+Repository: /home/yoshkoz/CODING/TheBeerNameGenerator
+     6	YoshKoz <y.tacke@outlook.com>
+     6	YoshKoz <yoshitacke@outlook.com>
+     4	YoshKoz <yoshi.tacke@ziggo.nl>
+     4	Yoshi <yoshi.tacke@ziggo.nl>
+     3	YoshKoz <77861115+YoshKoz@users.noreply.github.com>
+     3	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     2	GMaassen <88102642+GMaassen@users.noreply.github.com>
+     2	Yoshi Tacke <yoshitacke@outlook.com>
+     1	Yoshi Tacke <y.tacke@outlook.com>
+     1	yoshkoz <yoshkoz@users.noreply.github.com>
+     6	YoshKoz <y.tacke@outlook.com>
+     6	YoshKoz <yoshitacke@outlook.com>
+     4	YoshKoz <yoshi.tacke@ziggo.nl>
+     4	Yoshi <yoshi.tacke@ziggo.nl>
+     3	YoshKoz <77861115+YoshKoz@users.noreply.github.com>
+     3	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     2	GMaassen <88102642+GMaassen@users.noreply.github.com>
+     2	Yoshi Tacke <yoshitacke@outlook.com>
+     1	Yoshi Tacke <y.tacke@outlook.com>
+     1	yoshkoz <yoshkoz@users.noreply.github.com>
+Original origin: https://github.com/YoshKoz/TheBeerNameGenerator
+Push failed for TheBeerNameGenerator:main
+Temporary rewritten clone left at: /tmp/rewrite-TheBeerNameGenerator.mVLY
+Repository: /home/yoshkoz/CODING/system-maint
+     1	YoshKoz <>
+     1	YoshKoz <>
+Original origin: git@github.com:YoshKoz/system-maint.git
+Pushed system-maint:main
+Temporary rewritten clone left at: /tmp/rewrite-system-maint.vI9k
+Repository: /home/yoshkoz/CODING/tools/waifu2x
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	nagadomi <nagadomi@gmail.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	nagadomi <nagadomi@gmail.com>
+Original origin: git@github.com:YoshKoz/waifu2x.git
+Pushed waifu2x:master
+Temporary rewritten clone left at: /tmp/rewrite-waifu2x.eoUz
+Repository: /home/yoshkoz/CODING/tools
+     1	YoshKoz <>
+     1	YoshKoz <yoshitacke@outlook.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	YoshKoz <>
+     1	YoshKoz <yoshitacke@outlook.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+Original origin: git@github.com:YoshKoz/tools.git
+Pushed tools:main
+Temporary rewritten clone left at: /tmp/rewrite-tools.HeAs
+Repository: /home/yoshkoz/CODING/tools/WhiteSur-gtk-theme
+   719	vinceliuice <vinceliuice@hotmail.com>
+   534	Vince <vinceliuice@hotmail.com>
+    84	Muhammad Rivan <rivanfebrian123@gmail.com>
+     7	André Fernandes <fernandesafp@gmail.com>
+     4	rivanfebrian123 <rivanfebrian123@gmail.com>
+     3	Aarav Garg <56773128+aargar1@users.noreply.github.com>
+     3	Adam Kostarelas <github@adam.kostarelas.com>
+     2	Bornunique911 <69379200+Bornunique911@users.noreply.github.com>
+     2	Felix <felix.fourcolor@gmail.com>
+     2	Nguyen Thanh Sang <85934291+nguyensang28@users.noreply.github.com>
+     2	Nicolas Cocu <nicolas@noisyspoon.net>
+     2	Peter Wu <peterwu@hotmail.com>
+     2	Shahnawaz Ahmad <ahmadshahnawaz461@gmail.com>
+     2	Trần Xuân Thanh <42226341+ging-dev@users.noreply.github.com>
+     2	ciricode <ging.dz11012001@gmail.com>
+     2	puenka <puenka@users.noreply.github.com>
+     2	s-ahmad461 <49402019+s-ahmad461@users.noreply.github.com>
+     1	AdamXweb <6800453+AdamXweb@users.noreply.github.com>
+     1	Anton <goldtom1423@gmail.com>
+     1	Atul Gopinathan <41539794+atul-g@users.noreply.github.com>
+     1	Chris Pierce <cpierce@csdurant.com>
+     1	Ciri <88872931+ciricode@users.noreply.github.com>
+     1	Codename <some@some>
+     1	CyFun <78366282+S4CH@users.noreply.github.com>
+     1	Daniel <96445862+danielvxsp@users.noreply.github.com>
+     1	FelixFourcolor <Felix.fourcolor@gmail.com>
+     1	Ivan Borakove <borakove.van@gmail.com>
+     1	Ivo Šmerek <ivo97@centrum.cz>
+     1	JianzhengLuo <jianzheng.luo.china@gmail.com>
+     1	Leo THIVILLON <68474172+kernelb00t@users.noreply.github.com>
+     1	Louis Salkeld <louissalkeld@outlook.com>
+     1	Luca Saladino <luca.saladino@libraesva.com>
+     1	Lucas Wagler <lucas@wagler.dev>
+     1	Michael Kolesidis <michael.kolesidis@gmail.com>
+     1	Nazar Rusnak <inazarrusnak@gmail.com>
+     1	Nicolas Oliveira <nicolasm15@hotmail.com>
+     1	Rizwan <ibnishak@live.com>
+     1	Rob Theriault <robert.theriault@ngc.com>
+     1	Saad Khan <saaditory@gmail.com>
+     1	Samuel Lane <samlane00@gmail.com>
+     1	Thomas Reed <tomr20@localhost.localdomain>
+     1	Vidur B <vidurbutalia@gmail.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	Yuri Edward <yuri6037@outlook.com>
+     1	dhra <dhra@users.noreply.github.com>
+     1	fredcw <qbob751@gmail.com>
+     1	getsnoopy <getsnoopy@users.noreply.github.com>
+     1	ging-dev <thanh1101dev@gmail.com>
+     1	kitty-panics <e222d29f@outlook.com>
+     1	step <step-@users.noreply.github.com>
+   707	vinceliuice <vinceliuice@hotmail.com>
+   525	Vince <vinceliuice@hotmail.com>
+    81	Muhammad Rivan <rivanfebrian123@gmail.com>
+     6	André Fernandes <fernandesafp@gmail.com>
+     4	rivanfebrian123 <rivanfebrian123@gmail.com>
+     3	Aarav Garg <56773128+aargar1@users.noreply.github.com>
+     3	Adam Kostarelas <github@adam.kostarelas.com>
+     2	Bornunique911 <69379200+Bornunique911@users.noreply.github.com>
+     2	Felix <felix.fourcolor@gmail.com>
+     2	Nguyen Thanh Sang <85934291+nguyensang28@users.noreply.github.com>
+     2	Nicolas Cocu <nicolas@noisyspoon.net>
+     2	Peter Wu <peterwu@hotmail.com>
+     2	Shahnawaz Ahmad <ahmadshahnawaz461@gmail.com>
+     2	Trần Xuân Thanh <42226341+ging-dev@users.noreply.github.com>
+     2	ciricode <ging.dz11012001@gmail.com>
+     2	puenka <puenka@users.noreply.github.com>
+     2	s-ahmad461 <49402019+s-ahmad461@users.noreply.github.com>
+     1	AdamXweb <6800453+AdamXweb@users.noreply.github.com>
+     1	Anton <goldtom1423@gmail.com>
+     1	Atul Gopinathan <41539794+atul-g@users.noreply.github.com>
+     1	Chris Pierce <cpierce@csdurant.com>
+     1	Ciri <88872931+ciricode@users.noreply.github.com>
+     1	Codename <some@some>
+     1	CyFun <78366282+S4CH@users.noreply.github.com>
+     1	Daniel <96445862+danielvxsp@users.noreply.github.com>
+     1	FelixFourcolor <Felix.fourcolor@gmail.com>
+     1	Ivan Borakove <borakove.van@gmail.com>
+     1	Ivo Šmerek <ivo97@centrum.cz>
+     1	JianzhengLuo <jianzheng.luo.china@gmail.com>
+     1	Leo THIVILLON <68474172+kernelb00t@users.noreply.github.com>
+     1	Louis Salkeld <louissalkeld@outlook.com>
+     1	Luca Saladino <luca.saladino@libraesva.com>
+     1	Lucas Wagler <lucas@wagler.dev>
+     1	Michael Kolesidis <michael.kolesidis@gmail.com>
+     1	Nazar Rusnak <inazarrusnak@gmail.com>
+     1	Nicolas Oliveira <nicolasm15@hotmail.com>
+     1	Rizwan <ibnishak@live.com>
+     1	Rob Theriault <robert.theriault@ngc.com>
+     1	Saad Khan <saaditory@gmail.com>
+     1	Samuel Lane <samlane00@gmail.com>
+     1	Thomas Reed <tomr20@localhost.localdomain>
+     1	Vidur B <vidurbutalia@gmail.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	Yuri Edward <yuri6037@outlook.com>
+     1	dhra <dhra@users.noreply.github.com>
+     1	fredcw <qbob751@gmail.com>
+     1	getsnoopy <getsnoopy@users.noreply.github.com>
+     1	ging-dev <thanh1101dev@gmail.com>
+     1	kitty-panics <e222d29f@outlook.com>
+     1	step <step-@users.noreply.github.com>
+Original origin: https://github.com/vinceliuice/WhiteSur-gtk-theme.git
+Created YoshKoz/WhiteSur-gtk-theme and pushed
+Temporary rewritten clone left at: /tmp/rewrite-WhiteSur-gtk-theme.qUny
+Repository: /home/yoshkoz/CODING/tools/shap-e
+     5	Alex Nichol <unixpickle@gmail.com>
+     3	Heewoo Jun <heewoo@openai.com>
+     1	Ahmad Mustafa Anis <ahmadanis5050@gmail.com>
+     1	Chandler <chandler@chand1012.dev>
+     1	Ibrahim H <bitsnaps@yahoo.fr>
+     1	Matt Deitke <mdeitke23@gmail.com>
+     1	Mert Yanık <mert19971997@gmail.com>
+     1	Why <694029828@qq.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     5	Alex Nichol <unixpickle@gmail.com>
+     3	Heewoo Jun <heewoo@openai.com>
+     1	Ahmad Mustafa Anis <ahmadanis5050@gmail.com>
+     1	Chandler <chandler@chand1012.dev>
+     1	Ibrahim H <bitsnaps@yahoo.fr>
+     1	Matt Deitke <mdeitke23@gmail.com>
+     1	Mert Yanık <mert19971997@gmail.com>
+     1	Why <694029828@qq.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+Original origin: https://github.com/openai/shap-e.git
+Created YoshKoz/shap-e and pushed
+Temporary rewritten clone left at: /tmp/rewrite-shap-e.CSV5
+Repository: /home/yoshkoz/CODING/tools/Orchis-theme
+   455	vinceliuice <vinceliuice@hotmail.com>
+   154	Vince <vinceliuice@hotmail.com>
+    13	Demetrio Rodriguez <Demetrio.Rodriguez.T@gmail.com>
+    11	Jérémy Lal <kapouer@melix.org>
+     7	Aaron-Uriel <therialaaronuriel@gmail.com>
+     5	MysteriousGitEntity <189478700+MysteriousGitEntity@users.noreply.github.com>
+     5	Tiago de Paula <tiagodepalves@gmail.com>
+     4	Klaas Sangers <klaas@sangers.nu>
+     3	Noodles <noodles@noodles.services>
+     2	Buty935 <kolucki62@gmail.com>
+     2	Demetrio92 <Demetrio.Rodriguez.T@gmail.com>
+     2	Murat-Karakaya <muratkrky09@gmail.com>
+     2	fredcw <qbob751@gmail.com>
+     2	rlbxku1r <32811754+rlbxku1r@users.noreply.github.com>
+     2	tcorreabr <tcorreabr@gmail.com>
+     1	Aaron-Uriel <40283192+Aaron-Uriel@users.noreply.github.com>
+     1	Andrii <34485522+deezhizyu@users.noreply.github.com>
+     1	DrSheppard <60893791+Drsheppard01@users.noreply.github.com>
+     1	Gabriel Fialho <gabrielmmfialho@hotmail.com>
+     1	Jovial Joe Jayarson <jovial7joe@hotmail.com>
+     1	Klaas Sangers <git@crumbs.mozmail.com>
+     1	Klaas Sangers <klaas.sangers@axtion.nl>
+     1	Murat <136997929+Murat-Karakaya@users.noreply.github.com>
+     1	Nicola Erario <nicola.erario@gmail.com>
+     1	Ryan <ryan@freyja.pw>
+     1	TheSola10 <me@thesola.io>
+     1	Wenlong Zhang <zhangwenlong@loongson.cn>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	buncis <buncismamen@gmail.com>
+     1	jiangxindong <jiangxindong@huawei.com>
+     1	lelgenio <lelgenio@disroot.org>
+     1	proof-by-accident <petersh@ffery.net>
+   453	vinceliuice <vinceliuice@hotmail.com>
+   151	Vince <vinceliuice@hotmail.com>
+    13	Demetrio Rodriguez <Demetrio.Rodriguez.T@gmail.com>
+    11	Jérémy Lal <kapouer@melix.org>
+     7	Aaron-Uriel <therialaaronuriel@gmail.com>
+     5	MysteriousGitEntity <189478700+MysteriousGitEntity@users.noreply.github.com>
+     5	Tiago de Paula <tiagodepalves@gmail.com>
+     4	Klaas Sangers <klaas@sangers.nu>
+     3	Noodles <noodles@noodles.services>
+     2	Buty935 <kolucki62@gmail.com>
+     2	Demetrio92 <Demetrio.Rodriguez.T@gmail.com>
+     2	fredcw <qbob751@gmail.com>
+     2	rlbxku1r <32811754+rlbxku1r@users.noreply.github.com>
+     2	tcorreabr <tcorreabr@gmail.com>
+     1	Aaron-Uriel <40283192+Aaron-Uriel@users.noreply.github.com>
+     1	Andrii <34485522+deezhizyu@users.noreply.github.com>
+     1	DrSheppard <60893791+Drsheppard01@users.noreply.github.com>
+     1	Gabriel Fialho <gabrielmmfialho@hotmail.com>
+     1	Jovial Joe Jayarson <jovial7joe@hotmail.com>
+     1	Klaas Sangers <git@crumbs.mozmail.com>
+     1	Klaas Sangers <klaas.sangers@axtion.nl>
+     1	Nicola Erario <nicola.erario@gmail.com>
+     1	Ryan <ryan@freyja.pw>
+     1	TheSola10 <me@thesola.io>
+     1	Wenlong Zhang <zhangwenlong@loongson.cn>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     1	buncis <buncismamen@gmail.com>
+     1	jiangxindong <jiangxindong@huawei.com>
+     1	lelgenio <lelgenio@disroot.org>
+     1	proof-by-accident <petersh@ffery.net>
+Original origin: https://github.com/vinceliuice/Orchis-theme.git
+Created YoshKoz/Orchis-theme and pushed
+Temporary rewritten clone left at: /tmp/rewrite-Orchis-theme.tZT7
+Repository: /home/yoshkoz/CODING/BeerNameGenerator
+     6	YoshKoz <y.tacke@outlook.com>
+     6	YoshKoz <yoshitacke@outlook.com>
+     4	YoshKoz <yoshi.tacke@ziggo.nl>
+     4	Yoshi <yoshi.tacke@ziggo.nl>
+     3	YoshKoz <77861115+YoshKoz@users.noreply.github.com>
+     3	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     2	GMaassen <88102642+GMaassen@users.noreply.github.com>
+     2	Yoshi Tacke <yoshitacke@outlook.com>
+     1	Yoshi Tacke <y.tacke@outlook.com>
+     6	YoshKoz <y.tacke@outlook.com>
+     6	YoshKoz <yoshitacke@outlook.com>
+     4	YoshKoz <yoshi.tacke@ziggo.nl>
+     4	Yoshi <yoshi.tacke@ziggo.nl>
+     3	YoshKoz <77861115+YoshKoz@users.noreply.github.com>
+     3	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     2	GMaassen <88102642+GMaassen@users.noreply.github.com>
+     2	Yoshi Tacke <yoshitacke@outlook.com>
+     1	Yoshi Tacke <y.tacke@outlook.com>
+Original origin: https://github.com/YoshKoz/TheBeerNameGenerator.git
+Push failed for BeerNameGenerator:master
+Temporary rewritten clone left at: /tmp/rewrite-BeerNameGenerator.0jwy
+Repository: /home/yoshkoz/CODING/ElevenLabsFireFoxExtension
+     8	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     1	YoshKoz <yoshitacke@outlook.com>
+     8	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     1	YoshKoz <yoshitacke@outlook.com>
+Original origin: git@github.com:YoshKoz/ElevenLabsFireFoxExtension.git
+Pushed ElevenLabsFireFoxExtension:backup/pre-email-fix
+Pushed ElevenLabsFireFoxExtension:main
+Temporary rewritten clone left at: /tmp/rewrite-ElevenLabsFireFoxExtension.Rg5H
+Repository: /home/yoshkoz/CODING/IdeaProjects/WebScraperMaven
+     1	YoshKoz <yoshitacke@outlook.com>
+     1	YoshKoz <yoshitacke@outlook.com>
+Original origin: <none>
+gh repo create failed for WebScraperMaven; see /home/yoshkoz/CODING/gh-create-WebScraperMaven.log
+Temporary rewritten clone left at: /tmp/rewrite-WebScraperMaven.EimZ (not pushed)
+Repository: /home/yoshkoz/CODING/IdeaProjects
+     1	YoshKoz <yoshitacke@outlook.com>
+     1	YoshKoz <yoshitacke@outlook.com>
+Original origin: <none>
+gh repo create failed for IdeaProjects; see /home/yoshkoz/CODING/gh-create-IdeaProjects.log
+Temporary rewritten clone left at: /tmp/rewrite-IdeaProjects.FPne (not pushed)
+Repository: /home/yoshkoz/CODING/IdeaProjects/WebScraper
+     1	YoshKoz <yoshitacke@outlook.com>
+     1	YoshKoz <yoshitacke@outlook.com>
+Original origin: <none>
+gh repo create failed for WebScraper; see /home/yoshkoz/CODING/gh-create-WebScraper.log
+Temporary rewritten clone left at: /tmp/rewrite-WebScraper.yBs8 (not pushed)
+Repository: /home/yoshkoz/CODING/spicetify-cat-jam-synced
+     6	Nuzair46 <nuzer501@gmail.com>
+     5	Tom <tombon59@gmail.com>
+     4	BlafKing <tombon59@gmail.com>
+     3	YoshKoz <77861115+YoshKoz@users.noreply.github.com>
+     2	YukioE <93155932+YukioE@users.noreply.github.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+     6	Nuzair46 <nuzer501@gmail.com>
+     5	Tom <tombon59@gmail.com>
+     4	BlafKing <tombon59@gmail.com>
+     3	YoshKoz <77861115+YoshKoz@users.noreply.github.com>
+     2	YukioE <93155932+YukioE@users.noreply.github.com>
+     1	YoshKoz <yoshkoz@users.noreply.github.com>
+Original origin: https://github.com/YoshKoz/spicetify-cat-jam-synced.git
+Push failed for spicetify-cat-jam-synced:main
+Temporary rewritten clone left at: /tmp/rewrite-spicetify-cat-jam-synced.ZWZY
+Repository: /home/yoshkoz/CODING/REORGANIZER
+     1	YoshKoz <>
+     1	YoshKoz <>
+Original origin: git@github.com:YoshKoz/REORGANIZER.git
+Pushed REORGANIZER:main
+Temporary rewritten clone left at: /tmp/rewrite-REORGANIZER.4R5j
+Repository: /home/yoshkoz/CODING/flask-template
+     1	YoshKoz <>
+     1	YoshKoz <>
+Original origin: git@github.com:YoshKoz/flask-template.git
+Pushed flask-template:main
+Temporary rewritten clone left at: /tmp/rewrite-flask-template.85Dr
+Repository: /home/yoshkoz/CODING/pyradio-source
+  1155	Spiros Georgaras <sng@hellug.gr>
+    37	Ben Dowling <ben.m.dowling@gmail.com>
+    14	Kirill Klenov <horneds@gmail.com>
+    13	Laurent Stacul <laurent.stacul@gmail.com>
+    12	Peter Stevenson <2E0PGS@gmail.com>
+     5	Ben <ben@coderholic.com>
+     5	Ben Dowling <bmd@bmd-laptop.(none)>
+     5	Wikinaut <mail@wikinaut.de>
+     4	Arne Neumann <neumann.arne@gmail.com>
+     4	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     4	githubpermutation <githubpermutation@users.noreply.github.com>
+     3	Jakub Nawalaniec <pielgrzym@prymityw.pl>
+     2	Emanuil Chizhov <echizhov@disroot.org>
+     2	Far Particular <157636018+FarParticul@users.noreply.github.com>
+     2	Nicolas Stefani <nicolas471@gmail.com>
+     2	RaeedAhmed <ruahmed7868@gmail.com>
+     2	fabio carletti <44601250+fabiocarlettiryuw@users.noreply.github.com>
+     1	Alan Pope <alan@popey.com>
+     1	Błażej Sewera <b.sewera@stud.elka.pw.edu.pl>
+     1	Christoph Baumhardt <mail@cbaumhardt.de>
+     1	Dmytro Hulivatyi <iodreamify@gmail.com>
+     1	Graham <grahamxyz@users.noreply.github.com>
+     1	Karthik Nishanth <nishanthkarthik@live.com>
+     1	Sectorfive <153916716+SectorV5@users.noreply.github.com>
+     1	Spyridon Eftychios Kokotos <spiroskoeu@gmail.com>
+     1	Tim Gates <tim.gates@iress.com>
+     1	Timothy Caro-Bruce <tcarobruce@gmail.com>
+     1	Volodymyr Vitvitskyi <wmyll6@gmail.com>
+     1	Wikinaut <Wikinaut@users.noreply.github.com>
+     1	anatoly techtonik <techtonik@gmail.com>
+     1	edunfelt <emilia@dunfelt.se>
+     1	j10sanders <jonsandersss@gmail.com>
+     1	jirikrepl <jiri.krepl@gmail.com>
+     1	kasramp <kasra_mp@yahoo.com>
+     1	openbsdguy <theopenbsdguy@gmail.com>
+     1	p1tt1 <p1tt1pl4t5ch@googlemail.com>
+     1	stac47 <laurent.stacul@gmail.com>
+  1155	Spiros Georgaras <sng@hellug.gr>
+    37	Ben Dowling <ben.m.dowling@gmail.com>
+    14	Kirill Klenov <horneds@gmail.com>
+    13	Laurent Stacul <laurent.stacul@gmail.com>
+    12	Peter Stevenson <2E0PGS@gmail.com>
+     5	Ben <ben@coderholic.com>
+     5	Ben Dowling <bmd@bmd-laptop.(none)>
+     5	Wikinaut <mail@wikinaut.de>
+     4	Arne Neumann <neumann.arne@gmail.com>
+     4	Yoshi Tacke <77861115+YoshKoz@users.noreply.github.com>
+     4	githubpermutation <githubpermutation@users.noreply.github.com>
+     3	Jakub Nawalaniec <pielgrzym@prymityw.pl>
+     2	Emanuil Chizhov <echizhov@disroot.org>
+     2	Far Particular <157636018+FarParticul@users.noreply.github.com>
+     2	Nicolas Stefani <nicolas471@gmail.com>
+     2	RaeedAhmed <ruahmed7868@gmail.com>
+     2	fabio carletti <44601250+fabiocarlettiryuw@users.noreply.github.com>
+     1	Alan Pope <alan@popey.com>
+     1	Błażej Sewera <b.sewera@stud.elka.pw.edu.pl>
+     1	Christoph Baumhardt <mail@cbaumhardt.de>
+     1	Dmytro Hulivatyi <iodreamify@gmail.com>
+     1	Graham <grahamxyz@users.noreply.github.com>
+     1	Karthik Nishanth <nishanthkarthik@live.com>
+     1	Sectorfive <153916716+SectorV5@users.noreply.github.com>
+     1	Spyridon Eftychios Kokotos <spiroskoeu@gmail.com>
+     1	Tim Gates <tim.gates@iress.com>
+     1	Timothy Caro-Bruce <tcarobruce@gmail.com>
+     1	Volodymyr Vitvitskyi <wmyll6@gmail.com>
+     1	Wikinaut <Wikinaut@users.noreply.github.com>
+     1	anatoly techtonik <techtonik@gmail.com>
+     1	edunfelt <emilia@dunfelt.se>
+     1	j10sanders <jonsandersss@gmail.com>
+     1	jirikrepl <jiri.krepl@gmail.com>
+     1	kasramp <kasra_mp@yahoo.com>
+     1	openbsdguy <theopenbsdguy@gmail.com>
+     1	p1tt1 <p1tt1pl4t5ch@googlemail.com>
+     1	stac47 <laurent.stacul@gmail.com>
+Original origin: https://github.com/YoshKoz/pyradio.git
+Push failed for pyradio-source:master
+tag push failed for pyradio-source
+Temporary rewritten clone left at: /tmp/rewrite-pyradio-source.XZ11
+Repository: /home/yoshkoz/CODING/easyeffects
+  3790	Wellington Wallace <wellingtonwallace@gmail.com>
+  3068	wwmm <wellingtonwallace@gmail.com>
+   577	Digitalone <kurmikon@libero.it>
+   261	EasyEffects Bot <110548574+easyeffects-bot@users.noreply.github.com>
+   229	dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+   200	Hosted Weblate <hosted@weblate.org>
+   181	wwmm <wellington.melo@cefet-rj.br>
+   178	Vincent Chernin <38842733+vchernin@users.noreply.github.com>
+   171	Digitalone1 <kurmikon@yahoo.com>
+   142	Mikhail novosyolov <mikhailnov@dumalogiya.ru>
+    95	Andrei Stepanov <adem4ik@gmail.com>
+    88	gallegonovato <fran-carro@hotmail.es>
+    80	Giusy Digital <kurmikon@yahoo.com>
+    68	Giusy Digital <kurmikon@libero.it>
+    58	Digitalone <kurmikon@yahoo.com>
+    49	Mikhail Novosyolov <m.novosyolov@rosalinux.ru>
+    42	Philip Goto <philip.goto@gmail.com>
+    40	AsavarTzeth <asavartzeth@gmail.com>
+    40	Bundy01 <Bundy01@users.noreply.hosted.weblate.org>
+    39	violetmage <67824960+violetmage@users.noreply.github.com>
+    37	root <110548574+easyeffects-bot@users.noreply.github.com>
+    29	wellington wallace <wellingtonwallace@gmail.com>
+    27	digitalone <kurmikon@libero.it>
+    26	Mikhail Novosyolov <mikhailnov@dumalogiya.ru>
+    26	albanobattistella <albano_battistella@hotmail.com>
+    22	hch12907 <haochengho12907@gmail.com>
+    21	Oğuz Ersen <oguz@ersen.moe>
+    21	Михаил <mikhailnov@dumalogiya.ru>
+    20	Eric <alchemillatruth@purelymail.com>
+    19	Abdullah Albaroty <albaroty@gmail.com>
+    16	R.Suga <21r.suga@gmail.com>
+    15	Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>
+    15	Roman Lebedev <lebedev.ri@gmail.com>
+    15	Théo Lebrun <theo.lebrun@bootlin.com>
+    14	Anonymous <noreply@weblate.org>
+    14	marcin mikołajczak <me@mkljczk.pl>
+    13	Torge Matthies <openglfreak@googlemail.com>
+    12	TÖRÖK Attila <torokati44@gmail.com>
+    11	Aindriú Mac Giolla Eoin <aindriu80@gmail.com>
+    11	Fjuro <fjuro@alius.cz>
+    11	Mathieu B <mathieu.bousquet2@gmail.com>
+    11	Володимир <vlzuykov@gmail.com>
+    10	Boyuan Yang <073plan@gmail.com>
+    10	Eric <hamburger1024@mailbox.org>
+    10	John Peter Sa <johnppetersa@gmail.com>
+     9	Bleuzen <supgesu@gmail.com>
+     9	Ettore Atalan <atalanttore@googlemail.com>
+     9	Gianluca Boiano <morf3089@gmail.com>
+     8	Allan Nordhøy <epost@anotheragency.no>
+     8	IDeathByte <wwconstantin@protonmail.com>
+  3634	Wellington Wallace <wellingtonwallace@gmail.com>
+  2534	wwmm <wellingtonwallace@gmail.com>
+   577	Digitalone <kurmikon@libero.it>
+   253	EasyEffects Bot <110548574+easyeffects-bot@users.noreply.github.com>
+   219	dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+   193	Hosted Weblate <hosted@weblate.org>
+   181	wwmm <wellington.melo@cefet-rj.br>
+   178	Vincent Chernin <38842733+vchernin@users.noreply.github.com>
+   142	Mikhail novosyolov <mikhailnov@dumalogiya.ru>
+    93	Andrei Stepanov <adem4ik@gmail.com>
+    88	gallegonovato <fran-carro@hotmail.es>
+    87	Digitalone1 <kurmikon@yahoo.com>
+    68	Giusy Digital <kurmikon@libero.it>
+    58	Digitalone <kurmikon@yahoo.com>
+    56	Giusy Digital <kurmikon@yahoo.com>
+    49	Mikhail Novosyolov <m.novosyolov@rosalinux.ru>
+    41	Philip Goto <philip.goto@gmail.com>
+    40	AsavarTzeth <asavartzeth@gmail.com>
+    40	Bundy01 <Bundy01@users.noreply.hosted.weblate.org>
+    39	violetmage <67824960+violetmage@users.noreply.github.com>
+    37	root <110548574+easyeffects-bot@users.noreply.github.com>
+    29	wellington wallace <wellingtonwallace@gmail.com>
+    27	digitalone <kurmikon@libero.it>
+    26	Mikhail Novosyolov <mikhailnov@dumalogiya.ru>
+    25	albanobattistella <albano_battistella@hotmail.com>
+    21	hch12907 <haochengho12907@gmail.com>
+    21	Михаил <mikhailnov@dumalogiya.ru>
+    20	Eric <alchemillatruth@purelymail.com>
+    20	Oğuz Ersen <oguz@ersen.moe>
+    15	R.Suga <21r.suga@gmail.com>
+    15	Roman Lebedev <lebedev.ri@gmail.com>
+    15	Théo Lebrun <theo.lebrun@bootlin.com>
+    14	Abdullah Albaroty <albaroty@gmail.com>
+    13	Torge Matthies <openglfreak@googlemail.com>
+    13	marcin mikołajczak <me@mkljczk.pl>
+    12	Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>
+    12	TÖRÖK Attila <torokati44@gmail.com>
+    10	Eric <hamburger1024@mailbox.org>
+    10	Mathieu B <mathieu.bousquet2@gmail.com>
+     9	Aindriú Mac Giolla Eoin <aindriu80@gmail.com>
+     9	Bleuzen <supgesu@gmail.com>
+     9	Boyuan Yang <073plan@gmail.com>
+     9	Gianluca Boiano <morf3089@gmail.com>
+     9	John Peter Sa <johnppetersa@gmail.com>
+     8	Ettore Atalan <atalanttore@googlemail.com>
+     7	Bundy01 <bundy@posteo.eu>
+     7	Fjuro <fjuro@alius.cz>
+     7	Gianluca Boiano <491117+M0Rf30@users.noreply.github.com>
+     7	IDeathByte <wwconstantin@protonmail.com>
+     7	M0Rf30 <morf3089@gmail.com>
+Original origin: https://github.com/wwmm/easyeffects.git
