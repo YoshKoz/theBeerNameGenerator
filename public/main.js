@@ -197,6 +197,7 @@ async function initializeBeerGenerator() {
   const clearHistoryBtn = document.getElementById('clear-history');
   const generationCountElement = document.getElementById('generation-count');
   const themeToggleBtn = document.getElementById('theme-toggle');
+  const generateImageBtn = document.getElementById('generate-image-btn');
   const beerSpecsContainer = document.getElementById('beer-specs');
   const specStyle = document.getElementById('spec-style');
   const specAbv = document.getElementById('spec-abv');
@@ -287,23 +288,23 @@ async function initializeBeerGenerator() {
   // NL: Generatie-functies met ALLEEN geladen JSON-data
   // Beer generation functions using ONLY loaded JSON data
   const generateTitle = () => {
+    // Add variety: random, alliteration, and realistic-style naming
     const templates = [
+      // Random evocative title
       () => {
-        const [taste1, taste2] = randomMultiple(
-          beerData.tasteProfiles,
-          2,
-          true
-        );
+        const [taste1, taste2] = randomMultiple(beerData.tasteProfiles, 2, true);
         const creature = random(beerData.mythicalCreatures);
         const adjective = random(beerData.coolAdjectives);
         return `The ${adjective} ${taste1} and ${taste2} ${creature}`;
       },
+      // Region + adjective + creature
       () => {
         const adjective = random(beerData.coolAdjectives);
         const creature = random(beerData.mythicalCreatures);
         const region = random(beerData.regions);
         return `${region} ${adjective} ${creature}`;
       },
+      // Mythic journey style
       () => {
         const taste = random(beerData.tasteProfiles);
         const adjective = random(beerData.coolAdjectives);
@@ -321,16 +322,27 @@ async function initializeBeerGenerator() {
         ]);
         return `The ${adjective} ${taste} ${noun}`;
       },
+      // Alliteration: pick letter and choose words starting with it where possible
       () => {
-        const [adj1, adj2] = randomMultiple(beerData.coolAdjectives, 2, true);
-        const creature = random(beerData.mythicalCreatures);
-        return `${adj1} ${adj2} ${creature}`;
+        const pick = (arr, letter) => {
+          const filtered = (arr || []).filter(
+            (w) => typeof w === 'string' && w.toLowerCase().startsWith(letter)
+          );
+          return filtered.length ? random(filtered) : random(arr);
+        };
+        const letter = random('abcdefghijklmnopqrstuvwxyz'.split(''));
+        const adj = pick(beerData.coolAdjectives, letter);
+        const taste = pick(beerData.tasteProfiles, letter);
+        const creature = pick(beerData.mythicalCreatures, letter);
+        return `${adj} ${taste} ${creature}`;
       },
+      // Realistic-style: Region + Category/Style name, optional color
       () => {
-        const color = random(beerData.colors);
-        const creature = random(beerData.mythicalCreatures);
         const region = random(beerData.regions);
-        return `${region} ${color} ${creature}`;
+        const category = random(beerData.categories);
+        const maybeColor = Math.random() < 0.4 ? `${random(beerData.colors)} ` : '';
+        // e.g., "Bavarian Amber Hefeweizen" or "Belgian Tripel"
+        return `${region} ${maybeColor}${category}`;
       },
     ];
     return random(templates)();
@@ -450,16 +462,25 @@ async function initializeBeerGenerator() {
       historyList.innerHTML = '';
       generatedNames.slice(0, 10).forEach((beer) => {
         const item = document.createElement('div');
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
         item.innerHTML = `
           <strong>${beer.name}</strong>
           <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem;">
             ${beer.specs.category} • ${beer.specs.abv} • ${beer.specs.ibu}
           </div>
         `;
-        item.addEventListener('click', () => {
+        const loadFromHistory = () => {
           currentBeer = window.currentBeer = beer;
           displayBeer(beer);
           showToast('Beer loaded from history!');
+        };
+        item.addEventListener('click', loadFromHistory);
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            loadFromHistory();
+          }
         });
         historyList.appendChild(item);
       });
@@ -527,6 +548,11 @@ async function initializeBeerGenerator() {
         autoGenerateBtn.innerHTML =
           '<i class="fas fa-sync-alt"></i> Auto Generate';
         autoGenerateBtn.classList.remove('active');
+        autoGenerateBtn.setAttribute('aria-pressed', 'false');
+        autoGenerateBtn.setAttribute(
+          'aria-label',
+          'Automatically generate beer names every 10 seconds'
+        );
       }
       showToast('Auto-generation stopped');
     } else {
@@ -536,6 +562,11 @@ async function initializeBeerGenerator() {
         autoGenerateBtn.innerHTML =
           '<i class="fas fa-stop-circle"></i> Stop Auto';
         autoGenerateBtn.classList.add('active');
+        autoGenerateBtn.setAttribute('aria-pressed', 'true');
+        autoGenerateBtn.setAttribute(
+          'aria-label',
+          'Stop automatically generating beer names'
+        );
       }
       showToast('Auto-generating every 10 seconds');
     }
@@ -580,6 +611,21 @@ async function initializeBeerGenerator() {
         'info'
       );
     });
+  }
+
+  // Generate Image button (disabled until integration)
+  if (generateImageBtn) {
+    try {
+      generateImageBtn.disabled = true;
+      generateImageBtn.setAttribute('aria-disabled', 'true');
+      generateImageBtn.title = 'Image generation coming soon';
+      generateImageBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showToast('Image generation is not integrated yet.', 2500, 'warning');
+      });
+    } catch (e) {
+      console.warn('Could not set disabled state for image button', e);
+    }
   }
 
   // Keyboard shortcuts

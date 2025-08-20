@@ -510,6 +510,18 @@ body::after {
   color: var(--darker-bg);
 }
 
+/* Disabled state for buttons */
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(0.3);
+}
+.btn[disabled]:hover,
+.btn[aria-disabled="true"]:hover {
+  transform: none;
+}
+
 /* Status bar */
 .status-bar {
   display: flex;
