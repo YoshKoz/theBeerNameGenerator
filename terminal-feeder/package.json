@@ -12,7 +12,9 @@
   "activationEvents": [
     "onCommand:terminal-feeder.runCommand",
     "onCommand:terminal-feeder.stop",
-    "onCommand:terminal-feeder.toggleLive"
+    "onCommand:terminal-feeder.toggleLive",
+    "onCommand:terminal-feeder.copy",
+    "onCommand:terminal-feeder.copyForChat"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -28,6 +30,14 @@
       {
         "command": "terminal-feeder.toggleLive",
         "title": "Copilot Feed: Toggle Live Mode"
+      },
+      {
+        "command": "terminal-feeder.copy",
+        "title": "Copilot Feed: Copy"
+      },
+      {
+        "command": "terminal-feeder.copyForChat",
+        "title": "Copilot Feed: Copy for Chat"
       }
     ]
   },
