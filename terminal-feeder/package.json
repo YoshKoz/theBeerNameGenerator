@@ -1,0 +1,53 @@
+{
+  "name": "terminal-feeder",
+  "displayName": "Terminal Feeder",
+  "description": "Send terminal output into a live buffer for Copilot",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:terminal-feeder.runCommand",
+    "onCommand:terminal-feeder.stop",
+    "onCommand:terminal-feeder.toggleLive"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "terminal-feeder.runCommand",
+        "title": "Copilot Feed: Run Command"
+      },
+      {
+        "command": "terminal-feeder.stop",
+        "title": "Copilot Feed: Stop"
+      },
+      {
+        "command": "terminal-feeder.toggleLive",
+        "title": "Copilot Feed: Toggle Live Mode"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.103.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "eslint": "^9.32.0",
+    "typescript": "^5.9.2",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
