@@ -1,10 +1,9 @@
 import os
 import subprocess
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.agents import initialize_agent, Tool
 
-# Put your key here or export OPENAI_API_KEY in bash
-os.environ["OPENAI_API_KEY"] = "YOUR_API_KEY"
+# Make sure to export OPENAI_API_KEY in your shell environment before running this script.
 
 # Direct execution of Linux commands
 def run_cmd(command: str) -> str:
