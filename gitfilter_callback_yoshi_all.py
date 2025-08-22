@@ -16,9 +16,7 @@ CANON_EMAIL = b('77861115+YoshKoz@users.noreply.github.com')
 
 
 def match_old(name_bytes, email_bytes):
-  if not email_bytes:
-    return True
-  if email_bytes.lower() in OLD_EMAILS:
+  if email_bytes is not None and hasattr(email_bytes, 'lower') and email_bytes.lower() in OLD_EMAILS:
     return True
   if name_bytes in OLD_NAMES:
     return True
@@ -35,3 +33,6 @@ def commit_callback(commit):
       commit.committer_email = CANON_EMAIL
   except Exception:
     pass
+  except Exception as e:
+    import logging
+    logging.error(f"Error in commit_callback: {e}")
