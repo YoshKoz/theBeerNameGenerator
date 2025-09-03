@@ -216,16 +216,25 @@ async function initializeBeerGenerator() {
   let totalGenerated = 0;
   let currentBeer = null;
 
-  // Load saved data from localStorage
+  // Load saved data from localStorage with better error handling
   try {
     const saved = localStorage.getItem('beerHistory');
     if (saved) {
-      generatedNames = JSON.parse(saved);
-      totalGenerated = generatedNames.length;
-      console.log(`Loaded ${generatedNames.length} beers from history`);
+      const parsed = JSON.parse(saved);
+      // Validate the parsed data structure
+      if (Array.isArray(parsed) && parsed.every(item => 
+        item && typeof item === 'object' && item.name && item.description)) {
+        generatedNames = parsed;
+        totalGenerated = generatedNames.length;
+        console.log(`Loaded ${generatedNames.length} beers from history`);
+      } else {
+        console.warn('Invalid history data format, starting fresh');
+        localStorage.removeItem('beerHistory');
+      }
     }
   } catch (e) {
-    console.log('No saved history found');
+    console.warn('Could not load history from localStorage:', e);
+    localStorage.removeItem('beerHistory'); // Clear corrupted data
   }
 
   // NL: Hulpfuncties voor willekeurige keuzes en tekstgrootte
@@ -506,11 +515,11 @@ async function initializeBeerGenerator() {
         localStorage.setItem('beerHistory', JSON.stringify(generatedNames));
       } catch (e) {
         console.warn('Could not save to localStorage:', e);
-        showToast(
-          "Your beer history couldn't be saved to local storage.",
-          3000,
-          'warning'
-        );
+        // More specific error message based on the likely cause
+        const errorMsg = e.name === 'QuotaExceededError' 
+          ? 'Local storage is full. Consider clearing some history to save new beers.'
+          : "Your beer history couldn't be saved to local storage.";
+        showToast(errorMsg, 3000, 'warning');
       }
 
       return beer;
@@ -613,28 +622,48 @@ async function initializeBeerGenerator() {
     });
   }
 
-  // Generate Image button (disabled until integration)
+  // Generate Image button - now properly integrated with Midjourney
   if (generateImageBtn) {
-    try {
+    // Check if Midjourney integration is available
+    if (typeof window.midjourneyIntegration !== 'undefined' && window.midjourneyIntegration.generateImageForCurrentBeer) {
+      generateImageBtn.disabled = false;
+      generateImageBtn.setAttribute('aria-disabled', 'false');
+      generateImageBtn.title = 'Generate beer label image using Midjourney';
+      // Event listener is already set up in midjourney-integration.js
+      console.log('✅ Image generation button enabled with Midjourney integration');
+    } else {
       generateImageBtn.disabled = true;
       generateImageBtn.setAttribute('aria-disabled', 'true');
-      generateImageBtn.title = 'Image generation coming soon';
+      generateImageBtn.title = 'Midjourney integration not available';
       generateImageBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        showToast('Image generation is not integrated yet.', 2500, 'warning');
+        showToast('Midjourney integration not loaded. Please check your setup.', 3000, 'warning');
       });
-    } catch (e) {
-      console.warn('Could not set disabled state for image button', e);
+      console.warn('⚠️ Midjourney integration not available');
     }
   }
 
-  // Keyboard shortcuts
-  // NL: Sneltoetsen
+  // Keyboard shortcuts with better accessibility
   document.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' && document.activeElement.tagName !== 'INPUT') {
+    // Space bar generates beer (only when not focused on input elements)
+    if (e.code === 'Space' && !['INPUT', 'TEXTAREA', 'BUTTON'].includes(document.activeElement.tagName)) {
       e.preventDefault();
       generateAndDisplay();
       showToast('New beer generated! 🍺', 2000, 'success');
+    }
+    
+    // Escape key closes history panel if open
+    if (e.key === 'Escape') {
+      const historyPanel = document.querySelector('.history');
+      const historyToggle = document.getElementById('history-toggle');
+      if (historyPanel && historyPanel.classList.contains('show')) {
+        historyPanel.classList.remove('show');
+        if (historyToggle) {
+          historyToggle.setAttribute('aria-expanded', 'false');
+          historyToggle.innerHTML = '<i class="fas fa-history" aria-hidden="true"></i>';
+          historyToggle.focus(); // Return focus to button
+        }
+      }
     }
   });
 

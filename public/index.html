@@ -120,15 +120,9 @@
               </button>
               <!-- NL: Link naar visuele structuur uitleg -->
               <a
-                class="theme-toggle"
+                class="theme-toggle structure-link"
                 href="structure.html"
                 aria-label="View app structure"
-                style="
-                  text-decoration: none;
-                  display: inline-flex;
-                  align-items: center;
-                  gap: 0.5rem;
-                "
               >
                 <i class="fas fa-sitemap" aria-hidden="true"></i> Structure
               </a>
@@ -238,10 +232,23 @@
             // Update ARIA attributes for accessibility
             historyToggleBtn.setAttribute('aria-expanded', !isExpanded);
 
-            // Update icon
-            historyToggleBtn.innerHTML = !isExpanded
+            // Update icon with better accessibility
+            const newIcon = !isExpanded
               ? '<i class="fas fa-chevron-down" aria-hidden="true"></i>'
               : '<i class="fas fa-history" aria-hidden="true"></i>';
+            historyToggleBtn.innerHTML = newIcon;
+            
+            // Update aria-label for better screen reader support
+            const newLabel = !isExpanded ? 'Close beer history' : 'View beer history';
+            historyToggleBtn.setAttribute('aria-label', newLabel);
+          });
+          
+          // Add keyboard support for history panel
+          historyToggleBtn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              historyToggleBtn.click();
+            }
           });
         }
       });
@@ -255,7 +262,7 @@
 
     <!-- Midjourney Integration (cache-busting) -->
     <script
-      src="../src/js/midjourney-integration.js?v=2025-08-11-1"
+      src="midjourney-integration.js?v=2025-08-11-1"
       defer
     ></script>
   </body>

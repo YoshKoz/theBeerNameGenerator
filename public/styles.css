@@ -554,6 +554,14 @@ body::after {
   color: var(--darker-bg);
 }
 
+/* Structure link styling */
+.structure-link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* NL: Toegankelijke focus-styling */
 .btn:focus,
 .theme-toggle:focus,
