@@ -1,5 +1,5 @@
-// Bier Naam Generator - Gebruikt ALLEEN beer_data.json
-// NL: Hoofdbestand voor de app-logica. Houdt state bij, laadt data en bedient de UI.
+// Beer Name Generator - main app logic.
+// Loads beer_data.json, maintains state, and controls the UI.
 console.log('Beer Name Generator starting...');
 
 let beerData = null;
@@ -15,7 +15,7 @@ async function loadBeerData() {
 
     if (response.ok) {
       const data = await response.json();
-      // NL: Controle op noodzakelijke sleutels in de JSON
+      // Check for expected keys in the JSON data and warn if some are missing.
       const requiredKeys = [
         'categories',
         'coolAdjectives',
@@ -44,7 +44,8 @@ async function loadBeerData() {
         );
       }
 
-      // NL: Ook met ontbrekende (niet-kritieke) velden gaan we verder; de generator vangt fouten af.
+      // Continue even if some non-critical fields are missing; generator will
+      // surface errors later if it needs missing arrays.
       beerData = data;
       isDataLoaded = true;
       console.log('✅ Successfully loaded beer_data.json!');
@@ -70,7 +71,8 @@ async function loadBeerData() {
   } catch (error) {
     console.error('❌ CRITICAL: Failed to load beer_data.json:', error.message);
 
-    // NL: Specifieke hint bij direct openen via file:// (fetch werkt dan niet)
+    // If the page is opened via file:// protocol, provide a helpful hint
+    // because fetch won't work without a local server.
     if (
       typeof window !== 'undefined' &&
       location &&
@@ -88,7 +90,7 @@ async function loadBeerData() {
       );
     }
 
-    // Stop execution - we REQUIRE the JSON file
+    // Stop initialization - the app requires the JSON dataset to function.
     throw new Error(
       `Beer Name Generator requires beer_data.json file. Error: ${error.message}`
     );
@@ -222,8 +224,13 @@ async function initializeBeerGenerator() {
     if (saved) {
       const parsed = JSON.parse(saved);
       // Validate the parsed data structure
-      if (Array.isArray(parsed) && parsed.every(item => 
-        item && typeof item === 'object' && item.name && item.description)) {
+      if (
+        Array.isArray(parsed) &&
+        parsed.every(
+          (item) =>
+            item && typeof item === 'object' && item.name && item.description
+        )
+      ) {
         generatedNames = parsed;
         totalGenerated = generatedNames.length;
         console.log(`Loaded ${generatedNames.length} beers from history`);
@@ -237,8 +244,7 @@ async function initializeBeerGenerator() {
     localStorage.removeItem('beerHistory'); // Clear corrupted data
   }
 
-  // NL: Hulpfuncties voor willekeurige keuzes en tekstgrootte
-  // Utility functions
+  // Utility helpers: randomness, grammar helpers, and text sizing
   const random = (array) => {
     if (!array || array.length === 0) {
       console.error('CRITICAL: Empty array passed to random function');
@@ -247,14 +253,15 @@ async function initializeBeerGenerator() {
     return array[Math.floor(Math.random() * array.length)];
   };
 
-  // NL: Bepaal het lidwoord 'a' of 'an' op basis van het eerste woord/klank
+  // Determine the indefinite article ('a' or 'an') for a word.
   const articleFor = (word) => {
     if (!word || typeof word !== 'string') return 'a';
     const first = word.trim().toLowerCase()[0];
     return 'aeiou'.includes(first) ? 'an' : 'a';
   };
 
-  // NL: Eenvoudige meervoudsvorming (basisregel)
+  // Basic pluralization for simple nouns (not comprehensive, good enough
+  // for label-like nouns used in descriptions).
   const pluralize = (word) => {
     if (!word || typeof word !== 'string') return '';
     const w = word.trim();
@@ -280,6 +287,8 @@ async function initializeBeerGenerator() {
     return selected;
   };
 
+  // Adjust CSS class on the main text element based on text length so
+  // very long descriptions get a smaller font class applied.
   const adjustTextSize = (text) => {
     if (!randomNameElement) return;
     const sizeClass =
@@ -294,14 +303,19 @@ async function initializeBeerGenerator() {
     randomNameElement.className = `beer-name-text ${sizeClass}`.trim();
   };
 
-  // NL: Generatie-functies met ALLEEN geladen JSON-data
-  // Beer generation functions using ONLY loaded JSON data
+  // Beer generation functions (rely on arrays from beerData). These functions
+  // assume the JSON file provides the arrays used below; failures will be
+  // surfaced as errors if values are missing.
   const generateTitle = () => {
     // Add variety: random, alliteration, and realistic-style naming
     const templates = [
       // Random evocative title
       () => {
-        const [taste1, taste2] = randomMultiple(beerData.tasteProfiles, 2, true);
+        const [taste1, taste2] = randomMultiple(
+          beerData.tasteProfiles,
+          2,
+          true
+        );
         const creature = random(beerData.mythicalCreatures);
         const adjective = random(beerData.coolAdjectives);
         return `The ${adjective} ${taste1} and ${taste2} ${creature}`;
@@ -331,7 +345,7 @@ async function initializeBeerGenerator() {
         ]);
         return `The ${adjective} ${taste} ${noun}`;
       },
-      // Alliteration: pick letter and choose words starting with it where possible
+      // Alliteration: pick a letter and try to pick words starting with it.
       () => {
         const pick = (arr, letter) => {
           const filtered = (arr || []).filter(
@@ -349,7 +363,8 @@ async function initializeBeerGenerator() {
       () => {
         const region = random(beerData.regions);
         const category = random(beerData.categories);
-        const maybeColor = Math.random() < 0.4 ? `${random(beerData.colors)} ` : '';
+        const maybeColor =
+          Math.random() < 0.4 ? `${random(beerData.colors)} ` : '';
         // e.g., "Bavarian Amber Hefeweizen" or "Belgian Tripel"
         return `${region} ${maybeColor}${category}`;
       },
@@ -404,8 +419,7 @@ async function initializeBeerGenerator() {
     }
   };
 
-  // NL: UI-functies (toast-meldingen + weergave)
-  // Display functions
+  // UI display helpers: lightweight toast and rendering functions
   const showToast = (message, duration = 2000, type = 'info') => {
     let toast = document.querySelector('.toast');
     if (!toast) {
@@ -419,7 +433,7 @@ async function initializeBeerGenerator() {
     // Set message
     toast.textContent = message;
 
-    // NL: style varianten op basis van type
+    // style variants based on type
     toast.classList.remove('success', 'warning', 'error');
     if (type === 'success') toast.classList.add('success');
     if (type === 'warning') toast.classList.add('warning');
@@ -455,6 +469,7 @@ async function initializeBeerGenerator() {
       if (specOrigin) specOrigin.textContent = beer.specs.region;
     }
 
+    // Small pop animation to draw attention to the updated content
     const container = document.querySelector('.beer-name-container');
     if (container) {
       container.style.transform = 'scale(0.95)';
@@ -516,9 +531,10 @@ async function initializeBeerGenerator() {
       } catch (e) {
         console.warn('Could not save to localStorage:', e);
         // More specific error message based on the likely cause
-        const errorMsg = e.name === 'QuotaExceededError' 
-          ? 'Local storage is full. Consider clearing some history to save new beers.'
-          : "Your beer history couldn't be saved to local storage.";
+        const errorMsg =
+          e.name === 'QuotaExceededError'
+            ? 'Local storage is full. Consider clearing some history to save new beers.'
+            : "Your beer history couldn't be saved to local storage.";
         showToast(errorMsg, 3000, 'warning');
       }
 
@@ -625,19 +641,28 @@ async function initializeBeerGenerator() {
   // Generate Image button - now properly integrated with Midjourney
   if (generateImageBtn) {
     // Check if Midjourney integration is available
-    if (typeof window.midjourneyIntegration !== 'undefined' && window.midjourneyIntegration.generateImageForCurrentBeer) {
+    if (
+      typeof window.midjourneyIntegration !== 'undefined' &&
+      window.midjourneyIntegration.generateImageForCurrentBeer
+    ) {
       generateImageBtn.disabled = false;
       generateImageBtn.setAttribute('aria-disabled', 'false');
       generateImageBtn.title = 'Generate beer label image using Midjourney';
       // Event listener is already set up in midjourney-integration.js
-      console.log('✅ Image generation button enabled with Midjourney integration');
+      console.log(
+        '✅ Image generation button enabled with Midjourney integration'
+      );
     } else {
       generateImageBtn.disabled = true;
       generateImageBtn.setAttribute('aria-disabled', 'true');
       generateImageBtn.title = 'Midjourney integration not available';
       generateImageBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        showToast('Midjourney integration not loaded. Please check your setup.', 3000, 'warning');
+        showToast(
+          'Midjourney integration not loaded. Please check your setup.',
+          3000,
+          'warning'
+        );
       });
       console.warn('⚠️ Midjourney integration not available');
     }
@@ -646,12 +671,15 @@ async function initializeBeerGenerator() {
   // Keyboard shortcuts with better accessibility
   document.addEventListener('keydown', (e) => {
     // Space bar generates beer (only when not focused on input elements)
-    if (e.code === 'Space' && !['INPUT', 'TEXTAREA', 'BUTTON'].includes(document.activeElement.tagName)) {
+    if (
+      e.code === 'Space' &&
+      !['INPUT', 'TEXTAREA', 'BUTTON'].includes(document.activeElement.tagName)
+    ) {
       e.preventDefault();
       generateAndDisplay();
       showToast('New beer generated! 🍺', 2000, 'success');
     }
-    
+
     // Escape key closes history panel if open
     if (e.key === 'Escape') {
       const historyPanel = document.querySelector('.history');
@@ -660,21 +688,49 @@ async function initializeBeerGenerator() {
         historyPanel.classList.remove('show');
         if (historyToggle) {
           historyToggle.setAttribute('aria-expanded', 'false');
-          historyToggle.innerHTML = '<i class="fas fa-history" aria-hidden="true"></i>';
+          historyToggle.innerHTML =
+            '<i class="fas fa-history" aria-hidden="true"></i>';
           historyToggle.focus(); // Return focus to button
         }
       }
     }
   });
 
-  // NL: Ctrl+Shift+A selecteert de specificaties (zodat Ctrl+A standaard select-all blijft)
-  document.addEventListener('keydown', function (event) {
+  // Global keyboard shortcuts (single consolidated handler):
+  // - Space: generate a new beer when not focused on inputs
+  // - Escape: close the history panel if open
+  // - Ctrl+Shift+A: select the beer specs container contents
+  document.addEventListener('keydown', (e) => {
+    // Space bar generates beer (avoid when typing in inputs)
     if (
-      event.ctrlKey &&
-      event.shiftKey &&
-      (event.key === 'a' || event.key === 'A')
+      e.code === 'Space' &&
+      !['INPUT', 'TEXTAREA', 'BUTTON'].includes(document.activeElement.tagName)
     ) {
-      event.preventDefault();
+      e.preventDefault();
+      generateAndDisplay();
+      showToast('New beer generated! 🍺', 2000, 'success');
+      return;
+    }
+
+    // Escape: close history panel if open
+    if (e.key === 'Escape') {
+      const historyPanel = document.querySelector('.history');
+      const historyToggle = document.getElementById('history-toggle');
+      if (historyPanel && historyPanel.classList.contains('show')) {
+        historyPanel.classList.remove('show');
+        if (historyToggle) {
+          historyToggle.setAttribute('aria-expanded', 'false');
+          historyToggle.innerHTML =
+            '<i class="fas fa-history" aria-hidden="true"></i>';
+          historyToggle.focus(); // restore focus to the toggle button
+        }
+      }
+      return;
+    }
+
+    // Ctrl+Shift+A: select contents of beer specs (keeps default Ctrl+A intact)
+    if (e.ctrlKey && e.shiftKey && (e.key === 'a' || e.key === 'A')) {
+      e.preventDefault();
       const outputElement = document.getElementById('beer-specs');
       if (outputElement) {
         const range = document.createRange();
@@ -682,7 +738,7 @@ async function initializeBeerGenerator() {
         const selection = window.getSelection();
         selection.removeAllRanges();
         selection.addRange(range);
-        showToast('Specificaties geselecteerd', 1500, 'info');
+        showToast('Specifications selected', 1500, 'info');
       }
     }
   });
@@ -707,7 +763,7 @@ async function initializeBeerGenerator() {
     displayBeer(generatedNames[0]);
   }
 
-  // Add CSS animation if not already present
+  // Add a small fadeIn keyframes block if it's not already present.
   if (!document.querySelector('#fadeInAnimation')) {
     const style = document.createElement('style');
     style.id = 'fadeInAnimation';
@@ -720,18 +776,15 @@ async function initializeBeerGenerator() {
     document.head.appendChild(style);
   }
 
-  // NL: Maak functies globaal beschikbaar voor debug doeleinden
+  // Expose a few helpers to the window for optional debugging in the console.
+  // These are intentionally minimal and safe to keep for power users.
   window.showToast = showToast;
   window.generateAndDisplay = generateAndDisplay;
-  window.beerData = beerData; // Expose loaded JSON data for debugging
+  window.beerData = beerData; // read-only view of loaded JSON
 
   console.log('✅ Beer Generator initialized successfully with JSON data!');
 }
-
-// Start loading data immediately
-loadBeerData();
-
-// Initialize when DOM is ready
+// Initialize when DOM is ready. Data will be loaded by initialization as needed.
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initializeBeerGenerator);
 } else {
