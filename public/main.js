@@ -1,12 +1,10 @@
 // Beer Name Generator - main app logic.
-// Loads beer_data.json, maintains state, and controls the UI.
 console.log('Beer Name Generator starting...');
 
 let beerData = null;
 let isDataLoaded = false;
 
-// NL: Laad bierdata uit JSON (GEEN fallback). Zonder dit bestand stopt de app.
-// Load beer data from JSON file (NO FALLBACK)
+// Load beer data from JSON file (no fallback).
 async function loadBeerData() {
   console.log('Attempting to load beer_data.json...');
 
@@ -15,7 +13,7 @@ async function loadBeerData() {
 
     if (response.ok) {
       const data = await response.json();
-      // Check for expected keys in the JSON data and warn if some are missing.
+      // Check for expected keys in the JSON
       const requiredKeys = [
         'categories',
         'coolAdjectives',
@@ -97,7 +95,6 @@ async function loadBeerData() {
   }
 }
 
-// NL: Toon status van dataladen aan de gebruiker (klein statusbalkje linksboven)
 // Show data loading status to user
 function showDataLoadStatus(message, type = 'info') {
   // Create or update status indicator
@@ -244,7 +241,7 @@ async function initializeBeerGenerator() {
     localStorage.removeItem('beerHistory'); // Clear corrupted data
   }
 
-  // Utility helpers: randomness, grammar helpers, and text sizing
+  // Utility functions
   const random = (array) => {
     if (!array || array.length === 0) {
       console.error('CRITICAL: Empty array passed to random function');
@@ -260,8 +257,7 @@ async function initializeBeerGenerator() {
     return 'aeiou'.includes(first) ? 'an' : 'a';
   };
 
-  // Basic pluralization for simple nouns (not comprehensive, good enough
-  // for label-like nouns used in descriptions).
+  // Basic pluralization for simple nouns (not comprehensive).
   const pluralize = (word) => {
     if (!word || typeof word !== 'string') return '';
     const w = word.trim();
@@ -300,13 +296,11 @@ async function initializeBeerGenerator() {
           : text.length > 150
             ? 'medium-text'
             : '';
-    // NL: Behoud de basisclass zodat centrering/breedte behouden blijft
+    // Keep base class so centering/width remain intact
     randomNameElement.className = `beer-name-text ${sizeClass}`.trim();
   };
 
-  // Beer generation functions (rely on arrays from beerData). These functions
-  // assume the JSON file provides the arrays used below; failures will be
-  // surfaced as errors if values are missing.
+  // Beer generation functions using loaded JSON data
   const generateTitle = () => {
     // Add variety: random, alliteration, and realistic-style naming
     const templates = [
@@ -376,7 +370,7 @@ async function initializeBeerGenerator() {
   const generateDescription = () => {
     const [adj1, adj2] = randomMultiple(beerData.coolAdjectives, 2, true);
     const color = random(beerData.colors);
-    // NL: Gebruik één stijlnaam (category) om dubbelingen te vermijden
+    // Use a single category/style name to avoid duplicates
     const category = random(beerData.categories);
     const glass = random(beerData.beerGlasses);
     const [taste1, taste2] = randomMultiple(beerData.tasteProfiles, 2, true);
@@ -388,7 +382,7 @@ async function initializeBeerGenerator() {
     const art = articleFor(adj1);
     const tasteNounPlural = pluralize(tasteNoun);
 
-    // Voorbeeld: "an ethereal, bold, amber Belgian Tripel, served gently in a tulip glass, with notes of citrus and clove and a silky finish..."
+    // Example: "an ethereal, bold, amber Belgian Tripel, served gently in a tulip glass..."
     return `${art} ${adj1}, ${adj2}, ${color} ${category}, served ${adverb} in a ${glass}, with ${tasteNounPlural} of ${taste1} and ${taste2} and a ${mouthfeel} finish, evoking the essence of a mythical ${creature}`;
   };
 
@@ -420,7 +414,7 @@ async function initializeBeerGenerator() {
     }
   };
 
-  // UI display helpers: lightweight toast and rendering functions
+  // UI functions (toast + display)
   const showToast = (message, duration = 2000, type = 'info') => {
     let toast = document.querySelector('.toast');
     if (!toast) {
@@ -697,41 +691,14 @@ async function initializeBeerGenerator() {
     }
   });
 
-  // Global keyboard shortcuts (single consolidated handler):
-  // - Space: generate a new beer when not focused on inputs
-  // - Escape: close the history panel if open
-  // - Ctrl+Shift+A: select the beer specs container contents
-  document.addEventListener('keydown', (e) => {
-    // Space bar generates beer (avoid when typing in inputs)
+  // Ctrl+Shift+A selects the beer specs container contents
+  document.addEventListener('keydown', function (event) {
     if (
-      e.code === 'Space' &&
-      !['INPUT', 'TEXTAREA', 'BUTTON'].includes(document.activeElement.tagName)
+      event.ctrlKey &&
+      event.shiftKey &&
+      (event.key === 'a' || event.key === 'A')
     ) {
-      e.preventDefault();
-      generateAndDisplay();
-      showToast('New beer generated! 🍺', 2000, 'success');
-      return;
-    }
-
-    // Escape: close history panel if open
-    if (e.key === 'Escape') {
-      const historyPanel = document.querySelector('.history');
-      const historyToggle = document.getElementById('history-toggle');
-      if (historyPanel && historyPanel.classList.contains('show')) {
-        historyPanel.classList.remove('show');
-        if (historyToggle) {
-          historyToggle.setAttribute('aria-expanded', 'false');
-          historyToggle.innerHTML =
-            '<i class="fas fa-history" aria-hidden="true"></i>';
-          historyToggle.focus(); // restore focus to the toggle button
-        }
-      }
-      return;
-    }
-
-    // Ctrl+Shift+A: select contents of beer specs (keeps default Ctrl+A intact)
-    if (e.ctrlKey && e.shiftKey && (e.key === 'a' || e.key === 'A')) {
-      e.preventDefault();
+      event.preventDefault();
       const outputElement = document.getElementById('beer-specs');
       if (outputElement) {
         const range = document.createRange();
@@ -777,8 +744,7 @@ async function initializeBeerGenerator() {
     document.head.appendChild(style);
   }
 
-  // Expose a few helpers to the window for optional debugging in the console.
-  // These are intentionally minimal and safe to keep for power users.
+  // Expose functions for debugging
   window.showToast = showToast;
   window.generateAndDisplay = generateAndDisplay;
   window.beerData = beerData; // read-only view of loaded JSON
