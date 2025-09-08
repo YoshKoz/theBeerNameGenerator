@@ -280,7 +280,8 @@ async function initializeBeerGenerator() {
 
     const selected = [];
     const available = [...array];
-    for (let i = 0; i < Math.min(count, available.length); i++) {
+    const limit = Math.min(count, available.length);
+    for (let i = 0; i < limit; i++) {
       const index = Math.floor(Math.random() * available.length);
       selected.push(available.splice(index, 1)[0]);
     }
