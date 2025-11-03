@@ -1,6 +1,6 @@
 // Beer Name Generator - main app logic.
 console.log('Beer Name Generator starting...');
-
+#
 let beerData = null;
 let isDataLoaded = false;
 
