@@ -1,16 +1,13 @@
 {
   "name": "the-beer-name-generator",
   "version": "1.0.0",
-  "description": "A web application that generates creative beer names and descriptions with Midjourney image generation capabilities",
+  "description": "A mythical beer name generator web application",
   "main": "public/index.html",
-  "type": "module",
   "scripts": {
-    "test": "node --test",
     "serve": "python3 -m http.server 8000 --directory public",
     "serve-alt": "npx serve public",
     "format": "prettier --write .",
     "format-check": "prettier --check .",
-    "expand-data": "node scripts/expandBeerData.js",
     "prepare": "husky || true"
   },
   "repository": {
@@ -23,8 +20,7 @@
     "names",
     "brewery",
     "craft-beer",
-    "midjourney",
-    "discord"
+    "mythical"
   ],
   "author": "Yoshi Tacke",
   "license": "MIT",

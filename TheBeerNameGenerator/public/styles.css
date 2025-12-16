@@ -1,65 +1,83 @@
-/* Modern Clean Beer Generator CSS (2025) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Authentic Beer-Themed Generator CSS (2025) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Staatliches&family=Oswald:wght@400;500;600;700&family=Merriweather:wght@400;700;900&family=Crimson+Text:wght@400;600;700&display=swap');
 
-/* Modern clean design tokens */
+/* Authentic Brewery Design Tokens */
 :root {
   /* Color scheme hint for UA */
   color-scheme: dark;
 
-  /* Modern beer-inspired color palette */
-  --deep-blue: #0f1419;
-  --navy-blue: #1a2332;
-  --steel-blue: #2c3e50;
-  --accent-blue: #3498db;
-  --light-blue: #ecf0f1;
-  --subtle-gold: #f1c40f;
-  --warm-gray: #34495e;
-  --clean-white: #ffffff;
+  /* Authentic Beer Color Palette */
+  --amber-ale: #D4831F;
+  --copper-red: #B7410E;
+  --malt-brown: #4A2511;
+  --dark-stout: #1a0f08;
+  --barley-gold: #E6C04C;
+  --hop-green: #3d5a3e;
+  --foam-white: #FFF8DC;
+  --cream: #FFEFD5;
+  --wood-brown: #5C4033;
+  --barrel-oak: #3E2723;
 
   /* Primary color scheme */
-  --main-bg-color: var(--deep-blue);
-  --surface: rgba(26, 35, 50, 0.9);
-  --surface-2: rgba(26, 35, 50, 0.7);
-  --border-color: var(--steel-blue);
-  --primary-color: var(--accent-blue);
-  --accent-color: var(--subtle-gold);
-  --accent-contrast: var(--clean-white);
-  --text-color: var(--light-blue);
-  --text-dim: rgba(236, 240, 241, 0.6);
-  --focus: var(--accent-blue);
+  --main-bg-color: var(--dark-stout);
+  --surface: rgba(74, 37, 17, 0.85);
+  --surface-2: rgba(62, 39, 35, 0.7);
+  --border-color: var(--copper-red);
+  --primary-color: var(--amber-ale);
+  --accent-color: var(--barley-gold);
+  --accent-contrast: var(--foam-white);
+  --text-color: var(--cream);
+  --text-dim: rgba(255, 248, 220, 0.6);
+  --focus: var(--barley-gold);
 
-  /* Clean gradients */
+  /* Rich Beer Gradients */
   --gradient-primary: linear-gradient(
     135deg,
-    var(--accent-blue) 0%,
-    var(--steel-blue) 100%
+    var(--amber-ale) 0%,
+    var(--copper-red) 100%
   );
   --gradient-background: linear-gradient(
     180deg,
-    var(--deep-blue) 0%,
-    var(--navy-blue) 100%
+    var(--dark-stout) 0%,
+    var(--malt-brown) 100%
   );
   --gradient-accent: linear-gradient(
     135deg,
-    var(--subtle-gold) 0%,
-    var(--accent-blue) 100%
+    var(--barley-gold) 0%,
+    var(--amber-ale) 100%
   );
   --gradient-header: linear-gradient(
     180deg,
-    rgba(15, 20, 25, 0.95) 0%,
-    rgba(26, 35, 50, 0.8) 100%
+    rgba(26, 15, 8, 0.98) 0%,
+    rgba(74, 37, 17, 0.9) 100%
+  );
+  --gradient-foam: linear-gradient(
+    180deg,
+    rgba(255, 248, 220, 0.9) 0%,
+    rgba(255, 239, 213, 0.7) 100%
   );
 
-  /* Typography - clean modern fonts */
-  --header-font: 'Inter', sans-serif;
-  --accent-font: 'JetBrains Mono', monospace;
-  --body-font: 'Inter', sans-serif;
+  /* Typography - Vintage Beer Label Style */
+  --mythic-font: 'Uncial Antiqua', serif;
+  --header-font: var(--mythic-font);
+  --accent-font: 'Staatliches', cursive;
+  --body-font: 'Crimson Text', serif;
+  --bold-font: 'Oswald', sans-serif;
+  --decorative-font: 'Merriweather', serif;
   --line-height: 1.5;
 
-  /* Clean shadows & effects */
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.15);
-  --shadow-strong: 0 8px 30px rgba(0, 0, 0, 0.25);
-  --border-radius: 8px;
+  /* Beer Glass & Barrel Effects */
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.4);
+  --shadow-strong: 0 8px 30px rgba(0, 0, 0, 0.6);
+  --shadow-foam: 0 2px 8px rgba(255, 248, 220, 0.3);
+  --border-radius: 12px;
+  --wood-texture: repeating-linear-gradient(
+    90deg,
+    #5C4033 0px,
+    #5C4033 2px,
+    #6B4E3D 2px,
+    #6B4E3D 4px
+  );
 
   /* Motion & timing */
   --transition-speed: 0.2s;
@@ -75,25 +93,24 @@
   --space-2xl: 3rem;
 
   /* Legacy compatibility */
-  --primary-gold: var(--subtle-gold);
-  --amber: var(--accent-blue);
-  --deep-amber: var(--steel-blue);
-  --brown: var(--warm-gray);
-  --cream: var(--light-blue);
-  --dark-bg: var(--deep-blue);
-  --darker-bg: var(--navy-blue);
-  --foam: var(--clean-white);
+  --primary-gold: var(--barley-gold);
+  --amber: var(--amber-ale);
+  --deep-amber: var(--copper-red);
+  --brown: var(--malt-brown);
+  --dark-bg: var(--dark-stout);
+  --darker-bg: var(--barrel-oak);
+  --foam: var(--foam-white);
 }
 
-/* Dark mode via prefers-color-scheme, overridden by body.dark-mode in-app */
+/* Enhanced dark mode with richer beer tones */
 @media (prefers-color-scheme: dark) {
   :root {
-    --main-bg-color: #120e0b;
-    --surface: rgba(18, 13, 10, 0.7);
-    --surface-2: rgba(18, 13, 10, 0.55);
-    --border-color: color-mix(in oklab, #e6c04c 18%, #000 85%);
-    --text-color: #efe6d7;
-    --text-dim: color-mix(in oklab, var(--text-color) 60%, #000 40%);
+    --main-bg-color: #0d0704;
+    --surface: rgba(74, 37, 17, 0.9);
+    --surface-2: rgba(62, 39, 35, 0.75);
+    --border-color: var(--copper-red);
+    --text-color: var(--cream);
+    --text-dim: rgba(255, 239, 213, 0.65);
   }
 }
 
@@ -117,11 +134,16 @@
 
 html,
 body {
-  height: 100%;
-  overflow: hidden;
+  /* Allow page to extend and scroll normally with modern viewport units */
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0;
   padding: 0;
   background: var(--gradient-background);
+  background-attachment: fixed;
   color: var(--text-color);
   font-family: var(--body-font);
   font-feature-settings:
@@ -135,9 +157,6 @@ body {
   text-size-adjust: 100%;
   /* Improve touch scrolling on iOS */
   -webkit-overflow-scrolling: touch;
-}
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Scroll behavior and reduced motion preferences */
@@ -168,7 +187,7 @@ body {
   }
 }
 
-/* Improved button styles with modern hover states */
+/* Authentic beer ambiance with warm glows */
 body::before {
   content: '';
   position: fixed;
@@ -179,24 +198,24 @@ body::before {
   background:
     radial-gradient(
       circle at 20% 50%,
-      rgba(255, 215, 0, 0.08) 0%,
+      rgba(230, 192, 76, 0.12) 0%,
       transparent 50%
     ),
     radial-gradient(
       circle at 80% 80%,
-      rgba(255, 165, 0, 0.08) 0%,
+      rgba(212, 131, 31, 0.15) 0%,
       transparent 50%
     ),
     radial-gradient(
       circle at 40% 20%,
-      rgba(139, 69, 19, 0.08) 0%,
+      rgba(183, 65, 14, 0.1) 0%,
       transparent 50%
     );
   animation: float 20s ease-in-out infinite;
   z-index: -2;
 }
 
-/* Subtle grain texture */
+/* Wood grain texture overlay */
 body::after {
   content: '';
   position: fixed;
@@ -204,11 +223,19 @@ body::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: radial-gradient(
-    rgba(255, 255, 255, 0.025) 1px,
-    transparent 1px
-  );
-  background-size: 3px 3px;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(92, 64, 51, 0.03) 2px,
+      rgba(92, 64, 51, 0.03) 4px
+    ),
+    radial-gradient(
+      rgba(230, 192, 76, 0.02) 1px,
+      transparent 1px
+    );
+  background-size: 100% 100%, 4px 4px;
   z-index: -1;
   pointer-events: none;
 }
@@ -242,49 +269,64 @@ body::after {
 
 .fullscreen-container {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
-/* Clean, minimal design - no decorative elements */
-
-/* Enhanced header with beer glass background */
+/* Brewery tap room aesthetic */
 .main-header {
   text-align: center;
   padding: var(--space-xl) var(--space-lg);
   position: relative;
-  background: var(--gradient-header);
-  border-bottom: 1px solid var(--border-color);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(26, 15, 8, 0.98) 0%,
+      rgba(74, 37, 17, 0.95) 100%
+    ),
+    var(--wood-texture);
+  background-blend-mode: overlay;
+  border-bottom: 3px solid var(--copper-red);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 -2px 10px rgba(230, 192, 76, 0.1);
 }
 
 .main-header h1 {
   font-family: var(--header-font);
   font-size: clamp(2.8rem, 8vw, 4.5rem);
-  font-weight: 700;
-  color: var(--clean-white);
+  font-weight: 900;
+  color: var(--barley-gold);
   margin-bottom: var(--space-sm);
-  letter-spacing: -0.02em;
-  text-transform: none;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(230, 192, 76, 0.3),
+    2px 2px 0 rgba(183, 65, 14, 0.5);
+  -webkit-text-stroke: 1px rgba(92, 64, 51, 0.3);
 }
 
 .main-header p {
-  font-family: var(--body-font);
+  font-family: var(--decorative-font);
   font-size: 1.2rem;
   font-weight: 400;
-  color: var(--text-dim);
+  font-style: italic;
+  color: var(--cream);
   margin: 0;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 .main-content {
   flex: 1;
   display: flex;
-  align-items: center; /* centreer verticaal in viewport */
+  align-items: center;
   justify-content: center;
   padding: 1rem;
-  min-height: calc(100vh - 110px); /* header+footer ruimte */
+  min-height: calc(100vh - 110px);
+  min-height: calc(100dvh - 110px);
+  position: relative;
 }
 
 .beer-generator {
@@ -294,11 +336,13 @@ body::after {
 }
 
 .beer-generator h2 {
-  font-family: 'Bebas Neue', cursive;
+  font-family: var(--accent-font);
   font-size: 2rem;
-  color: var(--amber);
+  color: var(--amber-ale);
   margin-bottom: 2rem;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 /* Enhanced result container with beer glass shape */
@@ -308,8 +352,15 @@ body::after {
 }
 
 .beer-name-container {
-  background: var(--surface);
-  border: 1px solid var(--border-color);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(74, 37, 17, 0.95) 0%,
+      rgba(62, 39, 35, 0.9) 100%
+    ),
+    var(--wood-texture);
+  background-blend-mode: overlay;
+  border: 3px solid var(--copper-red);
   border-radius: var(--border-radius);
   padding: var(--space-2xl) var(--space-xl);
   position: relative;
@@ -318,34 +369,50 @@ body::after {
   justify-content: center;
   align-items: center;
   min-height: 50vh;
-  max-height: 85vh;
-  box-shadow: var(--shadow-soft);
+  min-height: 50dvh;
+  /* Allow the sentence to grow; we'll constrain inside */
+  max-height: none;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    inset 0 2px 8px rgba(230, 192, 76, 0.1),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.3);
   transition: all var(--transition-speed) var(--transition-ease);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
+  overflow: hidden; /* Keep content within the box */
 }
 
 .beer-name-container:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-strong);
-  border-color: var(--accent-blue);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.7),
+    inset 0 2px 12px rgba(230, 192, 76, 0.15),
+    inset 0 -2px 12px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(212, 131, 31, 0.2);
+  border-color: var(--barley-gold);
 }
 
-/* Foam effect at top */
+/* Thick foam head at top */
 .beer-name-container::before {
   content: '';
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  height: 30px;
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklab, var(--foam) 85%, transparent) 0%,
-    transparent 100%
-  );
-  border-radius: 22px 22px 0 0;
-  opacity: 0.25;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  height: 45px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 248, 220, 0.95) 0%,
+      rgba(255, 248, 220, 0.85) 30%,
+      rgba(255, 239, 213, 0.6) 60%,
+      transparent 100%
+    );
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  box-shadow:
+    0 2px 8px rgba(255, 248, 220, 0.4),
+    inset 0 -1px 3px rgba(230, 192, 76, 0.3);
+  filter: blur(0.5px);
 }
 
 /* Floating bubbles */
@@ -425,9 +492,13 @@ body::after {
 }
 
 #random-name {
-  font-family: var(--header-font), serif;
+  font-family: var(--mythic-font), serif;
   font-size: clamp(1.6rem, 3.6vw, 2.8rem);
   line-height: 1.55;
+  color: var(--foam-white);
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(230, 192, 76, 0.2);
 }
 
 /* NL: Dynamische tekstgroottes op basis van lengte (door JS gezet) */
@@ -447,19 +518,21 @@ body::after {
 
 .spec-label {
   font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-dim);
+  font-weight: 600;
+  color: var(--barley-gold);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   margin-bottom: var(--space-xs);
-  font-family: var(--body-font);
+  font-family: var(--bold-font);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 .spec-value {
   font-family: var(--accent-font);
   font-size: 1.1rem;
   font-weight: 400;
-  color: var(--text-color);
+  color: var(--cream);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 /* NL: Raster voor specificaties */
@@ -473,6 +546,7 @@ body::after {
   z-index: 1; /* Make sure specs sit above decorative bubbles */
   width: 100%;
   max-width: 100%;
+  padding-bottom: 0.5rem; /* Avoid text overlapping bottom edge */
 }
 
 /* NL: Zorg dat de titel over alle kolommen centreert */
@@ -506,17 +580,20 @@ body::after {
   max-width: 80ch;
   margin: 0 auto;
   overflow-wrap: break-word;
-  word-break: break-word;
+  word-break: normal;
   white-space: normal;
   max-height: none;
   overflow-y: visible;
-  font-family: var(--accent-font);
+  font-family: var(--decorative-font);
   font-size: clamp(1.8rem, 4.5vw, 3.2rem);
-  font-weight: 500;
-  color: var(--clean-white);
+  font-weight: 700;
+  color: var(--foam-white);
   text-align: center;
   letter-spacing: 0.02em;
   line-height: 1.2;
+  text-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.9),
+    0 0 15px rgba(230, 192, 76, 0.2);
 }
 
 /* Enhanced controls */
@@ -534,11 +611,12 @@ body::after {
 
 .btn {
   padding: var(--space-lg) var(--space-2xl);
-  font-family: var(--body-font);
+  font-family: var(--bold-font);
   font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  border: 1px solid var(--border-color);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2px solid var(--copper-red);
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: all var(--transition-speed) var(--transition-ease);
@@ -551,9 +629,15 @@ body::after {
   -webkit-user-select: none;
   user-select: none;
   touch-action: manipulation;
-  text-transform: none;
-  background: transparent;
-  color: var(--text-color);
+  background:
+    linear-gradient(135deg, rgba(74, 37, 17, 0.9), rgba(62, 39, 35, 0.85)),
+    var(--wood-texture);
+  background-blend-mode: overlay;
+  color: var(--cream);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 2px rgba(230, 192, 76, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 
 .btn::before {
@@ -583,34 +667,52 @@ body::after {
 
 .primary-btn {
   background: var(--gradient-primary);
-  color: var(--clean-white);
-  border-color: var(--accent-blue);
-  font-weight: 600;
+  color: var(--foam-white);
+  border-color: var(--barley-gold);
+  font-weight: 700;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.5),
+    inset 0 1px 3px rgba(230, 192, 76, 0.2),
+    0 0 20px rgba(212, 131, 31, 0.15);
 }
 
 .primary-btn:hover {
   background: var(--gradient-accent);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-soft);
-  border-color: var(--subtle-gold);
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.6),
+    inset 0 1px 4px rgba(230, 192, 76, 0.3),
+    0 0 30px rgba(230, 192, 76, 0.25);
+  border-color: var(--barley-gold);
 }
 
 .secondary-btn {
-  background: transparent;
-  color: var(--text-color);
-  border-color: var(--border-color);
+  background:
+    linear-gradient(135deg, rgba(62, 39, 35, 0.8), rgba(74, 37, 17, 0.75)),
+    var(--wood-texture);
+  background-blend-mode: overlay;
+  color: var(--cream);
+  border-color: var(--copper-red);
 }
 
 .secondary-btn:hover {
-  background: var(--surface-2);
-  color: var(--clean-white);
+  background: var(--gradient-primary);
+  color: var(--foam-white);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-soft);
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(212, 131, 31, 0.15);
+  border-color: var(--amber-ale);
 }
 
 .secondary-btn.active {
-  background: var(--amber);
-  color: var(--darker-bg);
+  background: var(--gradient-accent);
+  color: var(--dark-stout);
+  border-color: var(--barley-gold);
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.5),
+    inset 0 2px 6px rgba(230, 192, 76, 0.3),
+    0 0 25px rgba(230, 192, 76, 0.2);
 }
 
 /* Disabled state for buttons with better accessibility */
@@ -695,40 +797,55 @@ body::after {
   justify-content: space-between;
   align-items: center;
   padding: var(--space-sm) var(--space-md);
-  background: var(--surface-2);
-  border: 1px solid var(--border-color);
+  background:
+    linear-gradient(135deg, rgba(62, 39, 35, 0.85), rgba(74, 37, 17, 0.8)),
+    var(--wood-texture);
+  background-blend-mode: overlay;
+  border: 2px solid var(--copper-red);
   border-radius: var(--space-sm);
   flex-wrap: wrap;
   gap: var(--space-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(230, 192, 76, 0.1);
 }
 
 .status-info {
   font-size: 0.9rem;
-  color: var(--amber);
+  font-family: var(--bold-font);
+  color: var(--barley-gold);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.05em;
 }
 
 .theme-toggle {
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--amber);
+  background:
+    linear-gradient(135deg, rgba(74, 37, 17, 0.8), rgba(62, 39, 35, 0.75)),
+    var(--wood-texture);
+  background-blend-mode: overlay;
+  border: 2px solid var(--copper-red);
+  color: var(--barley-gold);
   padding: 0.5rem 1rem;
   border-radius: 999px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-family: var(--bold-font);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(230, 192, 76, 0.1);
 }
 
 .theme-toggle:hover {
-  background: var(--amber);
-  color: var(--darker-bg);
+  background: var(--gradient-accent);
+  color: var(--dark-stout);
+  border-color: var(--barley-gold);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(230, 192, 76, 0.2);
+  transform: translateY(-1px);
 }
 
 /* Structure link styling */
-.structure-link {
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
+.structure-link { display: none; }
 
 /* NL: Toegankelijke focus-styling */
 .btn:focus,
@@ -749,10 +866,13 @@ a.theme-toggle:focus {
   height: 60px;
   border-radius: 50%;
   background: var(--gradient-primary);
-  color: var(--darker-bg);
-  border: none;
+  color: var(--dark-stout);
+  border: 3px solid var(--copper-red);
   cursor: pointer;
-  box-shadow: 0 8px 22px rgba(255, 215, 0, 0.25);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(212, 131, 31, 0.3),
+    inset 0 2px 6px rgba(230, 192, 76, 0.2);
   transition: all 0.3s ease;
   z-index: 100;
   display: flex;
@@ -763,7 +883,11 @@ a.theme-toggle:focus {
 
 #history-toggle:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.7),
+    0 0 40px rgba(230, 192, 76, 0.4),
+    inset 0 2px 8px rgba(230, 192, 76, 0.3);
+  border-color: var(--barley-gold);
 }
 
 .history {
@@ -771,20 +895,25 @@ a.theme-toggle:focus {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(62, 39, 35, 0.95) 0%,
-    rgba(26, 15, 10, 0.98) 100%
-  );
-  border-top: 2px solid var(--copper-red);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(74, 37, 17, 0.98) 0%,
+      rgba(26, 15, 8, 0.99) 100%
+    ),
+    var(--wood-texture);
+  background-blend-mode: overlay;
+  border-top: 3px solid var(--copper-red);
   padding: var(--space-xl);
   transform: translateY(100%);
   transition: transform var(--transition-speed) var(--transition-ease);
   z-index: 99;
   max-height: 50vh;
+  max-height: 50dvh;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   overflow-y: auto;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6), inset 0 2px 10px rgba(230, 192, 76, 0.05);
 }
 
 .history.show {
@@ -792,7 +921,7 @@ a.theme-toggle:focus {
 }
 
 .history h3 {
-  font-family: var(--header-font);
+  font-family: var(--accent-font);
   font-size: 1.8rem;
   color: var(--barley-gold);
   margin-bottom: var(--space-md);
@@ -800,7 +929,8 @@ a.theme-toggle:focus {
   justify-content: space-between;
   align-items: center;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 #history-list {
@@ -810,33 +940,56 @@ a.theme-toggle:focus {
 
 #history-list > div {
   padding: 1rem;
-  background: var(--surface-2);
+  background:
+    linear-gradient(135deg, rgba(62, 39, 35, 0.8), rgba(74, 37, 17, 0.75)),
+    var(--wood-texture);
+  background-blend-mode: overlay;
   border-radius: 10px;
-  border-left: 3px solid var(--amber);
+  border-left: 4px solid var(--amber-ale);
+  border: 2px solid rgba(183, 65, 14, 0.3);
+  border-left: 4px solid var(--amber-ale);
   transition: all 0.3s ease;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 #history-list > div:hover {
-  background: rgba(139, 69, 19, 0.2);
+  background: var(--gradient-primary);
   transform: translateX(5px);
   will-change: transform;
+  border-left-color: var(--barley-gold);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(212, 131, 31, 0.15);
 }
 
 .clear-btn {
-  background: transparent;
-  border: 1px solid var(--amber);
-  color: var(--amber);
+  background:
+    linear-gradient(135deg, rgba(74, 37, 17, 0.7), rgba(62, 39, 35, 0.65)),
+    var(--wood-texture);
+  background-blend-mode: overlay;
+  border: 2px solid var(--copper-red);
+  color: var(--barley-gold);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
+  font-family: var(--bold-font);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .clear-btn:hover {
-  background: var(--amber);
-  color: var(--darker-bg);
+  background: var(--gradient-primary);
+  color: var(--dark-stout);
+  border-color: var(--barley-gold);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(212, 131, 31, 0.2);
+  transform: translateY(-1px);
 }
 
 /* Toast notification */
@@ -947,17 +1100,28 @@ a.theme-toggle:focus {
   left: 50%;
 }
 
-/* Footer */
+/* Footer with brewery bar aesthetic */
 .main-footer {
   text-align: center;
   padding: 0.8rem;
-  background: rgba(18, 13, 10, 0.9);
-  border-top: 1px solid var(--border-color);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(26, 15, 8, 0.95) 0%,
+      rgba(13, 7, 4, 0.98) 100%
+    ),
+    var(--wood-texture);
+  background-blend-mode: overlay;
+  border-top: 3px solid var(--copper-red);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.5), inset 0 2px 8px rgba(230, 192, 76, 0.05);
 }
 
 .main-footer p {
-  color: var(--amber);
+  color: var(--barley-gold);
   font-size: 0.9rem;
+  font-family: var(--body-font);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.03em;
 }
 
 /* Animations */
@@ -1333,12 +1497,20 @@ a.theme-toggle:focus {
   font-weight: 500;
 }
 
-/* NL: Donkere modus variabelen (JS togglet body.dark-mode) */
+/* Enhanced dark mode with deeper beer tones */
 body.dark-mode {
-  --main-bg-color: #0f0b08;
-  --secondary-color: #14100e;
-  --text-color: #f1e7d7;
-  --card-bg: rgba(18, 13, 10, 0.9);
+  --main-bg-color: #0a0502;
+  --dark-stout: #0d0704;
+  --malt-brown: #3a1d0f;
+  --surface: rgba(58, 29, 15, 0.9);
+  --surface-2: rgba(42, 25, 15, 0.8);
+  --text-color: var(--cream);
+  --card-bg: rgba(13, 7, 4, 0.95);
+  --gradient-background: linear-gradient(
+    180deg,
+    var(--dark-stout) 0%,
+    var(--malt-brown) 100%
+  );
 }
 
 /* NL: Optimalisaties voor 1920x1080 schermen */

@@ -1,8 +1,134 @@
-// Beer Name Generator - main app logic.
+// Beer Name Generator - main app logic with integrated validation and UI effects
 console.log('Beer Name Generator starting...');
-#
 let beerData = null;
 let isDataLoaded = false;
+
+// ============================================================================
+// VALIDATION UTILITIES (merged from validation.js)
+// ============================================================================
+
+/**
+ * Validate that a string is not empty and within length limits
+ * @param {string} value - The string to validate
+ * @param {number} [minLength=1] - Minimum allowed length
+ * @param {number} [maxLength=1000] - Maximum allowed length
+ * @returns {boolean} True if valid, false otherwise
+ */
+function isValidString(value, minLength = 1, maxLength = 1000) {
+  if (typeof value !== 'string') {
+    return false;
+  }
+
+  const trimmed = value.trim();
+  return trimmed.length >= minLength && trimmed.length <= maxLength;
+}
+
+/**
+ * Validate localStorage data structure
+ * @param {*} data - The data to validate
+ * @returns {boolean} True if data is a valid beer history array
+ */
+function isValidBeerHistory(data) {
+  if (!Array.isArray(data)) {
+    return false;
+  }
+
+  return data.every(
+    (item) =>
+      item &&
+      typeof item === 'object' &&
+      typeof item.name === 'string' &&
+      typeof item.description === 'string' &&
+      typeof item.id === 'string' &&
+      item.specs &&
+      typeof item.specs === 'object'
+  );
+}
+
+// ============================================================================
+// UI EFFECTS (merged from ui-effects.js)
+// ============================================================================
+
+/**
+ * Create floating bubbles inside the beer glass container
+ */
+function createBubbles() {
+  const bubblesContainer = document.getElementById('bubbles');
+  if (!bubblesContainer) return;
+
+  setInterval(() => {
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    const size = Math.random() * 12 + 6;
+    bubble.style.width = size + 'px';
+    bubble.style.height = size + 'px';
+    bubble.style.left = Math.random() * 100 + '%';
+    bubble.style.animationDuration = Math.random() * 6 + 8 + 's';
+    bubble.style.animationDelay = Math.random() * 2 + 's';
+    bubblesContainer.appendChild(bubble);
+
+    setTimeout(() => bubble.remove(), 15000);
+  }, 800);
+}
+
+/**
+ * Create background bubbles that float across the entire page
+ */
+function createBackgroundBubbles() {
+  const bg = document.getElementById('bubbles-bg');
+  if (!bg) return;
+
+  setInterval(() => {
+    const b = document.createElement('div');
+    b.className = 'bg-bubble';
+    const size = Math.random() * 20 + 10;
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.left = Math.random() * 100 + '%';
+    b.style.bottom = -20 - Math.random() * 40 + 'px';
+    b.style.animationDuration = Math.random() * 10 + 12 + 's';
+    b.style.animationDelay = Math.random() * 2 + 's';
+    bg.appendChild(b);
+
+    setTimeout(() => b.remove(), 20000);
+  }, 600);
+}
+
+/**
+ * Set up history panel toggle functionality
+ */
+function setupHistoryPanelToggle() {
+  const historyToggleBtn = document.getElementById('history-toggle');
+  const historyPanel = document.querySelector('.history');
+
+  if (historyToggleBtn && historyPanel) {
+    historyToggleBtn.addEventListener('click', function () {
+      const isExpanded = historyPanel.classList.contains('show');
+      historyPanel.classList.toggle('show');
+
+      historyToggleBtn.setAttribute('aria-expanded', !isExpanded);
+
+      const newIcon = !isExpanded
+        ? '<i class="fas fa-chevron-down" aria-hidden="true"></i>'
+        : '<i class="fas fa-history" aria-hidden="true"></i>';
+      historyToggleBtn.innerHTML = newIcon;
+
+      const newLabel = !isExpanded ? 'Close beer history' : 'View beer history';
+      historyToggleBtn.setAttribute('aria-label', newLabel);
+    });
+
+    historyToggleBtn.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        historyToggleBtn.click();
+      }
+    });
+  }
+}
+
+// ============================================================================
+// MAIN APPLICATION CODE
+// ============================================================================
 
 /**
  * Centralized error handler for the application
@@ -264,7 +390,6 @@ async function initializeBeerGenerator() {
   const clearHistoryBtn = document.getElementById('clear-history');
   const generationCountElement = document.getElementById('generation-count');
   const themeToggleBtn = document.getElementById('theme-toggle');
-  const generateImageBtn = document.getElementById('generate-image-btn');
   const beerSpecsContainer = document.getElementById('beer-specs');
   const specStyle = document.getElementById('spec-style');
   const specAbv = document.getElementById('spec-abv');
@@ -274,7 +399,6 @@ async function initializeBeerGenerator() {
   console.log('DOM elements found:', {
     randomNameElement: !!randomNameElement,
     generateBtn: !!generateBtn,
-    beerSpecsContainer: !!beerSpecsContainer,
   });
 
   // App state
@@ -389,88 +513,26 @@ async function initializeBeerGenerator() {
 
   // Beer generation functions using loaded JSON data
   const generateTitle = () => {
-    // Add variety: random, alliteration, and realistic-style naming
-    const templates = [
-      // Random evocative title
-      () => {
-        const [taste1, taste2] = randomMultiple(
-          beerData.tasteProfiles,
-          2,
-          true
-        );
-        const creature = random(beerData.mythicalCreatures);
-        const adjective = random(beerData.coolAdjectives);
-        return `The ${adjective} ${taste1} and ${taste2} ${creature}`;
-      },
-      // Region + adjective + creature
-      () => {
-        const adjective = random(beerData.coolAdjectives);
-        const creature = random(beerData.mythicalCreatures);
-        const region = random(beerData.regions);
-        return `${region} ${adjective} ${creature}`;
-      },
-      // Mythic journey style
-      () => {
-        const taste = random(beerData.tasteProfiles);
-        const adjective = random(beerData.coolAdjectives);
-        const noun = random([
-          'Voyage',
-          'Journey',
-          'Quest',
-          'Legend',
-          'Tale',
-          'Chronicle',
-          'Saga',
-          'Epic',
-          'Odyssey',
-          'Adventure',
-        ]);
-        return `The ${adjective} ${taste} ${noun}`;
-      },
-      // Alliteration: pick a letter and try to pick words starting with it.
-      () => {
-        const pick = (arr, letter) => {
-          const filtered = (arr || []).filter(
-            (w) => typeof w === 'string' && w.toLowerCase().startsWith(letter)
-          );
-          return filtered.length ? random(filtered) : random(arr);
-        };
-        const letter = random('abcdefghijklmnopqrstuvwxyz'.split(''));
-        const adj = pick(beerData.coolAdjectives, letter);
-        const taste = pick(beerData.tasteProfiles, letter);
-        const creature = pick(beerData.mythicalCreatures, letter);
-        return `${adj} ${taste} ${creature}`;
-      },
-      // Realistic-style: Region + Category/Style name, optional color
-      () => {
-        const region = random(beerData.regions);
-        const category = random(beerData.categories);
-        const maybeColor =
-          Math.random() < 0.4 ? `${random(beerData.colors)} ` : '';
-        // e.g., "Bavarian Amber Hefeweizen" or "Belgian Tripel"
-        return `${region} ${maybeColor}${category}`;
-      },
-    ];
-    return random(templates)();
+    // Original-style title: The {Adjective1} {Adjective2} {MythicalCreature}
+    const [adj1, adj2] = randomMultiple(beerData.coolAdjectives, 2, true);
+    const creature = random(beerData.mythicalCreatures);
+    return `The ${adj1} ${adj2} ${creature}`;
   };
 
   const generateDescription = () => {
-    const [adj1, adj2] = randomMultiple(beerData.coolAdjectives, 2, true);
-    const color = random(beerData.colors);
-    // Use a single category/style name to avoid duplicates
-    const category = random(beerData.categories);
-    const glass = random(beerData.beerGlasses);
-    const [taste1, taste2] = randomMultiple(beerData.tasteProfiles, 2, true);
-    const mouthfeel = random(beerData.mouthfeelDescriptors);
-    const creature = random(beerData.mythicalCreatures);
-    const adverb = random(beerData.adverbs);
-    const tasteNoun = random(beerData.tasteNouns);
+    // Original short description format:
+    // "The Wicked Gothic Ceffyl Dwr" a Torrid Gray-coloured Green Single Bock served "Fantasied" style in a Mug
+    const bodyAdj = random(beerData.coolAdjectives); // e.g., Torrid
+    const [color1, color2] = randomMultiple(beerData.colors, 2, true); // e.g., Gray, Green
+    const styleName = (beerData.types && beerData.types.length
+      ? random(beerData.types)
+      : random(beerData.categories)); // e.g., Single Bock
+    const styleWord = random(beerData.coolAdjectives); // e.g., Fantasied (approximate from adjectives)
+    const glass = random(beerData.beerGlasses); // e.g., Mug
 
-    const art = articleFor(adj1);
-    const tasteNounPlural = pluralize(tasteNoun);
-
-    // Example: "an ethereal, bold, amber Belgian Tripel, served gently in a tulip glass..."
-    return `${art} ${adj1}, ${adj2}, ${color} ${category}, served ${adverb} in a ${glass}, with ${tasteNounPlural} of ${taste1} and ${taste2} and a ${mouthfeel} finish, evoking the essence of a mythical ${creature}`;
+    const art = articleFor(bodyAdj);
+    // Compose the classic compact line (without trailing extra prose)
+    return `${art} ${bodyAdj} ${color1}-coloured ${color2} ${styleName} served "${styleWord}" style in a ${glass}`;
   };
 
   const generateSpecs = () => ({
@@ -486,7 +548,8 @@ async function initializeBeerGenerator() {
     try {
       const specs = generateSpecs();
       const name = generateTitle();
-      const description = `${name}, ${generateDescription()}. This ${specs.region} ${specs.technique} brew features ${specs.ibu} and ${specs.abv}, making it perfect for a ${specs.occasion}.`;
+      // Revert to original compact sentence format
+      const description = `"${name}" ${generateDescription()}`;
 
       return {
         name,
@@ -743,6 +806,14 @@ async function initializeBeerGenerator() {
     });
   }
 
+  // Initialize dark mode before attaching event listener
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+    if (themeToggleBtn) {
+      themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+    }
+  }
+
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
@@ -757,36 +828,6 @@ async function initializeBeerGenerator() {
         'info'
       );
     });
-  }
-
-  // Generate Image button - now properly integrated with Midjourney
-  if (generateImageBtn) {
-    // Check if Midjourney integration is available
-    if (
-      typeof window.midjourneyIntegration !== 'undefined' &&
-      window.midjourneyIntegration.generateImageForCurrentBeer
-    ) {
-      generateImageBtn.disabled = false;
-      generateImageBtn.setAttribute('aria-disabled', 'false');
-      generateImageBtn.title = 'Generate beer label image using Midjourney';
-      // Event listener is already set up in midjourney-integration.js
-      console.log(
-        '✅ Image generation button enabled with Midjourney integration'
-      );
-    } else {
-      generateImageBtn.disabled = true;
-      generateImageBtn.setAttribute('aria-disabled', 'true');
-      generateImageBtn.title = 'Midjourney integration not available';
-      generateImageBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        showToast(
-          'Midjourney integration not loaded. Please check your setup.',
-          3000,
-          'warning'
-        );
-      });
-      console.warn('⚠️ Midjourney integration not available');
-    }
   }
 
   // Keyboard shortcuts with better accessibility
@@ -837,14 +878,6 @@ async function initializeBeerGenerator() {
     }
   });
 
-  // Initialize dark mode
-  if (localStorage.getItem('darkMode') === 'enabled') {
-    document.body.classList.add('dark-mode');
-    if (themeToggleBtn) {
-      themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
-    }
-  }
-
   // Initialize display
   updateUI();
 
@@ -875,9 +908,15 @@ async function initializeBeerGenerator() {
   window.generateAndDisplay = generateAndDisplay;
   window.beerData = beerData; // read-only view of loaded JSON
 
+  // Initialize UI effects
+  createBubbles();
+  createBackgroundBubbles();
+  setupHistoryPanelToggle();
+
   console.log('✅ Beer Generator initialized successfully with JSON data!');
 }
-// Initialize when DOM is ready. Data will be loaded by initialization as needed.
+
+// Initialize when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initializeBeerGenerator);
 } else {

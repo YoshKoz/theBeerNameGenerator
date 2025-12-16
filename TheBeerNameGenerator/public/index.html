@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Great+Vibes&family=Bebas+Neue&family=Roboto:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Great+Vibes&family=Bebas+Neue&family=Roboto:wght@300;400;500&family=Uncial+Antiqua&display=swap"
       rel="stylesheet"
     />
 
@@ -46,7 +46,7 @@
 
       <div class="main-content">
         <section class="beer-generator">
-          <h2>Discover Your Perfect Brew</h2>
+          <h2>Conjure Your Mythic Brew</h2>
 
           <!-- NL: Resultaatgedeelte met naam + specificaties -->
           <div class="result-container">
@@ -55,22 +55,6 @@
               <div class="beer-specs" id="beer-specs" aria-live="polite">
                 <div id="random-name" class="beer-name-text" aria-live="polite">
                   Click below and savor the surprise!
-                </div>
-                <div class="spec-item">
-                  <div class="spec-label">Style</div>
-                  <div class="spec-value" id="spec-style">-</div>
-                </div>
-                <div class="spec-item">
-                  <div class="spec-label">ABV</div>
-                  <div class="spec-value" id="spec-abv">-</div>
-                </div>
-                <div class="spec-item">
-                  <div class="spec-label">IBU</div>
-                  <div class="spec-value" id="spec-ibu">-</div>
-                </div>
-                <div class="spec-item">
-                  <div class="spec-label">Origin</div>
-                  <div class="spec-value" id="spec-origin">-</div>
                 </div>
               </div>
             </div>
@@ -96,15 +80,6 @@
               >
                 <i class="fas fa-sync-alt" aria-hidden="true"></i> Auto Generate
               </button>
-
-              <button
-                type="button"
-                class="btn secondary-btn"
-                id="generate-image-btn"
-                aria-label="Generate beer label image using Midjourney"
-              >
-                <i class="fas fa-image" aria-hidden="true"></i> Generate Image
-              </button>
             </div>
 
             <div class="status-bar">
@@ -119,14 +94,6 @@
               >
                 <i class="fas fa-moon" aria-hidden="true"></i> Dark Mode
               </button>
-              <!-- NL: Link naar visuele structuur uitleg -->
-              <a
-                class="theme-toggle structure-link"
-                href="structure.html"
-                aria-label="View app structure"
-              >
-                <i class="fas fa-sitemap" aria-hidden="true"></i> Structure
-              </a>
             </div>
           </div>
         </section>
@@ -174,16 +141,7 @@
     <!-- Axios for HTTP requests -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <!-- Validation utilities -->
-    <script src="validation.js?v=2025-10-27-1" defer></script>
-
-    <!-- UI Effects (bubbles and interactions) -->
-    <script src="ui-effects.js?v=2025-10-27-1" defer></script>
-
     <!-- Main JavaScript (cache-busting) -->
     <script src="main.js?v=2025-10-27-1" defer></script>
-
-    <!-- Midjourney Integration (cache-busting) -->
-    <script src="midjourney-integration.js?v=2025-10-27-1" defer></script>
   </body>
 </html>
