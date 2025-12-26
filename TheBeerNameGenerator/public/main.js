@@ -524,9 +524,10 @@ async function initializeBeerGenerator() {
     // "The Wicked Gothic Ceffyl Dwr" a Torrid Gray-coloured Green Single Bock served "Fantasied" style in a Mug
     const bodyAdj = random(beerData.coolAdjectives); // e.g., Torrid
     const [color1, color2] = randomMultiple(beerData.colors, 2, true); // e.g., Gray, Green
-    const styleName = (beerData.types && beerData.types.length
-      ? random(beerData.types)
-      : random(beerData.categories)); // e.g., Single Bock
+    const styleName =
+      beerData.types && beerData.types.length
+        ? random(beerData.types)
+        : random(beerData.categories); // e.g., Single Bock
     const styleWord = random(beerData.coolAdjectives); // e.g., Fantasied (approximate from adjectives)
     const glass = random(beerData.beerGlasses); // e.g., Mug
 
