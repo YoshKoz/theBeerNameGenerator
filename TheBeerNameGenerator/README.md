@@ -65,11 +65,10 @@ TheBeerNameGenerator/
 - **LocalStorage** - History persistence
 - **Prettier** - Code formatting
 - **Commitlint** - Commit message linting
-- Midjourney AI
 
-## Contributing
+## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Here's how to get started:
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -77,6 +76,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+Made with 🍻 by [YoshKoz](https://github.com/YoshKoz)
