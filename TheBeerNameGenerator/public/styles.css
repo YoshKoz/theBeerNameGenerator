@@ -848,11 +848,6 @@ body::after {
   transform: translateY(-1px);
 }
 
-/* Structure link styling */
-.structure-link {
-  display: none;
-}
-
 /* NL: Toegankelijke focus-styling */
 .btn:focus,
 .theme-toggle:focus,
