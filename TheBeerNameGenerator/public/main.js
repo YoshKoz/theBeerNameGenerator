@@ -51,12 +51,18 @@ function isValidBeerHistory(data) {
 
 /**
  * Create floating bubbles inside the beer glass container
+ * Optimized with max bubble limit to prevent memory leaks
  */
 function createBubbles() {
   const bubblesContainer = document.getElementById('bubbles');
   if (!bubblesContainer) return;
 
+  const MAX_BUBBLES = 15; // Limit concurrent bubbles to prevent memory issues
+
   setInterval(() => {
+    // Check current bubble count before creating new ones
+    if (bubblesContainer.children.length >= MAX_BUBBLES) return;
+
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
     const size = Math.random() * 12 + 6;
@@ -73,12 +79,18 @@ function createBubbles() {
 
 /**
  * Create background bubbles that float across the entire page
+ * Optimized with max bubble limit to prevent memory leaks
  */
 function createBackgroundBubbles() {
   const bg = document.getElementById('bubbles-bg');
   if (!bg) return;
 
+  const MAX_BG_BUBBLES = 20; // Limit concurrent background bubbles
+
   setInterval(() => {
+    // Check current bubble count before creating new ones
+    if (bg.children.length >= MAX_BG_BUBBLES) return;
+
     const b = document.createElement('div');
     b.className = 'bg-bubble';
     const size = Math.random() * 20 + 10;
@@ -206,15 +218,6 @@ async function loadBeerData() {
       beerData = data;
       isDataLoaded = true;
       console.log('✅ Successfully loaded beer_data.json!');
-      console.log(`📊 Comprehensive Data Stats:
-          - Categories: ${Array.isArray(data.categories) ? data.categories.length : 0}
-          - Adjectives: ${Array.isArray(data.coolAdjectives) ? data.coolAdjectives.length : 0}
-          - Mythical Creatures: ${Array.isArray(data.mythicalCreatures) ? data.mythicalCreatures.length : 0}
-          - Taste Profiles: ${Array.isArray(data.tasteProfiles) ? data.tasteProfiles.length : 0}
-          - Colors: ${Array.isArray(data.colors) ? data.colors.length : 0}
-          - Beer Glasses: ${Array.isArray(data.beerGlasses) ? data.beerGlasses.length : 0}
-          - Regions: ${Array.isArray(data.regions) ? data.regions.length : 0}
-          - Brewing Techniques: ${Array.isArray(data.brewingTechniques) ? data.brewingTechniques.length : 0}`);
       showDataLoadStatus(
         `✅ Bierdatabase geladen! (${Array.isArray(data.categories) ? data.categories.length : 0} categorieën)`,
         'success'
@@ -406,6 +409,7 @@ async function initializeBeerGenerator() {
   let generatedNames = [];
   let totalGenerated = 0;
   let currentBeer = null;
+  let saveHistoryTimeout = null; // Debounce timer for localStorage saves
 
   // Load saved data from localStorage with better error handling
   try {
@@ -485,12 +489,28 @@ async function initializeBeerGenerator() {
 
     if (!unique) return Array.from({ length: count }, () => random(array));
 
+    // Optimized: Use index-based selection to avoid copying entire array
     const selected = [];
-    const available = [...array];
-    const limit = Math.min(count, available.length);
+    const usedIndices = new Set();
+    const limit = Math.min(count, array.length);
+
     for (let i = 0; i < limit; i++) {
-      const index = Math.floor(Math.random() * available.length);
-      selected.push(available.splice(index, 1)[0]);
+      let index;
+      // For small selections relative to array size, random selection is efficient
+      if (limit < array.length / 2) {
+        do {
+          index = Math.floor(Math.random() * array.length);
+        } while (usedIndices.has(index));
+        usedIndices.add(index);
+      } else {
+        // For large selections, Fisher-Yates-like approach would be better
+        // but for this use case (usually 2-3 items), simple approach is fine
+        do {
+          index = Math.floor(Math.random() * array.length);
+        } while (usedIndices.has(index));
+        usedIndices.add(index);
+      }
+      selected.push(array[index]);
     }
     return selected;
   };
@@ -524,9 +544,10 @@ async function initializeBeerGenerator() {
     // "The Wicked Gothic Ceffyl Dwr" a Torrid Gray-coloured Green Single Bock served "Fantasied" style in a Mug
     const bodyAdj = random(beerData.coolAdjectives); // e.g., Torrid
     const [color1, color2] = randomMultiple(beerData.colors, 2, true); // e.g., Gray, Green
-    const styleName = (beerData.types && beerData.types.length
-      ? random(beerData.types)
-      : random(beerData.categories)); // e.g., Single Bock
+    const styleName =
+      beerData.types && beerData.types.length
+        ? random(beerData.types)
+        : random(beerData.categories); // e.g., Single Bock
     const styleWord = random(beerData.coolAdjectives); // e.g., Fantasied (approximate from adjectives)
     const glass = random(beerData.beerGlasses); // e.g., Mug
 
@@ -651,6 +672,21 @@ async function initializeBeerGenerator() {
       }
 
       if (historyList) {
+        // Optimize: Only update if history has changed to avoid unnecessary DOM manipulation
+        const currentHistoryIds = Array.from(historyList.children).map(
+          (child) => child.dataset.beerId
+        );
+        const newHistoryIds = generatedNames
+          .slice(0, 10)
+          .map((beer) => beer.id);
+
+        // Check if history list needs updating
+        const needsUpdate =
+          currentHistoryIds.length !== newHistoryIds.length ||
+          currentHistoryIds.some((id, idx) => id !== newHistoryIds[idx]);
+
+        if (!needsUpdate) return; // Skip update if nothing changed
+
         historyList.innerHTML = '';
         generatedNames.slice(0, 10).forEach((beer) => {
           if (!beer || !beer.name) {
@@ -661,6 +697,7 @@ async function initializeBeerGenerator() {
           const item = document.createElement('div');
           item.setAttribute('role', 'button');
           item.setAttribute('tabindex', '0');
+          item.dataset.beerId = beer.id; // Track beer ID for comparison
           item.innerHTML = `
             <strong>${beer.name}</strong>
             <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem;">
@@ -710,17 +747,21 @@ async function initializeBeerGenerator() {
       displayBeer(beer);
       updateUI();
 
-      try {
-        localStorage.setItem('beerHistory', JSON.stringify(generatedNames));
-      } catch (e) {
-        console.warn('Could not save to localStorage:', e);
-        // More specific error message based on the likely cause
-        const errorMsg =
-          e.name === 'QuotaExceededError'
-            ? 'Local storage is full. Consider clearing some history to save new beers.'
-            : "Your beer history couldn't be saved to local storage.";
-        showToast(errorMsg, 3000, 'warning');
-      }
+      // Debounced localStorage save to reduce write frequency
+      clearTimeout(saveHistoryTimeout);
+      saveHistoryTimeout = setTimeout(() => {
+        try {
+          localStorage.setItem('beerHistory', JSON.stringify(generatedNames));
+        } catch (e) {
+          console.warn('Could not save to localStorage:', e);
+          // More specific error message based on the likely cause
+          const errorMsg =
+            e.name === 'QuotaExceededError'
+              ? 'Local storage is full. Consider clearing some history to save new beers.'
+              : "Your beer history couldn't be saved to local storage.";
+          showToast(errorMsg, 3000, 'warning');
+        }
+      }, 500); // Wait 500ms before saving to batch rapid generations
 
       return beer;
     } catch (error) {

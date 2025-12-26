@@ -7,16 +7,16 @@
   color-scheme: dark;
 
   /* Authentic Beer Color Palette */
-  --amber-ale: #D4831F;
-  --copper-red: #B7410E;
-  --malt-brown: #4A2511;
+  --amber-ale: #d4831f;
+  --copper-red: #b7410e;
+  --malt-brown: #4a2511;
   --dark-stout: #1a0f08;
-  --barley-gold: #E6C04C;
+  --barley-gold: #e6c04c;
   --hop-green: #3d5a3e;
-  --foam-white: #FFF8DC;
-  --cream: #FFEFD5;
-  --wood-brown: #5C4033;
-  --barrel-oak: #3E2723;
+  --foam-white: #fff8dc;
+  --cream: #ffefd5;
+  --wood-brown: #5c4033;
+  --barrel-oak: #3e2723;
 
   /* Primary color scheme */
   --main-bg-color: var(--dark-stout);
@@ -73,10 +73,10 @@
   --border-radius: 12px;
   --wood-texture: repeating-linear-gradient(
     90deg,
-    #5C4033 0px,
-    #5C4033 2px,
-    #6B4E3D 2px,
-    #6B4E3D 4px
+    #5c4033 0px,
+    #5c4033 2px,
+    #6b4e3d 2px,
+    #6b4e3d 4px
   );
 
   /* Motion & timing */
@@ -231,11 +231,10 @@ body::after {
       rgba(92, 64, 51, 0.03) 2px,
       rgba(92, 64, 51, 0.03) 4px
     ),
-    radial-gradient(
-      rgba(230, 192, 76, 0.02) 1px,
-      transparent 1px
-    );
-  background-size: 100% 100%, 4px 4px;
+    radial-gradient(rgba(230, 192, 76, 0.02) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    4px 4px;
   z-index: -1;
   pointer-events: none;
 }
@@ -289,7 +288,9 @@ body::after {
     var(--wood-texture);
   background-blend-mode: overlay;
   border-bottom: 3px solid var(--copper-red);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 -2px 10px rgba(230, 192, 76, 0.1);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.5),
+    inset 0 -2px 10px rgba(230, 192, 76, 0.1);
 }
 
 .main-header h1 {
@@ -400,14 +401,13 @@ body::after {
   left: -3px;
   right: -3px;
   height: 45px;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 248, 220, 0.95) 0%,
-      rgba(255, 248, 220, 0.85) 30%,
-      rgba(255, 239, 213, 0.6) 60%,
-      transparent 100%
-    );
+  background: linear-gradient(
+    180deg,
+    rgba(255, 248, 220, 0.95) 0%,
+    rgba(255, 248, 220, 0.85) 30%,
+    rgba(255, 239, 213, 0.6) 60%,
+    transparent 100%
+  );
   border-radius: var(--border-radius) var(--border-radius) 0 0;
   box-shadow:
     0 2px 8px rgba(255, 248, 220, 0.4),
@@ -805,7 +805,9 @@ body::after {
   border-radius: var(--space-sm);
   flex-wrap: wrap;
   gap: var(--space-md);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(230, 192, 76, 0.1);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 2px rgba(230, 192, 76, 0.1);
 }
 
 .status-info {
@@ -831,7 +833,9 @@ body::after {
   font-weight: 600;
   letter-spacing: 0.05em;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 2px rgba(230, 192, 76, 0.1);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 2px rgba(230, 192, 76, 0.1);
 }
 
 .theme-toggle:hover {
@@ -845,7 +849,9 @@ body::after {
 }
 
 /* Structure link styling */
-.structure-link { display: none; }
+.structure-link {
+  display: none;
+}
 
 /* NL: Toegankelijke focus-styling */
 .btn:focus,
@@ -913,7 +919,9 @@ a.theme-toggle:focus {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   overflow-y: auto;
-  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.6), inset 0 2px 10px rgba(230, 192, 76, 0.05);
+  box-shadow:
+    0 -8px 32px rgba(0, 0, 0, 0.6),
+    inset 0 2px 10px rgba(230, 192, 76, 0.05);
 }
 
 .history.show {
@@ -1113,7 +1121,9 @@ a.theme-toggle:focus {
     var(--wood-texture);
   background-blend-mode: overlay;
   border-top: 3px solid var(--copper-red);
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.5), inset 0 2px 8px rgba(230, 192, 76, 0.05);
+  box-shadow:
+    0 -4px 16px rgba(0, 0, 0, 0.5),
+    inset 0 2px 8px rgba(230, 192, 76, 0.05);
 }
 
 .main-footer p {
