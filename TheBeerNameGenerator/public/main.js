@@ -4,6 +4,100 @@ let beerData = null;
 let isDataLoaded = false;
 
 // ============================================================================
+// LOCALSTORAGE UTILITIES
+// ============================================================================
+
+/**
+ * LocalStorage utility for managing beer history
+ */
+const LocalStorageManager = {
+  HISTORY_KEY: 'beerHistory',
+
+  /**
+   * Load beer history from localStorage
+   * @returns {Array} Array of beer objects or empty array if invalid/missing
+   */
+  loadHistory() {
+    try {
+      const saved = localStorage.getItem(this.HISTORY_KEY);
+      if (!saved) return [];
+
+      const parsed = JSON.parse(saved);
+      // Validate the parsed data structure
+      const isValid =
+        typeof isValidBeerHistory === 'function'
+          ? isValidBeerHistory(parsed)
+          : Array.isArray(parsed) &&
+            parsed.every(
+              (item) =>
+                item &&
+                typeof item === 'object' &&
+                item.name &&
+                item.description
+            );
+
+      if (isValid) {
+        console.log(`Loaded ${parsed.length} beers from history`);
+        return parsed;
+      } else {
+        console.warn('Invalid history data format, starting fresh');
+        this.clearHistory();
+        return [];
+      }
+    } catch (e) {
+      console.error('Could not load localStorage:', e);
+      // Clear corrupted data
+      this.clearHistory();
+      return [];
+    }
+  },
+
+  /**
+   * Save beer history to localStorage
+   * @param {Array} history - Array of beer objects to save
+   * @returns {boolean} True if saved successfully, false otherwise
+   */
+  saveHistory(history) {
+    try {
+      localStorage.setItem(this.HISTORY_KEY, JSON.stringify(history));
+      return true;
+    } catch (e) {
+      console.warn('Could not save to localStorage:', e);
+      // Return specific error info for user notification
+      return {
+        success: false,
+        error: e.name === 'QuotaExceededError' ? 'quota' : 'unknown',
+      };
+    }
+  },
+
+  /**
+   * Clear beer history from localStorage
+   */
+  clearHistory() {
+    try {
+      localStorage.removeItem(this.HISTORY_KEY);
+    } catch (e) {
+      console.warn('Could not remove localStorage data:', e);
+    }
+  },
+
+  /**
+   * Get or set dark mode preference
+   * @param {string} [value] - Optional value to set ('enabled' or 'disabled')
+   * @returns {string|null} Current value or null if getting
+   */
+  darkMode(value) {
+    const DARK_MODE_KEY = 'darkMode';
+    if (value !== undefined) {
+      localStorage.setItem(DARK_MODE_KEY, value);
+      return null;
+    }
+    return localStorage.getItem(DARK_MODE_KEY);
+  },
+};
+
+// ============================================================================
 // VALIDATION UTILITIES (merged from validation.js)
 // ============================================================================
 
@@ -46,52 +140,134 @@ function isValidBeerHistory(data) {
 }
 
 // ============================================================================
+// ANIMATION UTILITIES
+// ============================================================================
+
+/**
+ * Apply a fade-in animation to an element
+ * @param {HTMLElement} element - The element to animate
+ */
+function applyFadeIn(element) {
+  if (!element) return;
+  element.style.animation = 'none';
+  setTimeout(() => (element.style.animation = 'fadeIn 0.5s ease-in'), 10);
+}
+
+/**
+ * Apply a scale pop animation to an element
+ * @param {HTMLElement} element - The element to animate
+ * @param {number} [duration=200] - Duration of the animation in ms
+ */
+function applyScalePop(element, duration = 200) {
+  if (!element) return;
+  element.style.transform = 'scale(0.95)';
+  setTimeout(() => (element.style.transform = 'scale(1)'), duration);
+}
+
+// ============================================================================
+// KEYBOARD EVENT UTILITIES
+// ============================================================================
+
+/**
+ * Add keyboard activation to an element (handles Enter and Space keys)
+ * @param {HTMLElement} element - The element to add keyboard support to
+ * @param {Function} callback - Function to call when Enter or Space is pressed
+ */
+function addKeyboardActivation(element, callback) {
+  if (!element) return;
+
+  element.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      callback(e);
+    }
+  });
+}
+
+// ============================================================================
 // UI EFFECTS (merged from ui-effects.js)
 // ============================================================================
+
+/**
+ * Generic bubble creator that handles both types of bubbles
+ * @param {string} containerId - The ID of the container element
+ * @param {Object} config - Configuration for bubble creation
+ * @param {string} config.className - CSS class name for the bubble
+ * @param {number} config.minSize - Minimum bubble size in pixels
+ * @param {number} config.maxSize - Maximum bubble size in pixels
+ * @param {number} config.minDuration - Minimum animation duration in seconds
+ * @param {number} config.maxDuration - Maximum animation duration in seconds
+ * @param {number} config.interval - Interval between bubble creation in milliseconds
+ * @param {number} config.lifetime - How long bubble lives before removal in milliseconds
+ * @param {Object} [config.extraStyles] - Additional CSS styles to apply
+ */
+function createBubbleEffect(containerId, config) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  setInterval(() => {
+    const bubble = document.createElement('div');
+    bubble.className = config.className;
+
+    // Calculate size
+    const size =
+      Math.random() * (config.maxSize - config.minSize) + config.minSize;
+    bubble.style.width = size + 'px';
+    bubble.style.height = size + 'px';
+
+    // Common positioning
+    bubble.style.left = Math.random() * 100 + '%';
+
+    // Animation timing
+    const duration =
+      Math.random() * (config.maxDuration - config.minDuration) +
+      config.minDuration;
+    bubble.style.animationDuration = duration + 's';
+    bubble.style.animationDelay = Math.random() * 2 + 's';
+
+    // Apply extra styles if provided
+    if (config.extraStyles) {
+      Object.assign(bubble.style, config.extraStyles());
+    }
+
+    container.appendChild(bubble);
+
+    // Remove bubble after lifetime expires
+    setTimeout(() => bubble.remove(), config.lifetime);
+  }, config.interval);
+}
 
 /**
  * Create floating bubbles inside the beer glass container
  */
 function createBubbles() {
-  const bubblesContainer = document.getElementById('bubbles');
-  if (!bubblesContainer) return;
-
-  setInterval(() => {
-    const bubble = document.createElement('div');
-    bubble.className = 'bubble';
-    const size = Math.random() * 12 + 6;
-    bubble.style.width = size + 'px';
-    bubble.style.height = size + 'px';
-    bubble.style.left = Math.random() * 100 + '%';
-    bubble.style.animationDuration = Math.random() * 6 + 8 + 's';
-    bubble.style.animationDelay = Math.random() * 2 + 's';
-    bubblesContainer.appendChild(bubble);
-
-    setTimeout(() => bubble.remove(), 15000);
-  }, 800);
+  createBubbleEffect('bubbles', {
+    className: 'bubble',
+    minSize: 6,
+    maxSize: 18,
+    minDuration: 8,
+    maxDuration: 14,
+    interval: 800,
+    lifetime: 15000,
+  });
 }
 
 /**
  * Create background bubbles that float across the entire page
  */
 function createBackgroundBubbles() {
-  const bg = document.getElementById('bubbles-bg');
-  if (!bg) return;
-
-  setInterval(() => {
-    const b = document.createElement('div');
-    b.className = 'bg-bubble';
-    const size = Math.random() * 20 + 10;
-    b.style.width = size + 'px';
-    b.style.height = size + 'px';
-    b.style.left = Math.random() * 100 + '%';
-    b.style.bottom = -20 - Math.random() * 40 + 'px';
-    b.style.animationDuration = Math.random() * 10 + 12 + 's';
-    b.style.animationDelay = Math.random() * 2 + 's';
-    bg.appendChild(b);
-
-    setTimeout(() => b.remove(), 20000);
-  }, 600);
+  createBubbleEffect('bubbles-bg', {
+    className: 'bg-bubble',
+    minSize: 10,
+    maxSize: 30,
+    minDuration: 12,
+    maxDuration: 22,
+    interval: 600,
+    lifetime: 20000,
+    extraStyles: () => ({
+      bottom: -20 - Math.random() * 40 + 'px',
+    }),
+  });
 }
 
 /**
@@ -102,7 +278,7 @@ function setupHistoryPanelToggle() {
   const historyPanel = document.querySelector('.history');
 
   if (historyToggleBtn && historyPanel) {
-    historyToggleBtn.addEventListener('click', function () {
+    const togglePanel = () => {
       const isExpanded = historyPanel.classList.contains('show');
       historyPanel.classList.toggle('show');
 
@@ -115,14 +291,10 @@ function setupHistoryPanelToggle() {
 
       const newLabel = !isExpanded ? 'Close beer history' : 'View beer history';
       historyToggleBtn.setAttribute('aria-label', newLabel);
-    });
+    };
 
-    historyToggleBtn.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        historyToggleBtn.click();
-      }
-    });
+    historyToggleBtn.addEventListener('click', togglePanel);
+    addKeyboardActivation(historyToggleBtn, togglePanel);
   }
 }
 
@@ -407,50 +579,9 @@ async function initializeBeerGenerator() {
   let totalGenerated = 0;
   let currentBeer = null;
 
-  // Load saved data from localStorage with better error handling
-  try {
-    const saved = localStorage.getItem('beerHistory');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      // Validate the parsed data structure using validation utility
-      const isValid =
-        typeof isValidBeerHistory === 'function'
-          ? isValidBeerHistory(parsed)
-          : Array.isArray(parsed) &&
-            parsed.every(
-              (item) =>
-                item &&
-                typeof item === 'object' &&
-                item.name &&
-                item.description
-            );
-
-      if (isValid) {
-        generatedNames = parsed;
-        totalGenerated = generatedNames.length;
-        console.log(`Loaded ${generatedNames.length} beers from history`);
-      } else {
-        console.warn('Invalid history data format, starting fresh');
-        localStorage.removeItem('beerHistory');
-      }
-    }
-  } catch (e) {
-    handleError(
-      e,
-      'localStorage load',
-      'Could not load beer history. Starting fresh.',
-      false
-    );
-    // Clear corrupted data
-    try {
-      localStorage.removeItem('beerHistory');
-    } catch (removeError) {
-      console.warn(
-        'Could not remove corrupted localStorage data:',
-        removeError
-      );
-    }
-  }
+  // Load saved data from localStorage
+  generatedNames = LocalStorageManager.loadHistory();
+  totalGenerated = generatedNames.length;
 
   // Utility functions
   const random = (array) => {
@@ -524,9 +655,10 @@ async function initializeBeerGenerator() {
     // "The Wicked Gothic Ceffyl Dwr" a Torrid Gray-coloured Green Single Bock served "Fantasied" style in a Mug
     const bodyAdj = random(beerData.coolAdjectives); // e.g., Torrid
     const [color1, color2] = randomMultiple(beerData.colors, 2, true); // e.g., Gray, Green
-    const styleName = (beerData.types && beerData.types.length
-      ? random(beerData.types)
-      : random(beerData.categories)); // e.g., Single Bock
+    const styleName =
+      beerData.types && beerData.types.length
+        ? random(beerData.types)
+        : random(beerData.categories); // e.g., Single Bock
     const styleWord = random(beerData.coolAdjectives); // e.g., Fantasied (approximate from adjectives)
     const glass = random(beerData.beerGlasses); // e.g., Mug
 
@@ -608,11 +740,7 @@ async function initializeBeerGenerator() {
       if (randomNameElement) {
         randomNameElement.textContent = beer.description;
         adjustTextSize(beer.description);
-        randomNameElement.style.animation = 'none';
-        setTimeout(
-          () => (randomNameElement.style.animation = 'fadeIn 0.5s ease-in'),
-          10
-        );
+        applyFadeIn(randomNameElement);
       }
 
       if (beerSpecsContainer) {
@@ -625,10 +753,7 @@ async function initializeBeerGenerator() {
 
       // Small pop animation to draw attention to the updated content
       const container = document.querySelector('.beer-name-container');
-      if (container) {
-        container.style.transform = 'scale(0.95)';
-        setTimeout(() => (container.style.transform = 'scale(1)'), 200);
-      }
+      applyScalePop(container);
     } catch (error) {
       handleError(
         error,
@@ -667,6 +792,7 @@ async function initializeBeerGenerator() {
               ${beer.specs?.category || '-'} • ${beer.specs?.abv || '-'} • ${beer.specs?.ibu || '-'}
             </div>
           `;
+
           const loadFromHistory = () => {
             try {
               currentBeer = window.currentBeer = beer;
@@ -680,13 +806,9 @@ async function initializeBeerGenerator() {
               );
             }
           };
+
           item.addEventListener('click', loadFromHistory);
-          item.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              loadFromHistory();
-            }
-          });
+          addKeyboardActivation(item, loadFromHistory);
           historyList.appendChild(item);
         });
       }
@@ -710,13 +832,11 @@ async function initializeBeerGenerator() {
       displayBeer(beer);
       updateUI();
 
-      try {
-        localStorage.setItem('beerHistory', JSON.stringify(generatedNames));
-      } catch (e) {
-        console.warn('Could not save to localStorage:', e);
-        // More specific error message based on the likely cause
+      const saveResult = LocalStorageManager.saveHistory(generatedNames);
+      if (saveResult !== true) {
+        // Handle save failure
         const errorMsg =
-          e.name === 'QuotaExceededError'
+          saveResult.error === 'quota'
             ? 'Local storage is full. Consider clearing some history to save new beers.'
             : "Your beer history couldn't be saved to local storage.";
         showToast(errorMsg, 3000, 'warning');
@@ -800,14 +920,14 @@ async function initializeBeerGenerator() {
         generatedNames = [];
         totalGenerated = 0;
         updateUI();
-        localStorage.removeItem('beerHistory');
+        LocalStorageManager.clearHistory();
         showToast('History cleared!', 2000, 'success');
       }
     });
   }
 
   // Initialize dark mode before attaching event listener
-  if (localStorage.getItem('darkMode') === 'enabled') {
+  if (LocalStorageManager.darkMode() === 'enabled') {
     document.body.classList.add('dark-mode');
     if (themeToggleBtn) {
       themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
@@ -818,7 +938,7 @@ async function initializeBeerGenerator() {
     themeToggleBtn.addEventListener('click', () => {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+      LocalStorageManager.darkMode(isDark ? 'enabled' : 'disabled');
       themeToggleBtn.innerHTML = isDark
         ? '<i class="fas fa-sun"></i> Light Mode'
         : '<i class="fas fa-moon"></i> Dark Mode';
