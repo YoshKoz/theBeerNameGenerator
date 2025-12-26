@@ -3,6 +3,28 @@ console.log('Beer Name Generator starting...');
 let beerData = null;
 let isDataLoaded = false;
 
+/**
+ * Validate localStorage data structure
+ * @param {*} data - The data to validate
+ * @returns {boolean} True if data is a valid beer history array
+ */
+function isValidBeerHistory(data) {
+  if (!Array.isArray(data)) {
+    return false;
+  }
+
+  return data.every(
+    (item) =>
+      item &&
+      typeof item === 'object' &&
+      typeof item.name === 'string' &&
+      typeof item.description === 'string' &&
+      typeof item.id === 'string' &&
+      item.specs &&
+      typeof item.specs === 'object'
+  );
+}
+
 // ============================================================================
 // LOCALSTORAGE UTILITIES
 // ============================================================================
@@ -24,19 +46,7 @@ const LocalStorageManager = {
 
       const parsed = JSON.parse(saved);
       // Validate the parsed data structure
-      const isValid =
-        typeof isValidBeerHistory === 'function'
-          ? isValidBeerHistory(parsed)
-          : Array.isArray(parsed) &&
-            parsed.every(
-              (item) =>
-                item &&
-                typeof item === 'object' &&
-                item.name &&
-                item.description
-            );
-
-      if (isValid) {
+      if (isValidBeerHistory(parsed)) {
         console.log(`Loaded ${parsed.length} beers from history`);
         return parsed;
       } else {
@@ -55,12 +65,12 @@ const LocalStorageManager = {
   /**
    * Save beer history to localStorage
    * @param {Array} history - Array of beer objects to save
-   * @returns {boolean} True if saved successfully, false otherwise
+   * @returns {{success: boolean, error?: string}} Result object with success flag and optional error type
    */
   saveHistory(history) {
     try {
       localStorage.setItem(this.HISTORY_KEY, JSON.stringify(history));
-      return true;
+      return { success: true };
     } catch (e) {
       console.warn('Could not save to localStorage:', e);
       // Return specific error info for user notification
@@ -115,28 +125,6 @@ function isValidString(value, minLength = 1, maxLength = 1000) {
 
   const trimmed = value.trim();
   return trimmed.length >= minLength && trimmed.length <= maxLength;
-}
-
-/**
- * Validate localStorage data structure
- * @param {*} data - The data to validate
- * @returns {boolean} True if data is a valid beer history array
- */
-function isValidBeerHistory(data) {
-  if (!Array.isArray(data)) {
-    return false;
-  }
-
-  return data.every(
-    (item) =>
-      item &&
-      typeof item === 'object' &&
-      typeof item.name === 'string' &&
-      typeof item.description === 'string' &&
-      typeof item.id === 'string' &&
-      item.specs &&
-      typeof item.specs === 'object'
-  );
 }
 
 // ============================================================================
@@ -833,7 +821,7 @@ async function initializeBeerGenerator() {
       updateUI();
 
       const saveResult = LocalStorageManager.saveHistory(generatedNames);
-      if (saveResult !== true) {
+      if (!saveResult.success) {
         // Handle save failure
         const errorMsg =
           saveResult.error === 'quota'
