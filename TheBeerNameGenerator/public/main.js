@@ -75,22 +75,22 @@ function createBubbles() {
  * Create background bubbles that float across the entire page
  */
 function createBackgroundBubbles() {
-  const bg = document.getElementById('bubbles-bg');
-  if (!bg) return;
+  const backgroundContainer = document.getElementById('bubbles-bg');
+  if (!backgroundContainer) return;
 
   setInterval(() => {
-    const b = document.createElement('div');
-    b.className = 'bg-bubble';
+    const backgroundBubble = document.createElement('div');
+    backgroundBubble.className = 'bg-bubble';
     const size = Math.random() * 20 + 10;
-    b.style.width = size + 'px';
-    b.style.height = size + 'px';
-    b.style.left = Math.random() * 100 + '%';
-    b.style.bottom = -20 - Math.random() * 40 + 'px';
-    b.style.animationDuration = Math.random() * 10 + 12 + 's';
-    b.style.animationDelay = Math.random() * 2 + 's';
-    bg.appendChild(b);
+    backgroundBubble.style.width = size + 'px';
+    backgroundBubble.style.height = size + 'px';
+    backgroundBubble.style.left = Math.random() * 100 + '%';
+    backgroundBubble.style.bottom = -20 - Math.random() * 40 + 'px';
+    backgroundBubble.style.animationDuration = Math.random() * 10 + 12 + 's';
+    backgroundBubble.style.animationDelay = Math.random() * 2 + 's';
+    backgroundContainer.appendChild(backgroundBubble);
 
-    setTimeout(() => b.remove(), 20000);
+    setTimeout(() => backgroundBubble.remove(), 20000);
   }, 600);
 }
 
@@ -117,9 +117,9 @@ function setupHistoryPanelToggle() {
       historyToggleBtn.setAttribute('aria-label', newLabel);
     });
 
-    historyToggleBtn.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
+    historyToggleBtn.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
         historyToggleBtn.click();
       }
     });
@@ -171,7 +171,7 @@ async function loadBeerData() {
     const response = await fetch('beer_data.json');
 
     if (response.ok) {
-      const data = await response.json();
+      const beerDataJson = await response.json();
       // Check for expected keys in the JSON
       const requiredKeys = [
         'categories',
@@ -190,7 +190,7 @@ async function loadBeerData() {
         'abvRanges',
         'occasions',
       ];
-      const missingKeys = requiredKeys.filter((key) => !data[key]);
+      const missingKeys = requiredKeys.filter((key) => !beerDataJson[key]);
       if (missingKeys.length > 0) {
         console.warn(
           `Missing required keys in JSON: ${missingKeys.join(', ')}`
@@ -203,23 +203,23 @@ async function loadBeerData() {
 
       // Continue even if some non-critical fields are missing; generator will
       // surface errors later if it needs missing arrays.
-      beerData = data;
+      beerData = beerDataJson;
       isDataLoaded = true;
       console.log('✅ Successfully loaded beer_data.json!');
       console.log(`📊 Comprehensive Data Stats:
-          - Categories: ${Array.isArray(data.categories) ? data.categories.length : 0}
-          - Adjectives: ${Array.isArray(data.coolAdjectives) ? data.coolAdjectives.length : 0}
-          - Mythical Creatures: ${Array.isArray(data.mythicalCreatures) ? data.mythicalCreatures.length : 0}
-          - Taste Profiles: ${Array.isArray(data.tasteProfiles) ? data.tasteProfiles.length : 0}
-          - Colors: ${Array.isArray(data.colors) ? data.colors.length : 0}
-          - Beer Glasses: ${Array.isArray(data.beerGlasses) ? data.beerGlasses.length : 0}
-          - Regions: ${Array.isArray(data.regions) ? data.regions.length : 0}
-          - Brewing Techniques: ${Array.isArray(data.brewingTechniques) ? data.brewingTechniques.length : 0}`);
+          - Categories: ${Array.isArray(beerDataJson.categories) ? beerDataJson.categories.length : 0}
+          - Adjectives: ${Array.isArray(beerDataJson.coolAdjectives) ? beerDataJson.coolAdjectives.length : 0}
+          - Mythical Creatures: ${Array.isArray(beerDataJson.mythicalCreatures) ? beerDataJson.mythicalCreatures.length : 0}
+          - Taste Profiles: ${Array.isArray(beerDataJson.tasteProfiles) ? beerDataJson.tasteProfiles.length : 0}
+          - Colors: ${Array.isArray(beerDataJson.colors) ? beerDataJson.colors.length : 0}
+          - Beer Glasses: ${Array.isArray(beerDataJson.beerGlasses) ? beerDataJson.beerGlasses.length : 0}
+          - Regions: ${Array.isArray(beerDataJson.regions) ? beerDataJson.regions.length : 0}
+          - Brewing Techniques: ${Array.isArray(beerDataJson.brewingTechniques) ? beerDataJson.brewingTechniques.length : 0}`);
       showDataLoadStatus(
-        `✅ Bierdatabase geladen! (${Array.isArray(data.categories) ? data.categories.length : 0} categorieën)`,
+        `✅ Bierdatabase geladen! (${Array.isArray(beerDataJson.categories) ? beerDataJson.categories.length : 0} categorieën)`,
         'success'
       );
-      return data;
+      return beerDataJson;
     } else {
       throw new Error(
         `Failed to load beer_data.json - HTTP ${response.status}: ${response.statusText}`
@@ -409,9 +409,9 @@ async function initializeBeerGenerator() {
 
   // Load saved data from localStorage with better error handling
   try {
-    const saved = localStorage.getItem('beerHistory');
-    if (saved) {
-      const parsed = JSON.parse(saved);
+    const savedHistory = localStorage.getItem('beerHistory');
+    if (savedHistory) {
+      const parsed = JSON.parse(savedHistory);
       // Validate the parsed data structure using validation utility
       const isValid =
         typeof isValidBeerHistory === 'function'
@@ -434,9 +434,9 @@ async function initializeBeerGenerator() {
         localStorage.removeItem('beerHistory');
       }
     }
-  } catch (e) {
+  } catch (error) {
     handleError(
-      e,
+      error,
       'localStorage load',
       'Could not load beer history. Starting fresh.',
       false
@@ -453,9 +453,11 @@ async function initializeBeerGenerator() {
   }
 
   // Utility functions
-  const random = (array) => {
+  const getRandomElement = (array) => {
     if (!array || array.length === 0) {
-      console.error('CRITICAL: Empty array passed to random function');
+      console.error(
+        'CRITICAL: Empty array passed to getRandomElement function'
+      );
       throw new Error('Cannot select from empty array');
     }
     return array[Math.floor(Math.random() * array.length)];
@@ -471,19 +473,23 @@ async function initializeBeerGenerator() {
   // Basic pluralization for simple nouns (not comprehensive).
   const pluralize = (word) => {
     if (!word || typeof word !== 'string') return '';
-    const w = word.trim();
-    if (/s$|x$|z$|ch$|sh$/i.test(w)) return `${w}es`;
-    if (/y$/i.test(w) && !/[aeiou]y$/i.test(w)) return `${w.slice(0, -1)}ies`;
-    return `${w}s`;
+    const trimmedWord = word.trim();
+    if (/s$|x$|z$|ch$|sh$/i.test(trimmedWord)) return `${trimmedWord}es`;
+    if (/y$/i.test(trimmedWord) && !/[aeiou]y$/i.test(trimmedWord))
+      return `${trimmedWord.slice(0, -1)}ies`;
+    return `${trimmedWord}s`;
   };
 
-  const randomMultiple = (array, count, unique = false) => {
+  const getRandomMultipleElements = (array, count, unique = false) => {
     if (!array || array.length === 0) {
-      console.error('CRITICAL: Empty array passed to randomMultiple function');
+      console.error(
+        'CRITICAL: Empty array passed to getRandomMultipleElements function'
+      );
       throw new Error('Cannot select from empty array');
     }
 
-    if (!unique) return Array.from({ length: count }, () => random(array));
+    if (!unique)
+      return Array.from({ length: count }, () => getRandomElement(array));
 
     const selected = [];
     const available = [...array];
@@ -514,34 +520,43 @@ async function initializeBeerGenerator() {
   // Beer generation functions using loaded JSON data
   const generateTitle = () => {
     // Original-style title: The {Adjective1} {Adjective2} {MythicalCreature}
-    const [adj1, adj2] = randomMultiple(beerData.coolAdjectives, 2, true);
-    const creature = random(beerData.mythicalCreatures);
+    const [adj1, adj2] = getRandomMultipleElements(
+      beerData.coolAdjectives,
+      2,
+      true
+    );
+    const creature = getRandomElement(beerData.mythicalCreatures);
     return `The ${adj1} ${adj2} ${creature}`;
   };
 
   const generateDescription = () => {
     // Original short description format:
     // "The Wicked Gothic Ceffyl Dwr" a Torrid Gray-coloured Green Single Bock served "Fantasied" style in a Mug
-    const bodyAdj = random(beerData.coolAdjectives); // e.g., Torrid
-    const [color1, color2] = randomMultiple(beerData.colors, 2, true); // e.g., Gray, Green
-    const styleName = (beerData.types && beerData.types.length
-      ? random(beerData.types)
-      : random(beerData.categories)); // e.g., Single Bock
-    const styleWord = random(beerData.coolAdjectives); // e.g., Fantasied (approximate from adjectives)
-    const glass = random(beerData.beerGlasses); // e.g., Mug
+    const bodyAdj = getRandomElement(beerData.coolAdjectives); // e.g., Torrid
+    const [color1, color2] = getRandomMultipleElements(
+      beerData.colors,
+      2,
+      true
+    ); // e.g., Gray, Green
+    const styleName =
+      beerData.types && beerData.types.length
+        ? getRandomElement(beerData.types)
+        : getRandomElement(beerData.categories); // e.g., Single Bock
+    const styleWord = getRandomElement(beerData.coolAdjectives); // e.g., Fantasied (approximate from adjectives)
+    const glass = getRandomElement(beerData.beerGlasses); // e.g., Mug
 
-    const art = articleFor(bodyAdj);
+    const article = articleFor(bodyAdj);
     // Compose the classic compact line (without trailing extra prose)
-    return `${art} ${bodyAdj} ${color1}-coloured ${color2} ${styleName} served "${styleWord}" style in a ${glass}`;
+    return `${article} ${bodyAdj} ${color1}-coloured ${color2} ${styleName} served "${styleWord}" style in a ${glass}`;
   };
 
   const generateSpecs = () => ({
-    region: random(beerData.regions),
-    technique: random(beerData.brewingTechniques),
-    ibu: random(beerData.ibuRanges),
-    abv: random(beerData.abvRanges),
-    occasion: random(beerData.occasions),
-    category: random(beerData.categories),
+    region: getRandomElement(beerData.regions),
+    technique: getRandomElement(beerData.brewingTechniques),
+    ibu: getRandomElement(beerData.ibuRanges),
+    abv: getRandomElement(beerData.abvRanges),
+    occasion: getRandomElement(beerData.occasions),
+    category: getRandomElement(beerData.categories),
   });
 
   const generateBeer = () => {
@@ -658,10 +673,10 @@ async function initializeBeerGenerator() {
             return;
           }
 
-          const item = document.createElement('div');
-          item.setAttribute('role', 'button');
-          item.setAttribute('tabindex', '0');
-          item.innerHTML = `
+          const historyItem = document.createElement('div');
+          historyItem.setAttribute('role', 'button');
+          historyItem.setAttribute('tabindex', '0');
+          historyItem.innerHTML = `
             <strong>${beer.name}</strong>
             <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem;">
               ${beer.specs?.category || '-'} • ${beer.specs?.abv || '-'} • ${beer.specs?.ibu || '-'}
@@ -680,14 +695,14 @@ async function initializeBeerGenerator() {
               );
             }
           };
-          item.addEventListener('click', loadFromHistory);
-          item.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
+          historyItem.addEventListener('click', loadFromHistory);
+          historyItem.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
               loadFromHistory();
             }
           });
-          historyList.appendChild(item);
+          historyList.appendChild(historyItem);
         });
       }
     } catch (error) {
@@ -712,11 +727,11 @@ async function initializeBeerGenerator() {
 
       try {
         localStorage.setItem('beerHistory', JSON.stringify(generatedNames));
-      } catch (e) {
-        console.warn('Could not save to localStorage:', e);
+      } catch (error) {
+        console.warn('Could not save to localStorage:', error);
         // More specific error message based on the likely cause
         const errorMsg =
-          e.name === 'QuotaExceededError'
+          error.name === 'QuotaExceededError'
             ? 'Local storage is full. Consider clearing some history to save new beers.'
             : "Your beer history couldn't be saved to local storage.";
         showToast(errorMsg, 3000, 'warning');
@@ -831,19 +846,19 @@ async function initializeBeerGenerator() {
   }
 
   // Keyboard shortcuts with better accessibility
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', (event) => {
     // Space bar generates beer (only when not focused on input elements)
     if (
-      e.code === 'Space' &&
+      event.code === 'Space' &&
       !['INPUT', 'TEXTAREA', 'BUTTON'].includes(document.activeElement.tagName)
     ) {
-      e.preventDefault();
+      event.preventDefault();
       generateAndDisplay();
       showToast('New beer generated! 🍺', 2000, 'success');
     }
 
     // Escape key closes history panel if open
-    if (e.key === 'Escape') {
+    if (event.key === 'Escape') {
       const historyPanel = document.querySelector('.history');
       const historyToggle = document.getElementById('history-toggle');
       if (historyPanel && historyPanel.classList.contains('show')) {
