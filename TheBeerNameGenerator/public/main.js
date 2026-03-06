@@ -115,7 +115,9 @@ function populateCustomizationControls() {
 
   if (styleSelect) {
     styleSelect.innerHTML = '<option value="random">Random</option>';
-    const styles = beerData.types?.length ? beerData.types : beerData.categories;
+    const styles = beerData.types?.length
+      ? beerData.types
+      : beerData.categories;
     (styles || []).forEach((item) => {
       styleSelect.innerHTML += `<option value="${item}">${item}</option>`;
     });
@@ -276,7 +278,8 @@ function toggleAutoGenerate() {
     autoGenerateInterval = null;
     if (button) {
       button.classList.remove('active');
-      button.innerHTML = '<i class="fas fa-sync-alt" aria-hidden="true"></i> Auto Generate';
+      button.innerHTML =
+        '<i class="fas fa-sync-alt" aria-hidden="true"></i> Auto Generate';
       button.setAttribute('aria-pressed', 'false');
     }
     showToast('Auto generation stopped', 'warning');
@@ -287,7 +290,8 @@ function toggleAutoGenerate() {
   autoGenerateInterval = setInterval(generateAndDisplay, 10000);
   if (button) {
     button.classList.add('active');
-    button.innerHTML = '<i class="fas fa-stop-circle" aria-hidden="true"></i> Stop Auto';
+    button.innerHTML =
+      '<i class="fas fa-stop-circle" aria-hidden="true"></i> Stop Auto';
     button.setAttribute('aria-pressed', 'true');
   }
   showToast('Auto generation enabled', 'success');
@@ -377,7 +381,8 @@ function bindEvents() {
         panel.classList.remove('show');
         toggle?.setAttribute('aria-expanded', 'false');
         if (toggle) {
-          toggle.innerHTML = '<i class="fas fa-history" aria-hidden="true"></i>';
+          toggle.innerHTML =
+            '<i class="fas fa-history" aria-hidden="true"></i>';
         }
       }
     }

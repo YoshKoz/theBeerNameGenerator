@@ -40,8 +40,17 @@ body {
 body {
   font-family: 'Roboto', system-ui, sans-serif;
   color: var(--text-main);
-  background: radial-gradient(circle at 10% 10%, rgba(255, 196, 84, 0.15), transparent 40%),
-    radial-gradient(circle at 90% 15%, rgba(251, 191, 36, 0.12), transparent 35%),
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(255, 196, 84, 0.15),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(251, 191, 36, 0.12),
+      transparent 35%
+    ),
     linear-gradient(160deg, var(--bg-1), var(--bg-2));
 }
 
@@ -225,7 +234,12 @@ body {
   left: 0;
   right: 0;
   height: 35px;
-  background: linear-gradient(180deg, rgba(255, 247, 230, 0.75), rgba(255, 247, 230, 0.2), transparent);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 247, 230, 0.75),
+    rgba(255, 247, 230, 0.2),
+    transparent
+  );
   pointer-events: none;
 }
 
@@ -278,7 +292,9 @@ body {
   color: var(--text-main);
   background: rgba(255, 255, 255, 0.08);
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.2s ease;
+  transition:
+    transform 0.15s ease,
+    background 0.2s ease;
 }
 
 .btn:hover,
@@ -409,7 +425,9 @@ body {
   transform: translateY(-8px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .toast.show {
@@ -442,7 +460,11 @@ body {
   position: absolute;
   bottom: -40px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 228, 170, 0.5), rgba(255, 200, 80, 0.14));
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 228, 170, 0.5),
+    rgba(255, 200, 80, 0.14)
+  );
   animation: bgBubbleFloat linear forwards;
 }
 
@@ -450,7 +472,11 @@ body {
   position: absolute;
   bottom: -20px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.15));
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.85),
+    rgba(255, 255, 255, 0.15)
+  );
   animation: bubbleFloat linear forwards;
 }
 

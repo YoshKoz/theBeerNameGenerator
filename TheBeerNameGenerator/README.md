@@ -31,6 +31,7 @@ A mythical beer name generator web application that crafts creative and unique n
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/YoshKoz/TheBeerNameGenerator.git
    cd TheBeerNameGenerator
@@ -44,12 +45,15 @@ A mythical beer name generator web application that crafts creative and unique n
 ### Running the Application
 
 **Option 1: Using Python HTTP Server**
+
 ```bash
 npm run serve
 ```
+
 This starts a local server at `http://localhost:8000`
 
 **Option 2: Using npx serve**
+
 ```bash
 npm run serve-alt
 ```
@@ -75,12 +79,12 @@ TheBeerNameGenerator/
 
 ## 🛠️ Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run serve` | Start local development server using Python |
-| `npm run serve-alt` | Start local development server using npx serve |
-| `npm run format` | Format all files with Prettier |
-| `npm run format-check` | Check if files are properly formatted |
+| Script                 | Description                                    |
+| ---------------------- | ---------------------------------------------- |
+| `npm run serve`        | Start local development server using Python    |
+| `npm run serve-alt`    | Start local development server using npx serve |
+| `npm run format`       | Format all files with Prettier                 |
+| `npm run format-check` | Check if files are properly formatted          |
 
 ## 🎨 Technologies Used
 
@@ -111,6 +115,7 @@ type(scope): description
 ```
 
 Examples:
+
 - `feat: add new beer category`
 - `fix: resolve bubble animation issue`
 - `docs: update README`
@@ -129,4 +134,4 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 ---
 
-*Craft the perfect name for your brew!* 🍻
+_Craft the perfect name for your brew!_ 🍻

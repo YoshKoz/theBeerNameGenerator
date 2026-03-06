@@ -6,10 +6,10 @@
  * @returns {*} Random element
  */
 function random(array) {
-    if (!array || array.length === 0) {
-        throw new Error('Cannot select from empty array');
-    }
-    return array[Math.floor(Math.random() * array.length)];
+  if (!array || array.length === 0) {
+    throw new Error('Cannot select from empty array');
+  }
+  return array[Math.floor(Math.random() * array.length)];
 }
 
 /**
@@ -18,9 +18,9 @@ function random(array) {
  * @returns {string}
  */
 function articleFor(word) {
-    if (!word || typeof word !== 'string') return 'a';
-    const first = word.trim().toLowerCase()[0];
-    return 'aeiou'.includes(first) ? 'an' : 'a';
+  if (!word || typeof word !== 'string') return 'a';
+  const first = word.trim().toLowerCase()[0];
+  return 'aeiou'.includes(first) ? 'an' : 'a';
 }
 
 /**
@@ -29,11 +29,11 @@ function articleFor(word) {
  * @returns {string}
  */
 function pluralize(word) {
-    if (!word || typeof word !== 'string') return '';
-    const w = word.trim();
-    if (/s$|x$|z$|ch$|sh$/i.test(w)) return `${w}es`;
-    if (/y$/i.test(w) && !/[aeiou]y$/i.test(w)) return `${w.slice(0, -1)}ies`;
-    return `${w}s`;
+  if (!word || typeof word !== 'string') return '';
+  const w = word.trim();
+  if (/s$|x$|z$|ch$|sh$/i.test(w)) return `${w}es`;
+  if (/y$/i.test(w) && !/[aeiou]y$/i.test(w)) return `${w.slice(0, -1)}ies`;
+  return `${w}s`;
 }
 
 /**
@@ -44,18 +44,18 @@ function pluralize(word) {
  * @returns {Array}
  */
 function randomMultiple(array, count, unique = false) {
-    if (!array || array.length === 0) {
-        throw new Error('Cannot select from empty array');
-    }
-    if (!unique) return Array.from({ length: count }, () => random(array));
-    const selected = [];
-    const available = [...array];
-    const limit = Math.min(count, available.length);
-    for (let i = 0; i < limit; i++) {
-        const index = Math.floor(Math.random() * available.length);
-        selected.push(available.splice(index, 1)[0]);
-    }
-    return selected;
+  if (!array || array.length === 0) {
+    throw new Error('Cannot select from empty array');
+  }
+  if (!unique) return Array.from({ length: count }, () => random(array));
+  const selected = [];
+  const available = [...array];
+  const limit = Math.min(count, available.length);
+  for (let i = 0; i < limit; i++) {
+    const index = Math.floor(Math.random() * available.length);
+    selected.push(available.splice(index, 1)[0]);
+  }
+  return selected;
 }
 
 export { random, articleFor, pluralize, randomMultiple };
