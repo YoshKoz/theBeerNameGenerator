@@ -1,14 +1,17 @@
 # TheBeerNameGenerator
 
-Repo wrapper for the actual beer-name generator app, which lives in the nested `TheBeerNameGenerator/` folder.
+A static web app that generates whimsical craft beer names by combining randomized adjectives, mythical creatures, styles, and brewing specs.
 
-## App location
+## Features
 
-- `TheBeerNameGenerator/package.json`: scripts and tooling
-- `TheBeerNameGenerator/public/`: static web app files
-- `scripts/reset_powershell_terminal.ps1`: local helper script
+- Generates names like "The Gilded Spectral Basilisk" with full tasting notes
+- Customizable adjective, category, and style filters
+- Favorites list, history (last 100), and stats panel
+- Dark/light mode, clipboard sharing, and keyboard shortcut (Space)
+- Auto-generate mode (every 10 seconds)
+- Animated bubble background
 
-## Run the app
+## Run
 
 ```bash
 cd TheBeerNameGenerator
@@ -16,4 +19,15 @@ npm install
 npm run serve
 ```
 
-The local server starts on `http://localhost:8000`.
+App starts on `http://localhost:8000`.
+
+## Structure
+
+```
+TheBeerNameGenerator/public/
+├── index.html          # App shell
+├── main.js             # Core logic — generate, history, favorites
+├── utils.js            # random(), articleFor(), randomMultiple()
+├── beer_data.json      # Word lists (adjectives, creatures, styles, etc.)
+└── styles.css          # Theming and animations
+```
