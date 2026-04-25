@@ -3,182 +3,121 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Cache-Control"
-      content="no-store, no-cache, must-revalidate, max-age=0"
-    />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <base href="./" />
     <title>The Beer Name Generator</title>
-
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Great+Vibes&family=Bebas+Neue&family=Roboto:wght@300;400;500&family=Uncial+Antiqua&display=swap"
-      rel="stylesheet"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-
-    <link rel="stylesheet" href="styles.css?v=2026-02-10" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
-
   <body>
-    <div id="bubbles-bg" class="bubbles-bg" aria-hidden="true"></div>
+    <div class="bubbles-bg" id="bubbles-bg" aria-hidden="true"></div>
 
-    <div class="app">
-      <header class="app__header">
-        <h1 class="app__title">The Beer Name Generator</h1>
-        <p class="app__subtitle">Craft the perfect name for your brew</p>
+    <div class="layout">
+
+      <!-- Header -->
+      <header class="header">
+        <div class="header__left">
+          <span class="header__icon" aria-hidden="true">🍺</span>
+          <div>
+            <h1 class="header__title">Beer Name Generator</h1>
+            <p class="header__sub">Craft the perfect name for your brew</p>
+          </div>
+        </div>
+        <div class="header__right">
+          <span id="generation-count" class="header__count">0 brews crafted</span>
+          <button type="button" class="btn btn--icon" id="theme-toggle" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+          </button>
+        </div>
       </header>
 
-      <div class="app__body">
-        <aside class="sidebar sidebar--left">
-          <section class="stats-panel" aria-label="Beer name statistics">
-            <h3>Stats & Analytics</h3>
-            <div id="stats-list" aria-live="polite"></div>
+      <!-- 3-column body -->
+      <div class="content">
+
+        <!-- Left sidebar: Customize + Stats -->
+        <aside class="sidebar">
+          <section class="card">
+            <h2 class="card__title"><i class="fas fa-sliders-h"></i> Customize</h2>
+            <div class="field">
+              <label class="field__label" for="category-select">Category</label>
+              <select class="field__select" id="category-select"><option value="random">Random</option></select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="adjective-select">Adjective</label>
+              <select class="field__select" id="adjective-select"><option value="random">Random</option></select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="style-select">Style</label>
+              <select class="field__select" id="style-select"><option value="random">Random</option></select>
+            </div>
           </section>
-          <section
-            class="customization-panel"
-            aria-label="Customize beer generation"
-          >
-            <h3>Customize</h3>
-            <label for="category-select">Category:</label>
-            <select id="category-select" aria-label="Select beer category">
-              <option value="random">Random</option>
-            </select>
-            <label for="adjective-select">Adjective:</label>
-            <select id="adjective-select" aria-label="Select beer adjective">
-              <option value="random">Random</option>
-            </select>
-            <label for="style-select">Style:</label>
-            <select id="style-select" aria-label="Select beer style">
-              <option value="random">Random</option>
-            </select>
+
+          <section class="card card--grow">
+            <h2 class="card__title"><i class="fas fa-chart-bar"></i> Stats</h2>
+            <div id="stats-list"><p class="muted">Generate beers to see stats.</p></div>
           </section>
         </aside>
 
-        <main class="app__main">
-          <section class="generator">
-            <h2 class="generator__heading">Conjure Your Mythic Brew</h2>
-
-            <div class="result-card">
-              <div class="result-card__foam" aria-hidden="true"></div>
-              <div
-                class="result-card__bubbles"
-                id="bubbles"
-                aria-hidden="true"
-              ></div>
-              <div class="result-card__content">
-                <div class="beer-specs" id="beer-specs" aria-live="polite">
-                  <div id="random-name" class="beer-name" aria-live="polite">
-                    Click below and savor the surprise!
-                  </div>
-                </div>
-              </div>
+        <!-- Center: brew card + actions -->
+        <main class="main">
+          <div class="brew-card">
+            <div class="brew-card__foam" aria-hidden="true"></div>
+            <div class="brew-card__bubbles" id="card-bubbles" aria-hidden="true"></div>
+            <div class="brew-card__body">
+              <p class="brew-card__prompt" id="brew-prompt">Click Generate and savor the surprise</p>
+              <div id="brew-name" class="brew-card__name" aria-live="polite" hidden></div>
+              <div id="brew-desc" class="brew-card__desc" aria-live="polite" hidden></div>
+              <div id="brew-specs" class="brew-card__specs" aria-live="polite" hidden></div>
             </div>
+          </div>
 
-            <div class="controls-area">
-              <div class="button-group">
-                <button
-                  type="button"
-                  class="btn primary-btn"
-                  id="generate"
-                  aria-label="Generate new beer name"
-                  tabindex="0"
-                >
-                  <i class="fas fa-beer" aria-hidden="true"></i> Generate
-                </button>
-                <button
-                  type="button"
-                  class="btn secondary-btn"
-                  id="auto-generate"
-                  aria-label="Automatically generate beer names every 10 seconds"
-                  tabindex="0"
-                >
-                  <i class="fas fa-sync-alt" aria-hidden="true"></i> Auto
-                  Generate
-                </button>
-              </div>
-
-              <div class="status-bar">
-                <div class="status-info">
-                  <span id="generation-count">0 beers crafted</span>
-                </div>
-                <button
-                  type="button"
-                  class="theme-toggle"
-                  id="theme-toggle"
-                  aria-label="Toggle dark mode"
-                >
-                  <i class="fas fa-moon" aria-hidden="true"></i> Dark Mode
-                </button>
-              </div>
-            </div>
-          </section>
+          <div class="actions">
+            <button type="button" class="btn btn--primary" id="generate">
+              <i class="fas fa-magic"></i> Generate
+            </button>
+            <button type="button" class="btn btn--secondary" id="auto-generate" aria-pressed="false">
+              <i class="fas fa-sync-alt"></i> Auto
+            </button>
+            <button type="button" class="btn btn--ghost" id="save-favorite">
+              <i class="fas fa-heart"></i> Save
+            </button>
+            <button type="button" class="btn btn--ghost" id="share-beer">
+              <i class="fas fa-share-alt"></i> Share
+            </button>
+            <button type="button" class="btn btn--ghost" id="generate-image">
+              <i class="fas fa-image"></i> Image
+            </button>
+          </div>
         </main>
 
-        <aside class="sidebar sidebar--right">
-          <section class="favorites-panel" aria-label="Favorite beer names">
-            <h3>Favorites</h3>
-            <div id="favorites-list" aria-live="polite"></div>
-            <button
-              id="save-favorite"
-              class="favorite-btn"
-              aria-label="Save current beer to favorites"
-            >
-              Save to Favorites
-            </button>
+        <!-- Right sidebar: Favorites + History -->
+        <aside class="sidebar">
+          <section class="card card--grow">
+            <h2 class="card__title"><i class="fas fa-heart"></i> Favorites</h2>
+            <div id="favorites-list" class="scroll-list" aria-live="polite"><p class="muted">No favorites yet.</p></div>
+          </section>
+
+          <section class="card card--grow">
+            <div class="card__title-row">
+              <h2 class="card__title"><i class="fas fa-history"></i> Recent</h2>
+              <button type="button" class="btn btn--danger btn--sm" id="clear-history">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+            <div id="history-list" class="scroll-list" aria-live="polite"></div>
           </section>
         </aside>
+
       </div>
 
-      <footer class="app__footer">
-        <p>🍻 © 2025 Beer Name Generator | Crafted with ❤️ by Yoshi Tacke</p>
-        <button id="share-beer" class="share-btn" aria-label="Share beer name">
-          Share Beer Name
-        </button>
+      <footer class="footer">
+        🍻 Crafted with ❤️ by Yoshi Tacke · 2025
       </footer>
     </div>
 
-    <button
-      type="button"
-      id="history-toggle"
-      title="View History"
-      aria-label="View beer history"
-      aria-expanded="false"
-      aria-controls="history-panel"
-    >
-      <i class="fas fa-history" aria-hidden="true"></i>
-    </button>
-
-    <section
-      class="history"
-      id="history-panel"
-      aria-labelledby="history-heading"
-    >
-      <h3 id="history-heading">
-        <span>Brewing History</span>
-        <button
-          type="button"
-          class="clear-btn"
-          id="clear-history"
-          aria-label="Clear history"
-          tabindex="0"
-        >
-          <i class="fas fa-trash" aria-hidden="true"></i> Clear
-        </button>
-      </h3>
-      <div id="history-list" aria-live="polite"></div>
-    </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="module" src="main.js?v=2026-02-10"></script>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="main.js"></script>
   </body>
 </html>
