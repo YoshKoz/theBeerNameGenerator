@@ -4,10 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Beer Name Generator</title>
+    <meta name="description"
+      content="Craft the perfect fantasy beer name — generate unique brew names, save favorites, and share your creations." />
+    <meta name="theme-color" content="#0f0a04" />
+    <meta name="color-scheme" content="dark light" />
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="favicon.ico" />
+    
+    <!-- Preconnect for critical origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap"
+      as="style" />
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" />
+    
+    <!-- Stylesheets -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -15,11 +35,10 @@
     <div class="bubbles-bg" id="bubbles-bg" aria-hidden="true"></div>
 
     <div class="layout">
-
       <!-- Header -->
       <header class="header">
         <div class="header__left">
-          <span class="header__icon" aria-hidden="true">🍺</span>
+          <span class="header__icon" aria-hidden="true">&#x1F37A;</span>
           <div>
             <h1 class="header__title">Beer Name Generator</h1>
             <p class="header__sub">Craft the perfect name for your brew</p>
@@ -27,97 +46,162 @@
         </div>
         <div class="header__right">
           <span id="generation-count" class="header__count">0 brews crafted</span>
-          <button type="button" class="btn btn--icon" id="theme-toggle" aria-label="Toggle dark mode">
-            <i class="fas fa-moon"></i>
+          <button type="button" class="btn btn--icon" id="api-key-btn" aria-label="Set OpenAI API key"
+            title="Set OpenAI API key for image generation">
+            <i class="fas fa-key" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn btn--icon" id="theme-toggle" aria-label="Toggle dark mode"
+            title="Toggle dark/light mode">
+            <i class="fas fa-moon" aria-hidden="true"></i>
           </button>
         </div>
       </header>
 
       <!-- 3-column body -->
       <div class="content">
-
         <!-- Left sidebar: Customize + Stats -->
-        <aside class="sidebar">
-          <section class="card">
-            <h2 class="card__title"><i class="fas fa-sliders-h"></i> Customize</h2>
+        <aside class="sidebar" aria-label="Controls and statistics">
+          <section class="card" aria-labelledby="customize-heading">
+            <h2 class="card__title" id="customize-heading">
+              <i class="fas fa-sliders-h" aria-hidden="true"></i> Customize
+            </h2>
             <div class="field">
               <label class="field__label" for="category-select">Category</label>
-              <select class="field__select" id="category-select"><option value="random">Random</option></select>
+              <select class="field__select" id="category-select">
+                <option value="random">Random</option>
+              </select>
             </div>
             <div class="field">
               <label class="field__label" for="adjective-select">Adjective</label>
-              <select class="field__select" id="adjective-select"><option value="random">Random</option></select>
+              <select class="field__select" id="adjective-select">
+                <option value="random">Random</option>
+              </select>
             </div>
             <div class="field">
               <label class="field__label" for="style-select">Style</label>
-              <select class="field__select" id="style-select"><option value="random">Random</option></select>
+              <select class="field__select" id="style-select">
+                <option value="random">Random</option>
+              </select>
             </div>
           </section>
 
-          <section class="card card--grow">
-            <h2 class="card__title"><i class="fas fa-chart-bar"></i> Stats</h2>
+          <section class="card card--grow" aria-labelledby="stats-heading">
+            <h2 class="card__title" id="stats-heading">
+              <i class="fas fa-chart-bar" aria-hidden="true"></i> Stats
+            </h2>
             <div id="stats-list"><p class="muted">Generate beers to see stats.</p></div>
           </section>
         </aside>
 
         <!-- Center: brew card + actions -->
-        <main class="main">
-          <div class="brew-card">
+        <main class="main" aria-label="Beer name generator">
+          <article class="brew-card">
             <div class="brew-card__foam" aria-hidden="true"></div>
             <div class="brew-card__bubbles" id="card-bubbles" aria-hidden="true"></div>
             <div class="brew-card__body">
-              <p class="brew-card__prompt" id="brew-prompt">Click Generate and savor the surprise</p>
-              <div id="brew-name" class="brew-card__name" aria-live="polite" hidden></div>
-              <div id="brew-desc" class="brew-card__desc" aria-live="polite" hidden></div>
-              <div id="brew-specs" class="brew-card__specs" aria-live="polite" hidden></div>
+              <p class="brew-card__prompt" id="brew-prompt">
+                Click Generate and savor the surprise
+              </p>
+              <output id="brew-name" class="brew-card__name" hidden></output>
+              <output id="brew-desc" class="brew-card__desc" hidden></output>
+              <output id="brew-specs" class="brew-card__specs" hidden></output>
             </div>
-          </div>
+          </article>
 
-          <div class="actions">
+          <div class="actions" role="toolbar" aria-label="Generator actions">
             <button type="button" class="btn btn--primary" id="generate">
-              <i class="fas fa-magic"></i> Generate
+              <i class="fas fa-magic" aria-hidden="true"></i> Generate
             </button>
             <button type="button" class="btn btn--secondary" id="auto-generate" aria-pressed="false">
-              <i class="fas fa-sync-alt"></i> Auto
+              <i class="fas fa-sync-alt" aria-hidden="true"></i> Auto
             </button>
             <button type="button" class="btn btn--ghost" id="save-favorite">
-              <i class="fas fa-heart"></i> Save
+              <i class="fas fa-heart" aria-hidden="true"></i> Save
             </button>
             <button type="button" class="btn btn--ghost" id="share-beer">
-              <i class="fas fa-share-alt"></i> Share
+              <i class="fas fa-share-alt" aria-hidden="true"></i> Share
             </button>
-            <button type="button" class="btn btn--ghost" id="generate-image">
-              <i class="fas fa-image"></i> Image
+            <button type="button" class="btn btn--ghost" id="generate-image" title="Copy DALL·E image prompt to clipboard, then open ChatGPT to paste it">
+              <i class="fas fa-image" aria-hidden="true"></i> Image
             </button>
           </div>
         </main>
 
         <!-- Right sidebar: Favorites + History -->
-        <aside class="sidebar">
-          <section class="card card--grow">
-            <h2 class="card__title"><i class="fas fa-heart"></i> Favorites</h2>
-            <div id="favorites-list" class="scroll-list" aria-live="polite"><p class="muted">No favorites yet.</p></div>
+        <aside class="sidebar" aria-label="Favorites and history">
+          <section class="card card--grow" aria-labelledby="favorites-heading">
+            <h2 class="card__title" id="favorites-heading">
+              <i class="fas fa-heart" aria-hidden="true"></i> Favorites
+            </h2>
+            <div id="favorites-list" class="scroll-list" aria-live="polite">
+              <p class="muted">No favorites yet.</p>
+            </div>
           </section>
 
-          <section class="card card--grow">
+          <section class="card card--grow" aria-labelledby="history-heading">
             <div class="card__title-row">
-              <h2 class="card__title"><i class="fas fa-history"></i> Recent</h2>
-              <button type="button" class="btn btn--danger btn--sm" id="clear-history">
-                <i class="fas fa-trash"></i>
+              <h2 class="card__title" id="history-heading">
+                <i class="fas fa-history" aria-hidden="true"></i> Recent
+              </h2>
+              <button type="button" class="btn btn--danger btn--sm" id="clear-history" aria-label="Clear history">
+                <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
             </div>
             <div id="history-list" class="scroll-list" aria-live="polite"></div>
           </section>
         </aside>
-
       </div>
 
       <footer class="footer">
-        🍻 Crafted with ❤️ by Yoshi Tacke · 2025
+        &#x1F37B; Crafted with &#x2764;&#xFE0F; by Yoshi Tacke &middot; 2026
       </footer>
     </div>
 
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <!-- API Key Modal -->
+    <div class="modal" id="api-key-modal" role="dialog" aria-modal="true" aria-labelledby="api-key-modal-title" hidden>
+      <div class="modal__backdrop" id="api-key-backdrop"></div>
+      <div class="modal__box">
+        <h2 class="modal__title" id="api-key-modal-title">
+          <i class="fas fa-key" aria-hidden="true"></i> OpenAI API Key
+        </h2>
+        <p class="modal__desc">
+          Stored locally in this browser only — sent directly to OpenAI, nowhere else.
+          Requires an <strong>OpenAI Platform API key</strong> (platform.openai.com/api-keys) with billing enabled.
+          ChatGPT Plus subscriptions use a separate billing system and will not work here.
+        </p>
+        <div class="field">
+          <label class="field__label" for="api-key-input">API Key</label>
+          <input type="password" class="field__input" id="api-key-input"
+            placeholder="sk-..." autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="modal__actions">
+          <button type="button" class="btn btn--primary" id="api-key-save">Save</button>
+          <button type="button" class="btn btn--ghost" id="api-key-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Result Modal -->
+    <div class="modal" id="image-modal" role="dialog" aria-modal="true" aria-labelledby="image-modal-title" hidden>
+      <div class="modal__backdrop" id="image-backdrop"></div>
+      <div class="modal__box modal__box--wide">
+        <div class="modal__header">
+          <h2 class="modal__title" id="image-modal-title"></h2>
+          <button type="button" class="btn btn--icon btn--sm" id="image-modal-close" aria-label="Close">
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="modal__body" id="modal-image-container"></div>
+        <div class="modal__actions" id="image-modal-actions" hidden>
+          <button type="button" class="btn btn--primary" id="image-download">
+            <i class="fas fa-download" aria-hidden="true"></i> Download
+          </button>
+          <button type="button" class="btn btn--ghost" id="image-modal-close-2">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <output class="toast" id="toast"></output>
     <script type="module" src="main.js"></script>
   </body>
 </html>

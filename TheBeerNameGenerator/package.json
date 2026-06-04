@@ -1,0 +1,28 @@
+{
+  "name": "the-beer-name-generator",
+  "version": "2.0.0",
+  "description": "Craft the perfect name for your brew — a fantasy beer name generator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "serve": "npx serve public --listen 3000 --no-clipboard",
+    "lint": "eslint public --ext .js,.mjs",
+    "lint:fix": "eslint public --ext .js,.mjs --fix",
+    "format": "prettier public --check",
+    "format:fix": "prettier public --write",
+    "check": "npm run lint && npm run format"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.0",
+    "serve": "^14.2.0"
+  },
+  "author": "Yoshi Tacke",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

@@ -1,21 +1,28 @@
-// Utility functions for Beer Name Generator
+/**
+ * Utility functions for Beer Name Generator
+ * @module utils
+ */
 
 /**
- * Select a random element from an array
- * @param {Array} array
- * @returns {*} Random element
+ * Select a random element from an array.
+ *
+ * @template T
+ * @param {T[]} array - The source array
+ * @returns {T} A random element
+ * @throws {TypeError} If array is empty or not an array
  */
 function random(array) {
-  if (!array || array.length === 0) {
-    throw new Error('Cannot select from empty array');
+  if (!Array.isArray(array) || array.length === 0) {
+    throw new TypeError('Cannot select from empty or non-array');
   }
   return array[Math.floor(Math.random() * array.length)];
 }
 
 /**
- * Determine the indefinite article ('a' or 'an') for a word
- * @param {string} word
- * @returns {string}
+ * Determine the indefinite article ('a' or 'an') for a word.
+ *
+ * @param {string} word - The word to test
+ * @returns {'a' | 'an'} The appropriate article
  */
 function articleFor(word) {
   if (!word || typeof word !== 'string') return 'a';
@@ -23,39 +30,37 @@ function articleFor(word) {
   return 'aeiou'.includes(first) ? 'an' : 'a';
 }
 
-/**
- * Basic pluralization for simple nouns
- * @param {string} word
- * @returns {string}
- */
-function pluralize(word) {
-  if (!word || typeof word !== 'string') return '';
-  const w = word.trim();
-  if (/s$|x$|z$|ch$|sh$/i.test(w)) return `${w}es`;
-  if (/y$/i.test(w) && !/[aeiou]y$/i.test(w)) return `${w.slice(0, -1)}ies`;
-  return `${w}s`;
-}
 
 /**
- * Select multiple random elements from an array
- * @param {Array} array
- * @param {number} count
- * @param {boolean} unique
- * @returns {Array}
+ * Select multiple random elements from an array.
+ *
+ * @template T
+ * @param {T[]} array - The source array
+ * @param {number} count - Number of elements to select
+ * @param {boolean} [unique=false] - Whether to select without replacement
+ * @returns {T[]} Array of selected elements
+ * @throws {TypeError} If array is empty or not an array
  */
 function randomMultiple(array, count, unique = false) {
-  if (!array || array.length === 0) {
-    throw new Error('Cannot select from empty array');
+  if (!Array.isArray(array) || array.length === 0) {
+    throw new TypeError('Cannot select from empty or non-array');
   }
-  if (!unique) return Array.from({ length: count }, () => random(array));
-  const selected = [];
-  const available = [...array];
+
+  if (!unique) {
+    return Array.from({ length: count }, () => random(array));
+  }
+
+  const available = structuredClone(array);
   const limit = Math.min(count, available.length);
+  const selected = [];
+
   for (let i = 0; i < limit; i++) {
     const index = Math.floor(Math.random() * available.length);
-    selected.push(available.splice(index, 1)[0]);
+    selected.push(available[index]);
+    available.splice(index, 1);
   }
+
   return selected;
 }
 
-export { random, articleFor, pluralize, randomMultiple };
+export { random, articleFor, randomMultiple };

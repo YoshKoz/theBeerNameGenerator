@@ -3,134 +3,122 @@
 A mythical beer name generator web application that crafts creative and unique names for your brews.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Node](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg)
+![Node](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)
 
 ## ✨ Features
 
-- **Random Beer Name Generation** - Generate unique, creative beer names with mythical themes
-- **Beer Specifications** - Each generated beer includes detailed specs like:
+- **Random Beer Name Generation** — Unique, creative beer names with mythical themes
+- **Beer Specifications** — Each generated beer includes:
   - Beer type and color
   - ABV and IBU ranges
   - Taste profiles and mouthfeel descriptors
   - Recommended glassware
-  - Brewing techniques
-- **Auto Generate Mode** - Automatically generate new beer names at intervals
-- **Beer History** - Keep track of all your generated beers
-- **Dark/Light Theme** - Toggle between dark and light modes
-- **Animated UI** - Beautiful bubble animations and visual effects
-- **Responsive Design** - Works on desktop and mobile devices
+  - Brewing techniques and occasion pairings
+- **Customizable Filters** — Lock in specific categories, adjectives, or styles
+- **Auto Generate Mode** — New beer names at 10-second intervals
+- **Beer History** — Last 100 generated beers (persisted to localStorage)
+- **Favorites** — Save up to 25 favorites
+- **Dark/Light Theme** — Toggle between modes (persisted)
+- **Share** — Web Share API with clipboard fallback
+- **Image Prompt** — Copies DALL·E-compatible prompt and opens ChatGPT
+- **Animated UI** — Bubble animations (respects `prefers-reduced-motion`)
+- **Keyboard Shortcut** — Press Space to generate
+- **Stats Panel** — Top 3 categories, total brewed, unique names
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js >= 16.0.0
+- Node.js >= 20.0.0
 - npm (comes with Node.js)
-- Python 3 (optional, for local server)
 
 ### Installation
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/YoshKoz/TheBeerNameGenerator.git
-   cd TheBeerNameGenerator
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/YoshKoz/TheBeerNameGenerator.git
+cd TheBeerNameGenerator
+npm install
+```
 
 ### Running the Application
-
-**Option 1: Using Python HTTP Server**
 
 ```bash
 npm run serve
 ```
 
-This starts a local server at `http://localhost:8000`
-
-**Option 2: Using npx serve**
-
-```bash
-npm run serve-alt
-```
-
-Then open your browser and navigate to the local server URL.
+Starts a local dev server at `http://localhost:3000`.
 
 ## 📁 Project Structure
 
 ```
 TheBeerNameGenerator/
 ├── public/
-│   ├── index.html       # Main HTML file
-│   ├── main.js          # Core application logic
-│   ├── styles.css       # Styling and animations
-│   ├── beer_data.json   # Beer data (categories, adjectives, types, etc.)
-│   └── favicon.ico      # Site favicon
-├── .github/             # GitHub workflows and configurations
-├── package.json         # Project configuration and scripts
-├── commitlint.config.cjs # Commit message linting configuration
-├── .prettierrc          # Prettier code formatting configuration
-└── IMPROVEMENTS.md      # Documentation of code improvements
+│   ├── index.html          # App shell (semantic HTML, ARIA)
+│   ├── main.js             # Core logic — generation, history, favorites, stats
+│   ├── utils.js            # random(), articleFor(), pluralize(), randomMultiple()
+│   ├── ui-effects.js       # Bubble animations, visual effects
+│   ├── validation.js       # Input validation, sanitization
+│   ├── beer_data.js        # Word lists (ES module, 15 categories)
+│   ├── beer_data.json      # Word lists (pure JSON reference)
+│   ├── styles.css          # CSS @layer, nesting, oklch() colors
+│   └── favicon.ico         # Site favicon
+├── .github/                # GitHub Copilot instructions
+├── package.json            # Scripts and dev dependencies
+├── eslint.config.js        # ESLint 9 flat config (ES2025)
+├── .prettierrc             # Prettier formatting config
+├── commitlint.config.cjs   # Conventional commit enforcement
+├── IMPROVEMENTS.md         # Refactoring changelog (May 2026)
+└── README.md               # This file
 ```
 
-## 🛠️ Available Scripts
+## 🛠️ Scripts
 
-| Script                 | Description                                    |
-| ---------------------- | ---------------------------------------------- |
-| `npm run serve`        | Start local development server using Python    |
-| `npm run serve-alt`    | Start local development server using npx serve |
-| `npm run format`       | Format all files with Prettier                 |
-| `npm run format-check` | Check if files are properly formatted          |
+| Script               | Description                           |
+| -------------------- | ------------------------------------- |
+| `npm run serve`      | Start dev server on `:3000`           |
+| `npm run lint`       | Lint JavaScript files                 |
+| `npm run lint:fix`   | Auto-fix lint issues                  |
+| `npm run format`     | Check code formatting                 |
+| `npm run format:fix` | Auto-format all files                 |
+| `npm run check`      | Run lint + format checks              |
 
-## 🎨 Technologies Used
+## 🎨 Tech Stack (2026)
 
-- **HTML5** - Structure and semantics
-- **CSS3** - Styling with animations and transitions
-- **Vanilla JavaScript** - Core application logic
-- **Font Awesome** - Icons
-- **Google Fonts** - Typography (Playfair Display, Great Vibes, Bebas Neue, Roboto, Uncial Antiqua)
+| Concern    | Choice                                  |
+|------------|-----------------------------------------|
+| Runtime    | Vanilla JS (ES2025), no bundler         |
+| CSS        | @layer, nesting, oklch(), logical props |
+| Linting    | ESLint 9 (flat config)                  |
+| Formatting | Prettier 3                              |
+| Icons      | Font Awesome 6.5                        |
+| Fonts      | Google Fonts (Playfair Display, Inter)  |
 
 ## 🔧 Development
 
-### Code Quality Tools
+### Code Quality
 
-- **Prettier** - Code formatting
-- **Husky** - Git hooks
-- **Commitlint** - Conventional commit message enforcement
+- **ESLint 9** — Flat config, ES2025 target
+- **Prettier** — Consistent code formatting
+- **Commitlint** — [Conventional Commits](https://www.conventionalcommits.org/)
 
 ### Commit Convention
 
-This project uses [Conventional Commits](https://www.conventionalcommits.org/). Commit messages should follow the format:
-
 ```
 type(scope): description
-
-[optional body]
-
-[optional footer]
 ```
 
 Examples:
-
-- `feat: add new beer category`
-- `fix: resolve bubble animation issue`
-- `docs: update README`
+- `feat: add new beer category data`
+- `fix: resolve bubble animation performance`
+- `docs: update README with new scripts`
 
 ## 📝 License
 
-This project is licensed under the MIT License.
+MIT License.
 
 ## 👤 Author
 
 **Yoshi Tacke**
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/YoshKoz/TheBeerNameGenerator/issues).
 
 ---
 

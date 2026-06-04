@@ -1,182 +1,95 @@
-# Code Improvements Summary - October 27, 2025
+# Code Refactoring Summary — 27 May 2026
 
 ## Overview
 
-This document summarizes the improvements made to The Beer Name Generator codebase to address items from the TODO list.
+Comprehensive modernization of The Beer Name Generator codebase to meet 2026 web standards (ES2025, modern CSS, accessibility best practices).
 
-## Completed Tasks
+## Changes Made
 
-### 1. ✅ Bug Fixes
+### 1. Project Infrastructure
 
-#### Consistent Error Handling
+- **Created `package.json`**: Added npm scripts (`serve`, `lint`, `format`, `check`) and dev dependencies (ESLint 9, Prettier 3, serve).
+- **Created `eslint.config.js`**: ESLint flat config targeting ES2025 with browser globals and Prettier integration.
+- **Updated `.prettierrc`**: Already present, unchanged.
 
-- **Added centralized error handler**: Created a `handleError()` function in `main.js` that logs detailed error information and displays user-friendly messages
-- **Improved error handling in key functions**:
-  - `loadBeerData()` - Better handling of fetch failures and JSON parsing errors
-  - `ensureDataLoaded()` - Wrapped in try-catch with proper error propagation
-  - `generateBeer()` - Added error handling for beer generation failures
-  - `displayBeer()` - Added validation and fallback content for display errors
-  - `updateUI()` - Protected against invalid history entries
-  - `localStorage operations` - Improved error handling with data validation
+### 2. HTML (`index.html`)
 
-#### Midjourney Integration
+- Added `<meta name="description">` for SEO.
+- Added `<meta name="theme-color">` and `<meta name="color-scheme">`.
+- Added `<link rel="preload">` for critical fonts.
+- Replaced `<div>` with semantic elements (`<article>`, `<output>`, `<nav>`).
+- Added `aria-labelledby` and `aria-label` attributes for better accessibility.
+- Added `aria-hidden="true"` to all decorative icons.
+- Updated year to 2026 in footer.
 
-- **Verified existing error handling**: The Midjourney integration already had excellent error handling including:
-  - Rate limiting
-  - Webhook URL validation
-  - Input sanitization
-  - Network error handling
-  - Timeout handling
-  - Detailed error messages for different failure scenarios
+### 3. CSS (`styles.css`)
 
-### 2. ✅ Code Improvements
+- **`@layer`**: Organized styles into `reset`, `layout`, `components`, `animations`, and `utilities` layers.
+- **CSS Nesting**: All BEM modifiers and children use native CSS nesting (`&__left`, `&--primary`, etc.).
+- **`oklch()` colors**: All hex/rgba values replaced with perceptually-uniform `oklch()` color space.
+- **Logical properties**: `margin-block`, `padding-inline`, `inset-block-start`, `inline-size` replace physical directional properties.
+- **`text-wrap: balance`**: Applied to headings for better typography.
+- **`text-wrap: pretty`**: Applied to descriptions.
+- **`prefers-reduced-motion`**: Disables all animations and hides bubbles when user prefers reduced motion.
+- **`:focus-visible`**: Replaces bare `:focus` for keyboard-only focus indicators.
+- **`100dvb`**: Dynamic viewport height unit replaces `100vh`.
 
-#### Moved Inline JavaScript to External Files
+### 4. JavaScript — New Modules
 
-- **Created `ui-effects.js`**: Extracted all inline JavaScript from `index.html` including:
-  - Bubble animation functions (`createBubbles()`, `createBackgroundBubbles()`)
-  - History panel toggle functionality
-  - All event listeners for UI interactions
-- **Benefits**:
-  - Better code organization and maintainability
-  - Cleaner HTML structure
-  - Easier to debug and test
-  - Improved caching (external JS files can be cached separately)
+- **`ui-effects.js`**: Extracted bubble/effect logic from `main.js`. Exports `initBubbles()`, `spawnBubble()`, `prefersReducedMotion()`. Respects `prefers-reduced-motion`.
+- **`validation.js`**: Input validation and data integrity module. Exports `safeParseArray()`, `isValidBeer()`, `sanitizeHTML()`, `clamp()`.
 
-#### Added JSDoc Comments
+### 5. JavaScript — Refactored (`main.js`)
 
-- **Added comprehensive JSDoc comments to all major functions**:
-  - `main.js`: All core functions (loadBeerData, ensureDataLoaded, initializeBeerGenerator, etc.)
-  - `utils.js`: Utility functions (random, randomMultiple, articleFor, pluralize)
-  - `midjourney-integration.js`: All integration functions
-  - `ui-effects.js`: UI interaction functions
-  - `validation.js`: All validation functions
-- **Benefits**:
-  - Better code documentation
-  - Improved IDE autocomplete and IntelliSense
-  - Easier for new developers to understand the codebase
-  - Type hints for function parameters and return values
+- Imports from new modules (`ui-effects.js`, `validation.js`).
+- **`Object.groupBy()`** (ES2024): Used instead of manual reduce for stats category counting.
+- **`replaceChildren()`**: Safe DOM manipulation replaces `innerHTML` for spec chips and stat rows.
+- **`structuredClone()`**: Used in `utils.js` for unique random selection.
+- **`globalThis`**: Replaces bare `window` reference.
+- **`??` nullish coalescing**: Consistent use throughout.
+- **Numeric separators**: `10_000` for readability.
+- **`try/catch` on localStorage**: Handles quota exceeded gracefully.
+- **`$()` helper**: Shorthand for `document.getElementById()`.
+- **JSDoc type annotations**: Added to all major functions.
+- **Constants**: Magic numbers extracted to named constants (`MAX_HISTORY`, `MAX_FAVORITES`).
 
-#### Input Validation
+### 6. JavaScript — Refactored (`utils.js`)
 
-- **Created `validation.js` utility module** with comprehensive validation functions:
-  - `isValidString()` - Validate string length
-  - `isValidNumber()` - Validate numeric ranges
-  - `sanitizeHTML()` - Prevent XSS attacks
-  - `validateBeerName()` - Specific beer name validation
-  - `isValidBeerHistory()` - Validate localStorage data structure
-  - `validateJSONStructure()` - Validate JSON with required keys
-  - `sanitizeText()` - Remove control characters
-  - `isValidURL()` - URL format validation
-  - `hasRequiredProperties()` - Object property validation
+- Added JSDoc `@template T` for generic type hints.
+- Changed `Error` to `TypeError` for invalid arguments.
+- Uses `structuredClone()` instead of spread operator for unique random selection.
+- `Array.isArray()` guard added to all functions.
 
-- **Integrated validation functions into main.js**:
-  - localStorage data validation using `isValidBeerHistory()`
-  - JSON structure validation for beer_data.json
-  - Improved data sanitization throughout
+### 7. Data (`beer_data.js`)
 
-### 3. ✅ Code Quality Improvements
+- Added JSDoc module header documenting the 15 data categories.
+- Export pattern unchanged (already ES module).
 
-#### Code Formatting
+### 8. Data (`beer_data.json`)
 
-- **Ran Prettier** on all files to ensure consistent code style
-- All JavaScript, JSON, HTML, CSS, and Markdown files are now properly formatted
+- Unchanged; kept as a pure JSON reference (identical content to `beer_data.js`).
 
-#### Error Messages
+## Technology Stack (2026)
 
-- **Improved error messages** to be more user-friendly and actionable
-- **Added context** to error logs for better debugging
-- **Implemented different error types** (success, warning, error, info) with appropriate styling
+| Concern       | Choice                          |
+|---------------|---------------------------------|
+| Runtime       | Vanilla JS (ES2025), no bundler |
+| CSS           | @layer, nesting, oklch, dvb     |
+| Linting       | ESLint 9 (flat config)          |
+| Formatting    | Prettier 3                      |
+| Serving       | `serve` (static HTTP)           |
+| Browser APIs  | Object.groupBy, structuredClone |
 
-## New Files Created
+## Browser Compatibility
 
-1. **`public/ui-effects.js`** (117 lines)
-   - Handles all UI visual effects and interactions
-   - Bubble animations
-   - History panel toggle
+Targets evergreen browsers (Chrome 133+, Firefox 136+, Safari 18.4+). All features used are Baseline Widely Available as of May 2026.
 
-2. **`public/validation.js`** (188 lines)
-   - Comprehensive input validation utilities
-   - Data sanitization functions
-   - Type checking and structure validation
+## Verification
 
-## Files Modified
-
-1. **`public/main.js`**
-   - Added centralized error handling
-   - Added JSDoc comments
-   - Improved error handling in all major functions
-   - Integrated validation utilities
-
-2. **`public/index.html`**
-   - Removed all inline JavaScript
-   - Added reference to new ui-effects.js
-   - Added reference to validation.js
-   - Updated script cache-busting versions
-
-3. **`public/midjourney-integration.js`**
-   - Added JSDoc comments
-   - Verified and documented existing error handling
-
-4. **`src/utils.js`**
-   - Added JSDoc comments to all utility functions
-
-## Testing Recommendations
-
-Before deploying these changes, please test:
-
-1. **Beer Generation**: Verify that beer names generate correctly
-2. **History Panel**: Test the history panel toggle functionality
-3. **Bubble Animations**: Ensure bubbles animate correctly
-4. **Error Handling**: Test various error scenarios (missing beer_data.json, etc.)
-5. **LocalStorage**: Test saving and loading beer history
-6. **Midjourney Integration**: If configured, test image generation
-7. **Dark Mode**: Verify theme toggle still works
-8. **Keyboard Navigation**: Test accessibility features
-
-## Next Steps (Future Enhancements)
-
-Based on the TODO.md, consider these future improvements:
-
-### High Priority
-
-- Enhance mobile responsiveness
-- Add animations for beer generation process
-- Improve history panel with search and filter capabilities
-- Add unit tests for core functionality
-
-### Medium Priority
-
-- Add ability to customize beer generation parameters
-- Implement beer style filtering
-- Add export functionality to save favorite beer names
-- Create a gallery of generated Midjourney images
-
-### Low Priority
-
-- Implement social sharing features
-- Add a "Beer of the Day" feature
-- Add beer pairing suggestions
-- Implement a rating system for generated beers
-
-## Benefits of These Improvements
-
-1. **Maintainability**: Cleaner code structure, better organization, comprehensive documentation
-2. **Reliability**: Robust error handling, input validation, data sanitization
-3. **User Experience**: Better error messages, graceful failure handling
-4. **Developer Experience**: JSDoc comments, modular code, easier to extend
-5. **Security**: Input sanitization, XSS prevention, validation utilities
-6. **Performance**: External scripts can be cached separately, cleaner HTML parsing
-
-## Conclusion
-
-All six tasks from the TODO list have been successfully completed:
-
-1. ✅ Review current codebase
-2. ✅ Add consistent error handling
-3. ✅ Add proper error handling for Midjourney integration
-4. ✅ Move inline CSS/JS to external files
-5. ✅ Add JSDoc comments
-6. ✅ Implement input validation
-
-The codebase is now more robust, maintainable, and developer-friendly!
+```bash
+npm install          # install dev dependencies
+npm run serve        # start dev server on port 3000
+npm run check        # lint + format check
+npm run lint:fix     # auto-fix lint issues
+npm run format:fix    # auto-format code
+```
